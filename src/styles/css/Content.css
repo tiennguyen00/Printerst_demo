@@ -3,7 +3,9 @@
   .content__container {
     column-count: 1;
     column-gap: 10px;
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
