@@ -6,9 +6,9 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
 
-import {routers} from './routers/index';
+import {routes} from './routers/index';
 import cors from 'cors';
-import {RouteConstrant} from './constant/Routes';
+import {RouteConstant} from './constant/Routes';
 import * as bodyParser from 'body-parser';
 import serveIndex from 'serve-index';
 const request = require('request');
@@ -43,7 +43,7 @@ app.use(cookieParser());
 // app.use(express.json({limit: '50mb'}));
 
 // --START--    App routers
-
+app.use(RouteConstant.USER, routes.user)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
