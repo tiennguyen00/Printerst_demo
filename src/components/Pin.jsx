@@ -2,24 +2,34 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  display: flex;
-  margin-top: 15px;
-  justify-content: center;
+  display: inline-flex;
+  padding: 8px;
 `;
 
 const Container = styled.div`
   display: flex;
-  width: 80%;
-  background-color: white;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 236px;
+
+  img {
+    display: flex;
+    width: 100%;
+    cursor: zoom-in;
+    border-radius: 16px;
+    object-git: cover;
+  }
 `;
 
-const Pin = () => {
+const Pin = (props) => {
+  let { urls } = props;
+
   return (
     <Wrapper>
-      <Container>Test</Container>
+      <Container>
+        <img src={urls?.regular} alt="pin" />
+      </Container>
     </Wrapper>
   );
 };

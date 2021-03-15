@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
 
@@ -96,7 +96,13 @@ const SearchBarWrapper = styled.div`
 
 const IconsWrapper = styled.div``;
 
-const Header = () => {
+const Header = (props) => {
+  const [input, setInput] = useState("");
+
+  const onSearchSubmit = (e) => {
+    e.preventDefault();
+    props.onSubmit(input);
+  };
   return (
     <Wrapper>
       <LogoWrapper>
@@ -114,8 +120,8 @@ const Header = () => {
             <SearchIcon />
           </IconButton>
           <form>
-            <input type="text" />
-            <button type="submit"></button>
+            <input type="text" onChange={(e) => setInput(e.target.value)} />
+            <button type="submit" onClick={onSearchSubmit}></button>
           </form>
         </SearchBarWrapper>
       </SearchWrapper>
