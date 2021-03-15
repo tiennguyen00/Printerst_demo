@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Pin from "./Pin";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -17,14 +16,12 @@ const Container = styled.div`
   background-color: white;
 `;
 
-const Content = () => {
+const Pin = () => {
   return (
     <Wrapper>
-      <Container>
-        <Pin />
-      </Container>
+      <Container>Test</Container>
     </Wrapper>
   );
 };
 
-export default Content;
+export default Pin;
