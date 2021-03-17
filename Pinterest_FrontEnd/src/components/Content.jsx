@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Pin from "./Pin";
 
+import "../styles/css/Content.css";
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -12,16 +14,20 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
-  width: 80%;
+  height: 100%;
   background-color: white;
 `;
 
-const Content = () => {
+const Content = (props) => {
+  let { pins } = props;
+
   return (
     <Wrapper>
-      <Container>
-        <Pin />
+      <Container className="content__container">
+        {pins.map((pin, index) => {
+          let { urls } = pin;
+          return <Pin key={index} urls={urls} />;
+        })}
       </Container>
     </Wrapper>
   );
