@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from "react-router";
 import Header from "./components/Header";
-import Content from "./components/Content";
+import Content from "./components/content/Content";
 import unsplash from "./api/unsplash";
 import { useState, useEffect } from "react";
 
