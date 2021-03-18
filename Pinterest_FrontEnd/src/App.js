@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import Header from "./components/Header";
-import Content from "./components/Content";
+import Content from "./components/content/Content";
 import unsplash from "./api/unsplash";
 import { useState, useEffect } from "react";
 

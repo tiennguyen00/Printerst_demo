@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Pin from "./Pin";
+import Pin from "../Pin";
 
-import "../styles/css/Content.css";
+import "./Content.css";
 
 const Wrapper = styled.div`
   width: 100%;
