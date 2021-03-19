@@ -1,0 +1,45 @@
+@import '../../styles/style-common.scss';
+
+.login {
+  height: 95vh;
+  margin: 0 auto;
+  .login-content {
+    justify-content: center;
+    .login__paper {
+      margin: auto;
+
+      .login__form {
+        width: 320px;
+        padding: 40px 40px 10px 40px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        .logo {
+          margin-bottom: 20px;
+          width: 310px;
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+  .forgot-password-link {
+    font-size: 14px;
+    color: #007bad;
+    text-decoration: none;
+    p {
+      display: inline-block;
+      margin: 0px 0px 20px 0px;
+    }
+  }
+  .register-link {
+    font-size: 14px;
+    display: flex;
+    margin-top: 10px;
+    text-align: center;
+    a {
+      text-decoration: none;
+    }
+    p {
+      margin: 0px 0px 20px 0px;
+      color: #007bad;
+    }
+  }
+}
