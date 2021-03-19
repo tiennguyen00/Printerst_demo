@@ -4,6 +4,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import Header from "./components/Header";
 import Content from "./components/content/Content";
+import Post from "./components/Post";
 import unsplash from "./api/unsplash";
 import { useState, useEffect } from "react";
 
@@ -57,9 +58,8 @@ const App = () => {
     getNewPins();
   }, []);
 
-  const handleClick = () => {
-    setPostOpen(true);
-    console.log(isPostOpen)
+  const closePost = () => {
+    setPostOpen(false);
   }
 
   return (
@@ -67,12 +67,16 @@ const App = () => {
       {/* Header */}
       <Header onSubmit={onSearchSubmit} />
       {/* Main Content */}
+      
       <Content pins={pins} />
+
       <div className="post-btn">
-        <IconButton onClick={handleClick}>
+        <IconButton onClick={() => setPostOpen(!isPostOpen)}>
             <AddCircleIcon style={{ fontSize: 50, color: "red"}}/>
         </IconButton>
       </div>
+
+      <Post isPostOpen={isPostOpen} closePost={closePost}/>
       
       {/* Test connect to backend */}
       <form action="/api" method="post" className="form">

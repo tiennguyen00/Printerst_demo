@@ -1,54 +1,29 @@
 import React from "react";
-import styled from "styled-components";
+import {useForm} from "react-hook-form";
 
-import IconButton from "@material-ui/core/IconButton";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import "../styles/Post.css";
 
-import "../styles/css/Content.css";
+const Post = ({isPostOpen, closePost}) => {
+  const { register, handleSubmit } = useForm();
 
-const Wrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  z-index: 1
-`;
-
-const Button = styled.div`
-  position: -webkit-sticky;
-  position: sticky;
-  top: 80%;
-  margin-left: 90%;
-  z-index: 1
-`;
-
-const Container = styled.div`
-  height: 100%;
-  background-color: white;
-`;
-
-const Post = () => {
-
-  const handleClick = () => {
-    console.log("click")
+  const onSubmit = (data) => {
+    console.log(data);
+    closePost();
   }
   
-  return (
-    <Wrapper>
-        <form action="/action_page.php">
-  <label htmlFor="fname">First name:</label><br />
-  <input type="text" id="fname" name="fname" defaultValue="John" /><br />
-  <label htmlFor="lname">Last name:</label><br />
-  <input type="text" id="lname" name="lname" defaultValue="Doe" /><br /><br />
-  <input type="submit" defaultValue="Submit" />
-</form>
-      <Button>
-        <IconButton onClick={handleClick}>
-            <AddCircleIcon style={{ fontSize: 50, color: "white"}}/>
-        </IconButton>
-      </Button>
-        
-    </Wrapper>
-  );
+  return isPostOpen ? (
+    <div className="form-popup">
+        <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+        <h1>Post</h1>
+        <label htmlFor="status"><b>Status</b></label>
+        <textarea name="status" ref={register} placeholder="How do you feel?"/>
+        <label htmlFor="image"><b>Image</b></label>
+        <input type="file" ref={register} name="image"/>
+        <button type="submit" className="btn">Post</button>
+        <button type="button" className="btn cancel" onClick={closePost}>Close</button>
+      </form>
+    </div>
+  ) : "";
 };
 
 export default Post;
