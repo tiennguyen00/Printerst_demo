@@ -6,11 +6,11 @@ import PropTypes from 'prop-types'; //Kiếm tra Runtime cho React-prop hoặc o
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import Header from "./components/Header";
-import Content from "./components/content/Content";
-import Post from "./components/Post";
-import unsplash from "./api/unsplash";
-import { useState, useEffect } from "react";
+import { user } from './util/user'; //Liên quan đến token của user trên localStorage
+import { NotFound } from './components/not-found/not-found';
+import HomePage from './pages/HomePage/HomePage';
+import { Verify } from './pages/Register/Verify/Verify'; //Trang xác nhận sau khi Register
+import { colorPrimary, colorSecondary, colorPrimaryTypo, colorSecondaryTypo } from './styles/style-common';
 
 const theme = createMuiTheme({
   palette: {
@@ -43,6 +43,7 @@ function App ({ history, ...rest }){
     setIsVerifyPage(isVerify);
   }, [window.location.pathname]);
     
+  
   //Kiểm tra xem user có đăng nhập trước đó hay không
   const redirectHomePage = () => {
     const userInfo = user.getUserInfo();
@@ -53,36 +54,25 @@ function App ({ history, ...rest }){
     return <Redirect to="/home" />;
   };
 
-  useEffect(() => {
-    getNewPins();
-  }, []);
-
-  const closePost = () => {
-    setPostOpen(false);
-  }
-
   return (
-      <div className="app">
-      {/* Header */}
-      <Header onSubmit={onSearchSubmit} />
-      {/* Main Content */}
-      
-      <Content pins={pins} />
-
-      <div className="post-btn">
-        <IconButton onClick={() => setPostOpen(!isPostOpen)}>
-            <AddCircleIcon style={{ fontSize: 50, color: "red"}}/>
-        </IconButton>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <div>
+        <h1>hi</h1>
+        <Switch>
+          <Route exact path='/' render={() => redirectHomePage()}/>
+        </Switch>
       </div>
+    </MuiThemeProvider>
+  )
+};
 
-      <Post isPostOpen={isPostOpen} closePost={closePost}/>
-      
-      {/* Test connect to backend */}
-      <form action="/api" method="post" className="form">
-        <button type="submit">Connected?</button>
-      </form>
-    </div>
-  );
+App.propTypes = {
+  history: PropTypes.instanceOf(Object),
+};
+
+App.defaultProps = {
+  history: {},
 };
 
 export default App;
