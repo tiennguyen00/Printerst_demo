@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -29,6 +30,8 @@ const LogoWrapper = styled.div`
 `;
 
 const Button = styled.div`
+  background: ${(props) => (props.primary ? "palevioletred" : "white")};
+  color: ${(props) => (props.primary ? "white" : "palevioletred")};
   display: flex;
   height: 48px;
   min-width: 123px;
@@ -106,13 +109,15 @@ const Header = (props) => {
   return (
     <Wrapper>
       <LogoWrapper>
-        <PinterestIcon />
+        <Link to="/home">
+          <PinterestIcon />
+        </Link>
       </LogoWrapper>
-      <HomePageButton>
-        <a href="/">Homepage</a>
+      <HomePageButton className="homePage__btn">
+        <Link to="/home">Home</Link>
       </HomePageButton>
-      <FollowingButton>
-        <a href="/">Following</a>
+      <FollowingButton className="followingPage__btn">
+        <Link to="/following">Following</Link>
       </FollowingButton>
       <SearchWrapper>
         <SearchBarWrapper>
@@ -125,7 +130,7 @@ const Header = (props) => {
           </form>
         </SearchBarWrapper>
       </SearchWrapper>
-      <IconsWrapper>
+      <IconsWrapper className="icons__wrapper">
         <IconButton>
           <NotificationsIcon />
         </IconButton>
@@ -139,6 +144,7 @@ const Header = (props) => {
           <KeyboardArrowIcon />
         </IconButton>
       </IconsWrapper>
+      {/* <Button primary>Demo Button</Button> */}
     </Wrapper>
   );
 };

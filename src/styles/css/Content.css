@@ -7,6 +7,14 @@
     flex-direction: column;
     align-items: center;
   }
+  .icons__wrapper {
+    display: none;
+  }
+  .homePage__btn,
+  .followingPage__btn {
+    min-width: 100px !important;
+    font-size: 14px;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
