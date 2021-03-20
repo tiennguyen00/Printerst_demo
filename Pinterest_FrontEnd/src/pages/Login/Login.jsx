@@ -12,7 +12,7 @@ import { patternEmail } from '../../util/form'; //Liên quan về phần vidatio
 import { Field } from '../../components/Field/Field';
 import { user } from '../../util/user'; //
 import logo from '../../assets/image/logo.JPG'; //logo
-import './Login.scss'   ;
+import './Login.scss';
 
 function Login(props) {
     const { register, handleSubmit, errors } = useForm();

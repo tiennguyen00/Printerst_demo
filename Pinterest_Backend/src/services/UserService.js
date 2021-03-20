@@ -1,5 +1,7 @@
 import User, {UserSchema} from "../models/User";
 import md5 from "md5";
+import {ServiceError} from "../utils/ServiceError";
+import {Token} from '../models/Token'
 
 export default {
     register: async (email, password) => {
@@ -16,5 +18,17 @@ export default {
                 });
         }
         return Promise.reject(new ServiceError(400, "User existed!"))
+    },
+    login: async (email, password) => {
+        let user = await User.findOne({email, password: md5(password)});
+        if (user) {
+            let token = await Token.createToken(user);
+            return Promise.resolve({
+                email,
+                token
+            })
+        }
+
+        return Promise.reject(new ServiceError(400, 'Username or password is not correct!'))
     }
 }
