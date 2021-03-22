@@ -9,7 +9,7 @@ import { CssBaseline } from '@material-ui/core';
 import { user } from './util/user'; //Liên quan đến token của user trên localStorage
 import { NotFound } from './components/not-found/not-found';
 import HomePage from './pages/HomePage/HomePage';
-import { Verify } from './pages/Register/Verify/Verify'; //Trang xác nhận sau khi Register
+import { Verify } from './pages/Register/Verify/Verify'; //Trang xác nhận sau khi Registernp
 import { colorPrimary, colorSecondary, colorPrimaryTypo, colorSecondaryTypo } from './styles/style-common';
 
 const theme = createMuiTheme({
@@ -61,6 +61,7 @@ function App ({ history, ...rest }){
         <h1>hi</h1>
         <Switch>
           <Route exact path='/' render={() => redirectHomePage()}/>
+          <HomePage/>
         </Switch>
       </div>
     </MuiThemeProvider>
