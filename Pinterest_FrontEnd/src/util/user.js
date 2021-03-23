@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const getUserStorage = () => {
-    const userInfo = localStorage.getItem('userInfo');
+    const userInfo = localStorage.getItem('userInfo'); //Lấy chuỗi token trên localStorage
     if(!userInfo){
         return {};
     }

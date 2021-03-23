@@ -35,7 +35,6 @@ function Login(props) {
 
   const onSubmit = (formState) => {
     setApiError("");
-    console.log("FormState: ", formState);
 
     authService
       .login(formState)

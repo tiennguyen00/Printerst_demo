@@ -4,9 +4,13 @@ import {ServiceError} from "../utils/ServiceError";
 import {Token} from '../models/Token'
 
 export default {
-    register: async (email, password) => {
+    register: async (email, password, confirmPassword) => {
         let user = await User.findOne({email})
-        if (!user) {
+        //Kiểm tra đã nhập confirmPassword đúng chưa?
+        if(password !== confirmPassword)
+            return Promise.reject(new ServiceError(405, "These passwords don't match"));
+        //Kiếm tra user đã tồn tại trong database chưa?
+        if (!user) { 
             let register = new User({email, password: md5(password), status: "true" })
             return register.save()
                 .then(async (result) => {
@@ -17,7 +21,9 @@ export default {
                     return Promise.reject(new ServiceError(500, error.message, error));
                 });
         }
-        return Promise.reject(new ServiceError(400, "User existed!"))
+        else
+            return Promise.reject(new ServiceError(400, "User existed!"));
+        
     },
     login: async (email, password) => {
         let user = await User.findOne({email, password: md5(password)});

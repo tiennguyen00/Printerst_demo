@@ -6,6 +6,7 @@ import { user } from '../../../util/user';
 import Grid from '@material-ui/core/Grid';
 import { Divider } from '@material-ui/core';
 import { isEmpty } from 'lodash/isEmpty';
+import './Verify.scss';
 
 function Verify(props) {
     const { register, handleSubmit, errors } = useForm();
@@ -19,13 +20,13 @@ function Verify(props) {
     let userInfo = user.getUserInfo();
     
     //Tương tự componentDidMount, 
-    React.useEffect(() => {
-        userInfo = user.getUserInfo();
-        const unLogin = isEmpty(userInfo);
-        if (!unLogin) {
-          if (userInfo.status !== 'defer') return history.push('/');
-        }
-    }, []);
+    // React.useEffect(() => {
+    //     userInfo = user.getUserInfo();
+    //     const unLogin = isEmpty(userInfo);
+    //     if (!unLogin) {
+    //       if (userInfo.status !== 'defer') return history.push('/');
+    //     }
+    // }, []);
 
     return (
         <div>

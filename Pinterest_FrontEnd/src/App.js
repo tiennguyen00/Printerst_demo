@@ -6,11 +6,13 @@ import PropTypes from 'prop-types'; //Kiếm tra Runtime cho React-prop hoặc o
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
+import {pagesHasPermission, pagesNotHasPermission } from './config/page';
 import { user } from './util/user'; //Liên quan đến token của user trên localStorage
 import { NotFound } from './components/not-found/not-found';
 import HomePage from './pages/HomePage/HomePage';
 import { Verify } from './pages/Register/Verify/Verify'; //Trang xác nhận sau khi Register
 import { colorPrimary, colorSecondary, colorPrimaryTypo, colorSecondaryTypo } from './styles/style-common';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -29,11 +31,6 @@ const theme = createMuiTheme({
     fontWeightMedium: 500
   }
 });
-
-const components = {
-  HomePage,
-  Verify
-};
 
 function App ({ history, ...rest }){
   const [isVerifyPage, setIsVerifyPage] = React.useState(false);
@@ -60,7 +57,8 @@ function App ({ history, ...rest }){
       <div>
         <Switch>
           <Route exact path='/' render={() => redirectHomePage()}/>
-          <HomePage/>
+          <Route exact path='/verify' component={Verify} key='Verify'/>
+          <Route exact path='/home' component={HomePage} key='HomePage'/>
         </Switch>
       </div>
     </MuiThemeProvider>

@@ -4,8 +4,8 @@ import Log from "../core/logging"
 
 export default {
     register: async (req, res, next) => {
-        let { email, password } = req.body;
-        UserService.register(email, password)
+        let { email, password, confirmPassword } = req.body;
+        UserService.register(email, password, confirmPassword)
             .then(result => {
                 return res.status(201).json(result)
             })
