@@ -39,7 +39,8 @@ function Register(props) {
   const onSubmit = formState => {
     authService.register(formState)
       .then(() => {
-        authService.login(formState)
+        authService
+          .login(formState)
           .then(res => {
             user.saveUserStorage(res.token);
             return history.push('/verify', formState);
@@ -58,7 +59,7 @@ function Register(props) {
           setApiError('That email address is already registered!!');
         }
         else if(err.code === 405){
-          setApiError('These passwords do not match');
+          setApiError('These passwords do not match!!');
         }
       });
   };

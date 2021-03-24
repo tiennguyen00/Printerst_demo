@@ -36,5 +36,27 @@ export default {
         }
 
         return Promise.reject(new ServiceError(400, 'Username or password is not correct!'))
+    },
+    updateRegisterInfo: async (userId, body, photoUrl) => {
+        return User.findOne({_id: userId}).then(async (user) => {
+            if (user) {
+                user.firstName = body.firstName;
+                user.lastName = body.lastName;
+                user.age = body.age;
+                user.profilePhoto = photoUrl;
+                let updatedUser = await user.save();
+                delete updatedUser.password;
+                delete updatedUser.id;
+                delete updatedUser.__v;
+                delete updatedUser.createdAt;
+                delete updatedUser.updatedAt;
+
+                return Promise.resolve(updatedUser);
+            }
+            return Promise.reject(new ServiceError(400, "User is not exists!"));
+        },
+        async (error) => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
     }
 }

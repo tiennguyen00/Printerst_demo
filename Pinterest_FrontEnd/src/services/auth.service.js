@@ -5,7 +5,13 @@ const login = (payload) => requestService.post(requestUrl.auth, payload);
 
 const register = (payload) => requestService.post(requestUrl.register, payload);
 
+const logout = () => localStorage.clear();
+
+const updateRegisterProfile = payload => requestService.post(requestUrl.updateRegisterProfile, payload);
+
 export const authService = {
   login,
   register,
+  logout,
+  updateRegisterProfile
 };

@@ -24,5 +24,18 @@ export default {
                 Log.error('UserService', error.message, error);
                 return res.status(error.code).json(error);
             })
+    },
+    updateRegisterInfo: async (req, res) => {
+        let { user } = req;
+        console.log("User: ", req.user);
+        let photoUrl = "";
+        UserService.updateRegisterInfo(user._id, req.body, photoUrl)
+            .then((result) => {
+                return res.status(200).json(result);
+            })
+            .catch((error) => {
+                Log.error('UserService', error.message, error);
+                return res.status(error.code).json(error);
+            })
     }
 }

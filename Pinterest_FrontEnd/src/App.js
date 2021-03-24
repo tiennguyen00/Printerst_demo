@@ -7,6 +7,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
 import {pagesHasPermission, pagesNotHasPermission } from './config/page';
+import { PrivateRoute } from './components/private-route/PrivateRoute';
 import { user } from './util/user'; //Liên quan đến token của user trên localStorage
 import { NotFound } from './components/not-found/not-found';
 import HomePage from './pages/HomePage/HomePage';
@@ -56,9 +57,9 @@ function App ({ history, ...rest }){
       <CssBaseline />
       <div>
         <Switch>
-          <Route exact path='/' render={() => redirectHomePage()}/>
-          <Route exact path='/verify' component={Verify} key='Verify'/>
-          <Route exact path='/home' component={HomePage} key='HomePage'/>
+          <PrivateRoute exact path='/' render={() => redirectHomePage()}/>
+          <PrivateRoute exact path='/verify' component={Verify} key='Verify'/>
+          <PrivateRoute exact path='/home' component={HomePage} key='HomePage'/>
         </Switch>
       </div>
     </MuiThemeProvider>
