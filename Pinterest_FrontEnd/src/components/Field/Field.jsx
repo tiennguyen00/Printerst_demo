@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import NumberFormat from 'react-number-format';
-import map from 'lodash/map';
-import isEmpty from 'lodash/isEmpty';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import { Controller } from 'react-hook-form';
-import Grid from '@material-ui/core/Grid';
-import { isValidPhoneNumber, allowPositive } from '../../util/form';
-import './Field.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import NumberFormat from "react-number-format";
+import map from "lodash/map";
+import isEmpty from "lodash/isEmpty";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import { Controller } from "react-hook-form";
+import Grid from "@material-ui/core/Grid";
+import { isValidPhoneNumber, allowPositive } from "../../util/form";
+import "../../assets/styles/css/Field.css";
 
 function Field(props) {
   const {
@@ -30,7 +30,7 @@ function Field(props) {
     layout,
     ...rest
   } = props;
-  if (typeInput === 'phone') {
+  if (typeInput === "phone") {
     return (
       <FormControl disabled={disabled} className="field" required={required}>
         <InputLabel className="MuiInputLabel-shrink">{label}</InputLabel>
@@ -52,7 +52,7 @@ function Field(props) {
     );
   }
 
-  if (typeInput === 'select') {
+  if (typeInput === "select") {
     const isFieldValidation = !isEmpty(control);
     return (
       <Grid container alignItems="flex-end" className="field">
@@ -112,16 +112,16 @@ function Field(props) {
       )}
       <Grid item xs={notRightLabel ? 12 : layout.inputCol}>
         <TextField
-          label={notRightLabel ? label : ''}
+          label={notRightLabel ? label : ""}
           inputProps={{ readOnly: disabled }}
           defaultValue={defaultValue}
           fullWidth
           required={required}
           error={!!helperText}
           helperText={helperText}
-          className={`field-${typeField} ${disabled ? 'filed-disable' : ''}`}
-          onChange={e => {
-            if (typeInput === 'number') {
+          className={`field-${typeField} ${disabled ? "filed-disable" : ""}`}
+          onChange={(e) => {
+            if (typeInput === "number") {
               return allowPositive(e);
             }
             return e;
@@ -156,15 +156,15 @@ Field.propTypes = {
 Field.defaultProps = {
   disabled: false,
   required: false,
-  helperText: '',
-  defaultValue: '',
-  typeField: 'primary',
+  helperText: "",
+  defaultValue: "",
+  typeField: "primary",
   options: [],
-  label: '',
+  label: "",
   rules: {},
   control: {},
   notRightLabel: false,
-  typeInput: 'text',
+  typeInput: "text",
   layout: { labelCol: 3, inputCol: 9 },
 };
 

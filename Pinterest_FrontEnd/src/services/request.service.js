@@ -2,7 +2,7 @@ import { trackPromise } from "react-promise-tracker";
 import axios from "axios";
 import constant from "lodash/constant";
 import history from "history";
-import { requestUrl } from "../config/request-url";
+import { requestUrl } from "../config/requestUrl";
 //
 
 const DEF_HEADERS = {

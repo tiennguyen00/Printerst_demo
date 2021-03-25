@@ -1,4 +1,4 @@
-import { requestUrl } from "../config/request-url";
+import { requestUrl } from "../config/requestUrl";
 import { requestService } from "./request.service";
 
 const login = (payload) => requestService.post(requestUrl.auth, payload);

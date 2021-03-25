@@ -10,7 +10,7 @@
 
 const Register = () => {
     return (
-        <div>this is a regissrer</div>
+        <div>this is Register Form</div>
     )
 }
 export { Register };

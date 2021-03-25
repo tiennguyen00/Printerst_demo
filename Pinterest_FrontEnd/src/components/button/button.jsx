@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonMaterial from "@material-ui/core/Button";
 import PropTypes from "prop-types";
-import "./button.scss";
+import "../../assets/styles/css/Button.css";
 
 function Button({ text, variant, classes, ...otherProps }) {
   return (

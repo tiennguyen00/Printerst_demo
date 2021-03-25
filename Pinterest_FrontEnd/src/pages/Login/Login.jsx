@@ -6,13 +6,13 @@ import get from "lodash/get"; //get(obj, path, [defaultValue])
 import { Link } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import { authService } from "../../services/auth.service"; //Các mothod liên quan đến gọi api ở backend
-import { Button } from "../../components/button/button";
+import { Button } from "../../components/button/Button";
 import { getMess } from "../../util/message"; //Liên quan đến các messenger thông báo
 import { patternEmail } from "../../util/form"; //Liên quan về phần vidation mail
 import { Field } from "../../components/Field/Field";
 import { user } from "../../util/user"; //
 import logo from "../../assets/image/logo.JPG"; //logo
-import "./Login.scss";
+import "../../assets/styles/css/Login.css";
 
 function Login(props) {
   const { register, handleSubmit, errors } = useForm();
