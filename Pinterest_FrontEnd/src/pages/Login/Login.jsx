@@ -105,7 +105,7 @@ function Login(props) {
               })}
               notRightLabel
             />
-            <Link className="forgot-password-link" to="/forgot-password">
+            <Link className="forgot-password-link" to="/forgotpassword">
               <p>Forgot password?</p>
             </Link>
             <Button

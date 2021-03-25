@@ -2,6 +2,8 @@ import User, {UserSchema} from "../models/User";
 import md5 from "md5";
 import {ServiceError} from "../utils/ServiceError";
 import {Token} from '../models/Token'
+import crypto from 'crypto';
+import revmd5 from 'reverse-md5';
 
 export default {
     register: async (email, password, confirmPassword) => {
@@ -58,5 +60,27 @@ export default {
         async (error) => {
             return Promise.reject(new ServiceError(500, error.message, error));
         });
-    }
+    },
+
+
+    forgotPassword: async (email) => {
+        return User.findOne({email}).then(async (user) => {
+            if (user) {
+               const rev = revmd5();
+               console.log(rev(user.password));
+                return Promise.resolve({message: `Hi, ${user.email || 'Customer'}. Your password is ${rev(user.password).str}`});
+            }
+            return Promise.reject(new ServiceError(400, "User is not exists!"));
+        },
+        async (error) => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
+    },
+    generateNewPassword: () => {
+        return crypto.randomBytes(12).toString('hex');
+    },
+
+    getForgotPasswordMailTemplate(user, newPassword) {
+        return `<p>Hi, ${user.name || 'Customer'}, <br/> Your new password is ${newPassword}</p>`
+    },
 }

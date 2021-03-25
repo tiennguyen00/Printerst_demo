@@ -9,9 +9,12 @@ const logout = () => localStorage.clear();
 
 const updateRegisterProfile = payload => requestService.post(requestUrl.updateRegisterProfile, payload);
 
+const forgotPassword = payLoad => requestService.post(requestUrl.forgotPassword, payLoad);
+
 export const authService = {
   login,
   register,
   logout,
-  updateRegisterProfile
+  updateRegisterProfile,
+  forgotPassword
 };

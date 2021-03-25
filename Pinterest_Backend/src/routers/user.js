@@ -17,5 +17,6 @@ const router = express.Router()
 router.post('/register', controller.register)
 router.post('/login', controller.login)
 router.post('/updateRegisterProfile', JWTMiddleware, controller.updateRegisterInfo)
+router.post('/forgotPassword', controller.forgotPassword)
 
 export default router

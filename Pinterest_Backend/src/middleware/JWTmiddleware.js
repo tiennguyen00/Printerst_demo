@@ -26,7 +26,6 @@ export default function JWTMiddleware(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
-    console.log("Headers: ", req.headers)
     if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, ACCESS_TOKEN_SECRET, async (err, result) => {

@@ -37,5 +37,14 @@ export default {
                 Log.error('UserService', error.message, error);
                 return res.status(error.code).json(error);
             })
+    },
+    forgotPassword: async (req, res) => {
+        UserService.forgotPassword(req.body.email)
+            .then(result => {
+                return res.status(200).json(result);
+            })
+            .catch(error => {
+                return res.status(error.code).json(error);
+            })
     }
 }
