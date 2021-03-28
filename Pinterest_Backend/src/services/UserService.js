@@ -5,7 +5,9 @@ import {Token} from '../models/Token'
 import crypto from 'crypto';
 import revmd5 from 'reverse-md5';
 
-export default {
+
+
+    export default {
     register: async (email, password, confirmPassword) => {
         let user = await User.findOne({email})
         //Kiểm tra đã nhập confirmPassword đúng chưa?
@@ -17,7 +19,6 @@ export default {
             return register.save()
                 .then(async (result) => {
                     let user = JSON.parse(JSON.stringify(result));
-                    console.log("Result: ", user);
                 })
                 .catch(error => {
                     return Promise.reject(new ServiceError(500, error.message, error));

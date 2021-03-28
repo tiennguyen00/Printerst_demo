@@ -21,6 +21,8 @@ function Verify(props) {
     const [apiError, setApiError] = useState(
         stateHistory.expired ? getMess('M15') : ''
     );
+    const [profilePhoto, setProfilePhoto] = useState(''); // Preview profilePhoto
+    const [file, setFile] = useState('');
 
     let userInfo = user.getUserInfo();
     
@@ -36,7 +38,17 @@ function Verify(props) {
 
     const onSubmit = (formState) => {
         setApiError('');
-        authService.updateRegisterProfile(formState)
+
+        const { email, firstName, lastName, age } = formState;
+  
+        let formData  =  new FormData();
+        formData.append('profilePhoto', file);
+        formData.append('email', email);
+        formData.append('firstName', firstName);
+        formData.append('lastName', lastName);
+        formData.append('age', age);
+
+        authService.updateRegisterProfile(formData)
             .then(() => history.push(stateHistory.prePath || '/home'))
             .catch((err) => setApiError(err.message));
     }
@@ -45,6 +57,23 @@ function Verify(props) {
         authService.logout();
         history.push('/login');
     };
+
+    const onImageChange = async (event) => {
+        const file = event.target.files[0];
+
+        //Preview profilePhoto
+        if(file){
+            const reader = new FileReader();
+            reader.onload = () => {
+                if(reader.readyState === 2) {
+                    setProfilePhoto(reader.result);
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+        //setFile
+        setFile(file);
+    }
 
     return (
         <Grid container className="verify">
@@ -65,7 +94,15 @@ function Verify(props) {
                                 Complete signup below
                             </Typography>
                             <div className="upload-avatar">
+                                <img 
+                                    src={profilePhoto} 
+                                    className="upload-avatar"/>
+                                <input
+                                    type="file" id="file" accept="image/*" 
+                                    onChange={onImageChange}
+                                />
                             </div>
+                            
                         </Grid>
                         <p className="error-text">{apiError}</p>
                         <Field

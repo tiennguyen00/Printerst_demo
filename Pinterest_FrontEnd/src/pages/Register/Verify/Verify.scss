@@ -18,10 +18,24 @@
         }
 
         .upload-avatar {
+            position: relative;
             background-color: darkgray;
             height: 130px;
             width: 130px;
+            // background-size:cover; 
             border-radius: 50%;
+            object-fit:cover;
+
+            input{
+              position: absolute;
+              height: 130px;
+              width: 130px;
+              border-radius: 50%;
+              transform: translate(-100%, 0);
+              color: transparent;
+              background-color: transparent;;
+              
+            }
         }
 
         .policy {

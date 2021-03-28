@@ -20,6 +20,7 @@
     "express": "~4.16.1",
     "express-fileupload": "^1.2.1",
     "forge-apis": "^0.8.4",
+    "googleapis": "^68.0.0",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "md5": "^2.3.0",
