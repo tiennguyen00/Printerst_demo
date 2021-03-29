@@ -55,16 +55,17 @@ function App ({ history, ...rest }){
   };
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <div>
-        <h1>hi</h1>
-        <Switch>
-          <Route exact path='/' render={() => redirectHomePage()}/>
-          <HomePage/>
-        </Switch>
-      </div>
-    </MuiThemeProvider>
+    <HomePage />
+    // <MuiThemeProvider theme={theme}>
+    //   <CssBaseline />
+    //   <div>
+    //     <h1>hi</h1>
+    //     <Switch>
+    //       <Route exact path='/' render={() => redirectHomePage()}/>
+    //       <HomePage/>
+    //     </Switch>
+    //   </div>
+    // </MuiThemeProvider>
   )
 };
 
