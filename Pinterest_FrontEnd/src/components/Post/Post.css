@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-popup {
+  position: fixed;
+  bottom: 18%;
+  right: 7%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.form-container textarea,
+.form-container input[type="file"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container textarea:focus,
+.form-container input[type="file"]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container .btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.form-container .cancel {
+  background-color: red;
+}
