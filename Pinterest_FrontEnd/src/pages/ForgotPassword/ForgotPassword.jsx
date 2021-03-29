@@ -1,48 +1,47 @@
-import React, { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { useForm } from 'react-hook-form';
-import get from 'lodash/get';
-import { Link } from 'react-router-dom';
-import { authService } from '../../services/auth.service';
-import { Button } from '../../components/button/button';
-import { getMess } from '../../util/message';
-import { patternEmail } from '../../util/form';
-import { Field } from '../../components/Field/Field';
-import { user } from '../../util/user';
-import logoLogin from '../../assets/image/logo.JPG';
-import './ForgotPassword.scss';
+import React, { useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { useForm } from "react-hook-form";
+import get from "lodash/get";
+import { Link } from "react-router-dom";
+import { authService } from "../../services/auth.service";
+import { Button } from "../../components/button/button";
+import { getMess } from "../../util/message";
+import { patternEmail } from "../../util/form";
+import { Field } from "../../components/Field/Field";
+import { user } from "../../util/user";
+import logoLogin from "../../assets/image/logo.JPG";
+import "./ForgotPassword.scss";
 
 function ForgotPassword(props) {
   const { register, handleSubmit, errors } = useForm();
-  const history = get(props, 'history', {});
+  const history = get(props, "history", {});
   const stateHistory = history.location.state || {};
 
   const [apiError, setApiError] = useState(
-    stateHistory.expired ? getMess('M15') : '' // Kiếm tra session timeout chưa
+    stateHistory.expired ? getMess("M15") : "" // Kiếm tra session timeout chưa
   );
-  const [resultPassword, setResultPassword] = useState('');
+  const [resultPassword, setResultPassword] = useState("");
 
-  const onSubmit = formState => {
-    setApiError('');
-    authService.forgotPassword(formState)
-        .then(res => {
-            // user.saveUserStorage(res.token);
-            return setResultPassword(res.message)
-            // return history.push(stateHistory.prePath || '/login');
-        })
-        .catch(err => {
-            const requiredNewPassCode = 401;
+  const onSubmit = (formState) => {
+    setApiError("");
+    authService
+      .forgotPassword(formState)
+      .then((res) => {
+        // user.saveUserStorage(res.token);
+        return setResultPassword(res.message);
+        // return history.push(stateHistory.prePath || '/login');
+      })
+      .catch((err) => {
+        const requiredNewPassCode = 401;
 
-            if (err.code === requiredNewPassCode) {
-                return history.push(`/change-password/${formState.email}`);
-            }
+        if (err.code === requiredNewPassCode) {
+          return history.push(`/change-password/${formState.email}`);
+        }
 
-            return setApiError(err.message);
-        });
-  }
-
-
+        return setApiError(err.message);
+      });
+  };
 
   return (
     <Grid container className="forgot-password">
@@ -76,10 +75,10 @@ function ForgotPassword(props) {
               name="email"
               required
               inputRef={register({
-                required: getMess('M01', 'Email address'),
+                required: getMess("M01", "Email address"),
                 pattern: {
                   value: patternEmail,
-                  message: getMess('M05'),
+                  message: getMess("M05"),
                 },
               })}
               notRightLabel

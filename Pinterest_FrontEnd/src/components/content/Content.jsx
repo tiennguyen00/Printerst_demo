@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Pin from "../Pin";
+import Pin from "../Pin/Pin";
 
 import "./Content.css";
 
