@@ -6,10 +6,7 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(
-      null,
-      "/DOWNLOAD TÀI LIỆU/Tài liệu học kì 6/Hệ thống web/Pinterest_demo/Pinterest_Backend/src/routers/public/uploads"
-    );
+    cb(null, "src/routers/public/uploads");
   },
   filename: function (req, file, cb) {
     cb(
