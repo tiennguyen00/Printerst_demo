@@ -27,6 +27,7 @@ const parseJwt = token => {
   
 const getUserInfo = () => {
     const userStorage = getUserStorage();
+
     if (userStorage.accessToken) {
       const userParse = parseJwt(userStorage.accessToken);
   

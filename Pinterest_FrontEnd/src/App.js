@@ -37,6 +37,7 @@ const theme = createMuiTheme({
   },
 });
 
+
 function App({ history, ...rest }) {
   const [isVerifyPage, setIsVerifyPage] = React.useState(false);
 
@@ -48,27 +49,26 @@ function App({ history, ...rest }) {
   //Kiểm tra xem user có đăng nhập trước đó hay không
   const redirectHomePage = () => {
     const userInfo = user.getUserInfo();
+    console.log("Userinfo: ", isEmpty(userInfo));
 
-    if (isEmpty(userInfo) || !userInfo.role) {
+    if (isEmpty(userInfo)) {
       return <Redirect to="/login" />;
     }
     return <Redirect to="/home" />;
   };
 
   return (
-    <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <div>
         <Switch>
-          <PrivateRoute exact path="/" render={() => redirectHomePage()} />
-          <PrivateRoute exact path="/verify" component={Verify} key="Verify" />
-          <PrivateRoute
-            exact
-            path="/home"
-            component={HomePage}
-            key="HomePage"
-          />
-        </Switch>
+            <Route exact path='/' render={() => redirectHomePage()} />
+            <PrivateRoute exact path="/" render={() => redirectHomePage()} />
+            <PrivateRoute exact path="/verify" component={Verify} key="Verify" />
+            <PrivateRoute exact path="/home" component={HomePage} key="HomePage" />
+
+            {/* <PublicRoute path='*' component={NotFound} /> */}
+          </Switch>
       </div>
     </MuiThemeProvider>
   );

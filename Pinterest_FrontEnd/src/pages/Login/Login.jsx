@@ -40,7 +40,7 @@ function Login(props) {
       .login(formState)
       .then((res) => {
         user.saveUserStorage(res.token);
-        return history.push(stateHistory.prePath || "/");
+        return history.push("/home");
       })
       .catch((err) => {
         const requiredNewPassCode = 401;
