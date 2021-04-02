@@ -23,10 +23,8 @@ const HomePage = () => {
     console.log(term);
     getImages(term).then((res) => {
       let results = res.data.results;
-
       let newPins = [...results, ...pins];
-
-      newPins.sort(function (a, b) {
+      newPins.sort(() => {
         return 0.5 - Math.random();
       });
       setNewPins(newPins);
@@ -36,7 +34,7 @@ const HomePage = () => {
   const getNewPins = () => {
     let promises = [];
     let pinData = [];
-    let pins = ["text", "dog"];
+    let pins = ["anime girls"];
     pins.forEach((pinTerm) => {
       promises.push(
         getImages(pinTerm).then((res) => {

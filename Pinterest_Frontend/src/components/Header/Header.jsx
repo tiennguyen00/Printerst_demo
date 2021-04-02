@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 
@@ -9,6 +9,54 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TextsmsIcon from "@material-ui/icons/Textsms";
 import FaceIcon from "@material-ui/icons/Face";
 import KeyboardArrowIcon from "@material-ui/icons/KeyboardArrowDown";
+
+const Header = (props) => {
+  const [input, setInput] = useState("");
+
+  const onSearchSubmit = (e) => {
+    e.preventDefault();
+    console.log("This is the input: ", input);
+    props.onSubmit(input);
+  };
+  return (
+    <Wrapper>
+      <LogoWrapper>
+        <PinterestIcon />
+      </LogoWrapper>
+      <HomePageButton>
+        <a href="/">Homepage</a>
+      </HomePageButton>
+      <FollowingButton>
+        <a href="/">Following</a>
+      </FollowingButton>
+      <SearchWrapper>
+        <SearchBarWrapper>
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+          <form>
+            <input type="text" onChange={(e) => setInput(e.target.value)} />
+            <button type="submit" onClick={onSearchSubmit}></button>
+          </form>
+        </SearchBarWrapper>
+      </SearchWrapper>
+      <IconsWrapper>
+        <IconButton>
+          <NotificationsIcon />
+        </IconButton>
+        <IconButton>
+          <TextsmsIcon />
+        </IconButton>
+        <IconButton>
+          <FaceIcon />
+        </IconButton>
+        <IconButton>
+          <KeyboardArrowIcon />
+        </IconButton>
+      </IconsWrapper>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -95,46 +143,5 @@ const SearchBarWrapper = styled.div`
 `;
 
 const IconsWrapper = styled.div``;
-
-const Header = () => {
-  return (
-    <Wrapper>
-      <LogoWrapper>
-        <PinterestIcon />
-      </LogoWrapper>
-      <HomePageButton>
-        <a href="/">Homepage</a>
-      </HomePageButton>
-      <FollowingButton>
-        <a href="/">Following</a>
-      </FollowingButton>
-      <SearchWrapper>
-        <SearchBarWrapper>
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-          <form>
-            <input type="text" />
-            <button type="submit"></button>
-          </form>
-        </SearchBarWrapper>
-      </SearchWrapper>
-      <IconsWrapper>
-        <IconButton>
-          <NotificationsIcon />
-        </IconButton>
-        <IconButton>
-          <TextsmsIcon />
-        </IconButton>
-        <IconButton>
-          <FaceIcon />
-        </IconButton>
-        <IconButton>
-          <KeyboardArrowIcon />
-        </IconButton>
-      </IconsWrapper>
-    </Wrapper>
-  );
-};
 
 export default Header;

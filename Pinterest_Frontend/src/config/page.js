@@ -1,5 +1,5 @@
 import map from 'lodash/map'
-const pinterserScreens = [
+const pinterestScreens = [
     {
         name: 'HOME',
         path: '/home',
@@ -17,14 +17,14 @@ const pinterserScreens = [
     }
 ]
 const pagesHasPermission = [
-    ...pinterserScreens
+    ...pinterestScreens
 ];
 const pagesNotHasPermission = [
 
 ]
 
 const routesWithRoles = {
-    admin: map(pinterserScreens, 'path'),
+    admin: map(pinterestScreens, 'path'),
 };
 
 export {

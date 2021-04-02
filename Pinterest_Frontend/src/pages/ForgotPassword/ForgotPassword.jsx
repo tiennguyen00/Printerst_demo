@@ -59,7 +59,7 @@ function ForgotPassword(props) {
               justify="center"
               alignItems="center"
             >
-              <img src={logoLogin} className="forgot-password__logo"></img>
+              <img src={logoLogin} className="forgot-password__logo" alt="Login"></img>
               <Typography variant="h5" gutterBottom>
                 Forgot Your Password?
               </Typography>

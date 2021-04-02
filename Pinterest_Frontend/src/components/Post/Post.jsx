@@ -1,13 +1,12 @@
 import React from "react";
 import {useForm} from "react-hook-form";
 
-import "../styles/Post.css";
+import "./Post.css";
 
 const Post = ({isPostOpen, closePost}) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     closePost();
   }
   
