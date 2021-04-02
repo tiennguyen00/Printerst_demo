@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useState, useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -9,6 +9,10 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TextsmsIcon from "@material-ui/icons/Textsms";
 import FaceIcon from "@material-ui/icons/Face";
 import KeyboardArrowIcon from "@material-ui/icons/KeyboardArrowDown";
+
+import { user } from '../../util/user';
+import PropTypes from 'prop-types';
+import get from 'lodash/get';
 
 const Wrapper = styled.div`
   display: flex;
@@ -96,7 +100,7 @@ const SearchBarWrapper = styled.div`
 
 const IconsWrapper = styled.div``;
 
-const Header = () => {
+const Header = ({ history }) => {
   return (
     <Wrapper>
       <LogoWrapper>
@@ -126,7 +130,9 @@ const Header = () => {
         <IconButton>
           <TextsmsIcon />
         </IconButton>
-        <IconButton>
+        <IconButton 
+          onClick={() => history.push('/profile')}
+          >
           <FaceIcon />
         </IconButton>
         <IconButton>
@@ -135,6 +141,14 @@ const Header = () => {
       </IconsWrapper>
     </Wrapper>
   );
+};
+
+Header.propTypes = {
+  history: PropTypes.instanceOf(Object),
+};
+
+Header.defaultProps = {
+  history: {},
 };
 
 export default Header;

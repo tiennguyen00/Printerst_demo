@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const getUserStorage = () => {
-    const userInfo = localStorage.getItem('userInfo');
+    const userInfo = localStorage.getItem('userInfo'); //Lấy chuỗi token trên localStorage
     if(!userInfo){
         return {};
     }
@@ -27,9 +27,10 @@ const parseJwt = token => {
   
 const getUserInfo = () => {
     const userStorage = getUserStorage();
+
     if (userStorage.accessToken) {
       const userParse = parseJwt(userStorage.accessToken);
-  
+
       return {
         role: 'admin',
         // firstName: userParse.firstName,
@@ -39,6 +40,7 @@ const getUserInfo = () => {
         exp: userParse.exp,
         email: userParse.user.email,
         status: userParse.user.status,
+        id: userParse.user._id
       };
     }
     return {};

@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+=======
+import { IconButton } from "@material-ui/core";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+>>>>>>> b935cc25f7d2528d37b10017ce3f5c883d959419
 
 import "./HomePage.scss";
 
@@ -30,6 +35,10 @@ const HomePage = () => {
         return 0.5 - Math.random();
       });
       setNewPins(newPins);
+<<<<<<< HEAD
+=======
+      console.log(results);
+>>>>>>> b935cc25f7d2528d37b10017ce3f5c883d959419
     });
   };
 
@@ -59,6 +68,7 @@ const HomePage = () => {
 
   const closePost = () => {
     setPostOpen(false);
+<<<<<<< HEAD
   }
 
   return (
@@ -71,6 +81,19 @@ const HomePage = () => {
           <IconButton onClick={() => setPostOpen(!isPostOpen)}>
               <AddCircleIcon style={{color: "red", fontSize: 50}}/>
           </IconButton>
+=======
+  };
+
+  return (
+    <div className="homepage">
+      {/* Phần header đã chuyển sang bên App.js để hiển thị cho tất cả các trang */}
+      {/* Main Content */}
+      <Content pins={pins} />
+      <div className="post-btn">
+        <IconButton onClick={() => setPostOpen(!isPostOpen)}>
+          <AddCircleIcon style={{ color: "red", fontSize: 50 }} />
+        </IconButton>
+>>>>>>> b935cc25f7d2528d37b10017ce3f5c883d959419
       </div>
 
       <Post isPostOpen={isPostOpen} closePost={closePost} />
@@ -79,4 +102,8 @@ const HomePage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default HomePage;
+=======
+export default HomePage;
+>>>>>>> b935cc25f7d2528d37b10017ce3f5c883d959419

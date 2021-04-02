@@ -1,16 +1,17 @@
-@import '../../styles/style-common.scss';
+@import "../../styles/style-common.scss";
 
-.button-login,.button-register {
-    width: 100%;
-    height: 52px;
-    color: #ffffff !important;
-    background-color: $color--red !important;
-    .MuiButton-label {
-      font-size: 16px;
-      text-transform: capitalize;
-    }
+.button-login,
+.button-register {
+  width: 100%;
+  height: 52px;
+  color: #ffffff !important;
+  background-color: $color--red !important;
+  .MuiButton-label {
+    font-size: 16px;
+    text-transform: capitalize;
   }
-  
+}
+
 .dialog-button {
-    padding: 4px 40px !important;
+  padding: 4px 40px !important;
 }

@@ -1,7 +1,32 @@
-import express from 'express'
-import controller from '../controllers/UserController'
+import express from "express";
+import controller from "../controllers/UserController";
+import JWTMiddleware from "../middleware/JWTmiddleware";
+import multer from "multer";
+import path from "path";
 
-const router = express.Router()
-router.post('/register', controller.register)
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "src/routers/public/uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({ storage: storage });
 
-export default router
+const router = express.Router();
+router.post("/register", controller.register);
+router.post("/login", controller.login);
+router.post(
+  "/updateRegisterProfile",
+  JWTMiddleware,
+  upload.single("profilePhoto"),
+  controller.updateRegisterInfo
+);
+router.post("/forgotPassword", controller.forgotPassword);
+router.get("/getProfile", JWTMiddleware, controller.getProfile);
+
+export default router;
