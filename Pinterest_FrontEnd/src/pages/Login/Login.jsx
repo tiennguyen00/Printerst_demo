@@ -17,6 +17,7 @@ import "./Login.scss";
 function Login(props) {
   const { register, handleSubmit, errors } = useForm();
   const history = get(props, "history", {});
+  console.log("Props ở Login: ", props)
   const stateHistory = history.location.state || {};
 
   const [apiError, setApiError] = useState(
@@ -40,7 +41,8 @@ function Login(props) {
       .login(formState)
       .then((res) => {
         user.saveUserStorage(res.token);
-        return history.push("/home");
+        console.log("StateHistory: ", stateHistory.prePath );
+        return history.push(stateHistory.prePath || "/");
       })
       .catch((err) => {
         const requiredNewPassCode = 401;

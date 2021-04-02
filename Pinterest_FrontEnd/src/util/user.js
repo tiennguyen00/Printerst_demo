@@ -30,7 +30,7 @@ const getUserInfo = () => {
 
     if (userStorage.accessToken) {
       const userParse = parseJwt(userStorage.accessToken);
-  
+
       return {
         role: 'admin',
         // firstName: userParse.firstName,
@@ -40,6 +40,7 @@ const getUserInfo = () => {
         exp: userParse.exp,
         email: userParse.user.email,
         status: userParse.user.status,
+        id: userParse.user._id
       };
     }
     return {};

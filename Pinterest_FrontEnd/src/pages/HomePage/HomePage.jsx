@@ -64,8 +64,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {/* Header */}
-      <Header onSubmit={onSearchSubmit} />
+      {/* Phần header đã chuyển sang bên App.js để hiển thị cho tất cả các trang */}
       {/* Main Content */}
       <Content pins={pins} />
       <div className="post-btn">

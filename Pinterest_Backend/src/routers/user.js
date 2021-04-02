@@ -27,5 +27,6 @@ router.post(
   controller.updateRegisterInfo
 );
 router.post("/forgotPassword", controller.forgotPassword);
+router.get("/getProfile", JWTMiddleware, controller.getProfile);
 
 export default router;

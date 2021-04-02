@@ -14,6 +14,11 @@ const pinterserScreens = [
         name: 'VERIFY',
         path: '/verify',
         component: 'Verify'
+    },
+    {
+        name: 'PROFILE',
+        path: '/profile',
+        component: 'Profile'
     }
 ]
 const pagesHasPermission = [

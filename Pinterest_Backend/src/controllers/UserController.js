@@ -51,4 +51,14 @@ export default {
         return res.status(error.code).json(error);
       });
   },
+  getProfile: async (req, res) => {
+    const user = req.user;
+    UserService.getProfile(user._id) 
+      .then((result) => {
+        return res.status(200).json(result);
+      })
+      .catch((error) => {
+        return res.status(error.code).json(error);
+      });
+  }
 };

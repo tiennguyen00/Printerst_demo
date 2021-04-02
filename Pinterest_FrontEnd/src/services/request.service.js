@@ -32,6 +32,15 @@ const post = (path = "", body = {}, headers = DEF_HEADERS) =>
       .then((res) => res.data)
       .catch((err) => Promise.reject(err.response ? err.response.data : err))
   );
+
+const get = (path = '', params = {}, headers = DEF_HEADERS) =>
+  trackPromise(
+    axiosInstance
+      .get(path, { headers, params })
+      .then(res => res.data)
+      .catch(err => Promise.reject(err.response ? err.response.data : err)),
+  );
+
 const refreshToken = payload =>
 axios
   .post(BASE_URL + requestUrl.auth, payload, {
@@ -77,4 +86,4 @@ const requestHandler = async request => {
 
 axiosInstance.interceptors.request.use(requestHandler); //Lien quan den viec chan lai trc khi den backend
 
-export const requestService = { post };
+export const requestService = { post, get };

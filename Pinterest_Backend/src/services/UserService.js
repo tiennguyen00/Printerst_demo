@@ -56,7 +56,19 @@ import revmd5 from 'reverse-md5';
 
                 return Promise.resolve(updatedUser);
             }
-            return Promise.reject(new ServiceError(400, "User is not exists!"));
+            return Promise.reject(new ServiceError(400, "Load fail!!!"));
+        },
+        async (error) => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
+    },
+
+    getProfile: async (userId) => {
+        return User.findOne({_id: userId}).then(async (user) => {
+            if(user) {
+                return Promise.resolve(user);
+            }
+            return Promise.reject(new ServiceError(400, "User is not exists!")); 
         },
         async (error) => {
             return Promise.reject(new ServiceError(500, error.message, error));
