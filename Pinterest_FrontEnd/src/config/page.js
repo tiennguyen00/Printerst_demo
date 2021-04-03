@@ -21,6 +21,25 @@ const pinterserScreens = [
         component: 'Profile'
     }
 ]
+
+const pinterestScreenRight = [
+    {
+        name: 'Setting',
+        path: '/setting',
+        component: 'Setting'
+    },
+    {
+        name: 'Help',
+        path: '/help',
+        component: 'Help'
+    },
+    {
+        name: 'Sign out',
+        path: '/signout',
+        component: ''
+    }
+]
+
 const pagesHasPermission = [
     ...pinterserScreens
 ];
@@ -35,5 +54,6 @@ const routesWithRoles = {
 export {
     pagesHasPermission,
     pagesNotHasPermission,
-    routesWithRoles
+    routesWithRoles,
+    pinterestScreenRight
 }

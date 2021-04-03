@@ -9,10 +9,21 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TextsmsIcon from "@material-ui/icons/Textsms";
 import FaceIcon from "@material-ui/icons/Face";
 import KeyboardArrowIcon from "@material-ui/icons/KeyboardArrowDown";
+import Poper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
+import { MenuItem } from "@material-ui/core";
+
+import { pinterestScreenRight } from '../../config/page';
+import { authService } from '../../services/auth.service';
 
 import { user } from '../../util/user';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import map from 'lodash/map';
+import './Header.scss'
 
 const Wrapper = styled.div`
   display: flex;
@@ -101,6 +112,31 @@ const SearchBarWrapper = styled.div`
 const IconsWrapper = styled.div``;
 
 const Header = ({ history }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
+  
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+  const clickAnyway = () => {
+    setIsMenuOpen(false);
+  }
+
+  const handleLogout = () => {
+    authService.logout();
+    history.push('/login');
+  }
+
+
+  const handleClose = path => {
+    toggleMenu();
+    if(path!=='/signout') {
+      history.push(path);
+    }
+    else
+      handleLogout();
+  }
+
   return (
     <Wrapper>
       <LogoWrapper>
@@ -135,10 +171,46 @@ const Header = ({ history }) => {
           >
           <FaceIcon />
         </IconButton>
-        <IconButton>
-          <KeyboardArrowIcon />
+        <IconButton onClick = {toggleMenu}>
+          <div ref={anchorRef} onClick={toggleMenu}>
+            <KeyboardArrowIcon className="header-user-profile" />
+          </div>
         </IconButton>
       </IconsWrapper>
+      <Poper
+        open = {isMenuOpen}
+        transition
+        anchorEl = {anchorRef.current}
+        disablePortal
+        className=""
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={clickAnyway}>
+                <MenuList>
+                  {map(pinterestScreenRight, nav => {
+                    return (
+                        <MenuItem
+                        key={nav.path}
+                        onClick = {() => handleClose(nav.path)}
+                        >
+                          {nav.name}
+                        </MenuItem>
+                    )
+                  })}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Poper>
     </Wrapper>
   );
 };

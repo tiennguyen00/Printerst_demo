@@ -10,7 +10,7 @@ import { pagesHasPermission, pagesNotHasPermission } from "./config/page";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { PublicRoute } from "./components/public-route/PublicRoute";
 import { user } from "./util/user"; //Liên quan đến token của user trên localStorage
-import { NotFound } from "./components/not-found/not-found";
+import { NotFound } from "./components/not-found/NotFound";
 import HomePage from "./pages/HomePage/HomePage";
 import { Verify } from "./pages/Register/Verify/Verify"; //Trang xác nhận sau khi Register
 import { Profile } from './pages/Profile/Profile';
@@ -40,6 +40,11 @@ const theme = createMuiTheme({
   },
 });
 
+const components = {
+  HomePage,
+  Verify,
+  Profile,
+};
 
 function App({ history, ...rest }) {
   const [isVerifyPage, setIsVerifyPage] = React.useState(false);
@@ -66,10 +71,17 @@ function App({ history, ...rest }) {
         {!isVerifyPage && <Header history={history} {...rest} />}
         <Switch>
             <Route exact path='/' render={() => redirectHomePage()} />
-            <PrivateRoute exact path="/" render={() => redirectHomePage()} />
-            <PrivateRoute exact path="/verify" component={Verify} key="Verify" />
-            <PrivateRoute exact path="/home" component={HomePage} key="HomePage" />
-            <PrivateRoute exact path="/profile" component={Profile} key="Profile" />
+            {map(pagesHasPermission, page => {
+              return(
+                <PrivateRoute
+                key={page.component}
+                path={page.path}
+                component={components[page.component]}
+                exact
+              />
+              )
+            })}
+
 
             <PublicRoute path='*' component={NotFound} />
           </Switch>
