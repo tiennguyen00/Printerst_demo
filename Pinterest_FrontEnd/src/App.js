@@ -6,13 +6,6 @@ import PropTypes from "prop-types"; //Kiếm tra Runtime cho React-prop hoặc o
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 
-<<<<<<< HEAD
-import { user } from './util/user'; //Liên quan đến token của user trên localStorage
-import { NotFound } from './components/not-found/not-found';
-import HomePage from './pages/HomePage/HomePage';
-import { Verify } from './pages/Register/Verify/Verify'; //Trang xác nhận sau khi Registernp
-import { colorPrimary, colorSecondary, colorPrimaryTypo, colorSecondaryTypo } from './styles/style-common';
-=======
 import { pagesHasPermission, pagesNotHasPermission } from "./config/page";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { PublicRoute } from "./components/public-route/PublicRoute";
@@ -28,7 +21,6 @@ import {
   colorPrimaryTypo,
   colorSecondaryTypo,
 } from "./styles/style-common";
->>>>>>> b935cc25f7d2528d37b10017ce3f5c883d959419
 
 const theme = createMuiTheme({
   palette: {
@@ -68,21 +60,6 @@ function App({ history, ...rest }) {
   };
 
   return (
-<<<<<<< HEAD
-    <HomePage />
-    // <MuiThemeProvider theme={theme}>
-    //   <CssBaseline />
-    //   <div>
-    //     <h1>hi</h1>
-    //     <Switch>
-    //       <Route exact path='/' render={() => redirectHomePage()}/>
-    //       <HomePage/>
-    //     </Switch>
-    //   </div>
-    // </MuiThemeProvider>
-  )
-};
-=======
       <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <div className="root-content full-height">
@@ -100,7 +77,6 @@ function App({ history, ...rest }) {
     </MuiThemeProvider>
   );
 }
->>>>>>> b935cc25f7d2528d37b10017ce3f5c883d959419
 
 App.propTypes = {
   history: PropTypes.instanceOf(Object),
