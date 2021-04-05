@@ -89,7 +89,6 @@ const googleAPI = (req, res, err) => {
     }
 
     function upload() {
-      console.log("REQ:", req);
       const drive = google.drive({ version: "v3", auth: auth1 });
       const folderId = "10fxX_GHcgu1UiWGIgYsTTSk-FTMAtuh5";
 

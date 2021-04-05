@@ -33,8 +33,7 @@ const Post = ({isPostOpen, closePost}) => {
 
   useEffect(async () => {
     let userInfo = user.getUserInfo();
-  setUserID(userInfo.id);
-  console.log(userID)
+    setUserID(userInfo.id);
   }, []);
 
   
@@ -49,11 +48,14 @@ const Post = ({isPostOpen, closePost}) => {
     formData.append('status', status);
     formData.append('linkFile', file1);
   
-    console.log(formData);
-    userService.post(formData);
-    // authService.updateRegisterProfile(formData)
-    //     .then(() => history.push(stateHistory.prePath || '/home'))
-    //     .catch((err) => setApiError(err.message));
+    userService.post(formData)
+      .then(res => {
+
+      })
+      .catch(err => {
+        
+      })
+   
 }
 
   let $imagePreview = imagePreviewUrl ? (<div className="imgPreview"><img src={imagePreviewUrl}/></div>): '';

@@ -5,7 +5,10 @@ const getProfile = () => requestService.get(requestUrl.getProfile);
 
 const post = (data) => requestService.post(requestUrl.post, data);
 
+const getPhotos = () => requestService.get(requestUrl.getPhotos);
+
 export const userService = {
     getProfile,
-    post
+    post, //Post khi user post ảnh mới lên
+    getPhotos
 }

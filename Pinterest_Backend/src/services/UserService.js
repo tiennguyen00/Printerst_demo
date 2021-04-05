@@ -85,13 +85,24 @@ import revmd5 from 'reverse-md5';
                     return Promise.reject(new ServiceError(500, error.message, error));
                 });
     },
+    getPhotos: async (userId) => {
+        
+        return Post.find({userID: userId}).then(async (photos) => {
+            if(photos){
+                return Promise.resolve(photos);
+            }
+            return Promise.reject(new ServiceError(400, "Not found any photo!"))
+        }, async (error) => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
+    },
 
 
     forgotPassword: async (email) => {
         return User.findOne({email}).then(async (user) => {
             if (user) {
                const rev = revmd5();
-               console.log(rev(user.password));
+            //    console.log(rev(user.password));
                 return Promise.resolve({message: `Hi, ${user.email || 'Customer'}. Your password is ${rev(user.password).str}`});
             }
             return Promise.reject(new ServiceError(400, "User is not exists!"));

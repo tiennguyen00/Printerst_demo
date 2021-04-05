@@ -16,7 +16,6 @@ import './Register.scss';
 
 
 function Register(props) {
-  console.log('Props: ', props.history);
   const { register, handleSubmit, errors } = useForm();
   const history = get(props, 'history', {});
   const stateHistory = history.location.state || {};
