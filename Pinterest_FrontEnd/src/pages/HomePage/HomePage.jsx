@@ -4,7 +4,6 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import "./HomePage.scss";
 
-import Header from "../../components/Header/Header";
 import Content from "../../components/content/Content";
 import Post from "../../components/Post/Post";
 import unsplash from "../../api/unsplash";

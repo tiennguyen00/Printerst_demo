@@ -90,9 +90,11 @@ const googleAPI = (req, res, err) => {
 
     function upload() {
       const drive = google.drive({ version: "v3", auth: auth1 });
+      const folderId = "10fxX_GHcgu1UiWGIgYsTTSk-FTMAtuh5";
 
       const fileMetaData = {
         name: req.file.filename,
+        parents: [folderId]
       };
       const media = {
         mimeType: req.file.mimetype,

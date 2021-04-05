@@ -42,7 +42,7 @@ function Login(props) {
       .then((res) => {
         user.saveUserStorage(res.token);
         console.log("StateHistory: ", stateHistory.prePath );
-        return history.push(stateHistory.prePath || "/");
+        return history.push(stateHistory.prePath || "/home");
       })
       .catch((err) => {
         const requiredNewPassCode = 401;

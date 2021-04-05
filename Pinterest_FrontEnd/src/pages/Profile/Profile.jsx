@@ -34,6 +34,7 @@ function Profile(props) {
              <h1>Email: {userProfile.email}</h1>
              <h1>Name: {userProfile.firstName}</h1>
              <h1>Photo: {userProfile.profilePhoto}</h1>
+             <img src={userProfile.profilePhoto} alt="Not permission"/>
         </div>
     )
 }
