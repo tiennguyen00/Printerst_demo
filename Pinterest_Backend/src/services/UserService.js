@@ -1,4 +1,5 @@
 import User, {UserSchema} from "../models/User";
+import Post from "../models/Post"
 import md5 from "md5";
 import {ServiceError} from "../utils/ServiceError";
 import {Token} from '../models/Token'
@@ -73,6 +74,16 @@ import revmd5 from 'reverse-md5';
         async (error) => {
             return Promise.reject(new ServiceError(500, error.message, error));
         });
+    },
+    post: async (userID, status, link) => {
+        let post = new Post({userID, status, link })
+            return post.save()
+                .then(async (result) => {
+                    let post = JSON.parse(JSON.stringify(result));
+                })
+                .catch(error => {
+                    return Promise.reject(new ServiceError(500, error.message, error));
+                });
     },
 
 

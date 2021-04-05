@@ -27,6 +27,7 @@ export default {
       });
   },
   updateRegisterInfo: async (req, res, err) => {
+    console.log("REQ ở register: ", req);
     let { user } = req,
       photoUrl;
 
@@ -60,5 +61,21 @@ export default {
       .catch((error) => {
         return res.status(error.code).json(error);
       });
+  }, 
+  post: async (req, res, err) => {
+    let link;
+    let {userID, status, linkFile} = req.body;
+    console.log(userID, status, linkFile)
+    googleAPI(req, res, err).then((path) => {
+      link = path;
+      UserService.post(userID, status, link)
+        .then((result) => {
+          return res.status(200).json(result);
+        })
+        .catch((error) => {
+          Log.error("post err", error.message, error);
+          return res.status(error.code).json(error);
+        });
+    });
   }
 };
