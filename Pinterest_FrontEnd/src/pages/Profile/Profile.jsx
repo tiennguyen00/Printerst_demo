@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { userService } from '../../services/user.service'
 import { user } from '../../util/user';
 import { getMess } from '../../util/message';
+import Image1 from '../../components/image1/Image1';
 import get from 'lodash/get';
 import map from 'lodash/map';
 import './Profile.scss';
@@ -46,18 +47,18 @@ function Profile(props) {
 
     return (
         <div className="">
-             <p>{apiError}</p>
-             <h1>Email: {userProfile.email}</h1>
-             <h1>Name: {userProfile.firstName}</h1>
-             <h1>Profile: {userProfile.profilePhoto}</h1>
-             <img src={userProfile.profilePhoto} alt="Not permission"/>
-             <p>_______________________________</p>
-             <h1>myPhoto:</h1>
-             {map(userPhotos, photo => {
-               return(
-                <img src={photo.link} alt="Not permission"/>
-               )
-             })}
+          <p>{apiError}</p>
+          <h1>Email: {userProfile.email}</h1>
+          <h1>Name: {userProfile.firstName}</h1>
+          <h1>Profile: {userProfile.profilePhoto}</h1>
+          <img src={userProfile.profilePhoto} alt="Not permission"/>
+          <p>_______________________________</p>
+          <h1>myPhoto:</h1>
+          {map(userPhotos, photo => {
+            return(
+              <Image1 link={photo.link}/>
+            )
+          })}
         </div>
     )
 }
