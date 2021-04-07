@@ -1,4 +1,4 @@
-@import '../../styles/style-common.scss';
+@import "../../styles/style-common.scss";
 
 .login {
   height: 95vh;
@@ -14,7 +14,7 @@
         width: 390px;
         padding: 40px 40px 10px 40px;
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        .error-text{
+        .error-text {
           color: red !important;
         }
 
