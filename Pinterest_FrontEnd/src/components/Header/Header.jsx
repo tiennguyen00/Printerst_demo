@@ -15,9 +15,11 @@ import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuList from '@material-ui/core/MenuList';
 import { MenuItem } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 
 import { pinterestScreenRight } from '../../config/page';
 import { authService } from '../../services/auth.service';
+import { userService } from '../../services/user.service';
 
 import { user } from '../../util/user';
 import PropTypes from 'prop-types';
@@ -113,8 +115,21 @@ const IconsWrapper = styled.div``;
 
 const Header = ({ history }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState();
   const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
-  
+
+  useEffect(async () => {
+    //Lấy ảnh đại diện
+    userService
+      .getProfile()
+      .then((res) => {
+        setUserProfile(res);
+      })
+      .catch((err) => {
+      
+      });
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
@@ -160,16 +175,16 @@ const Header = ({ history }) => {
         </SearchBarWrapper>
       </SearchWrapper>
       <IconsWrapper>
-        <IconButton>
-          <NotificationsIcon />
+        <IconButton >
+          <NotificationsIcon/>
         </IconButton>
         <IconButton>
-          <TextsmsIcon />
+          <TextsmsIcon/>
         </IconButton>
         <IconButton 
           onClick={() => history.push('/profile')}
           >
-          <FaceIcon />
+          {!userProfile ? <FaceIcon/> : <Avatar style={{height: 30, width: 30}}  src={userProfile.profilePhoto}></Avatar>}
         </IconButton>
         <IconButton onClick = {toggleMenu}>
           <div ref={anchorRef} onClick={toggleMenu}>
