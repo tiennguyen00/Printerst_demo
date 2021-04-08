@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { IconButton } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import "./HomePage.scss";
-
 import Content from "../../components/content/Content";
 import Post from "../../components/Post/Post";
 import unsplash from "../../api/unsplash";
@@ -68,7 +67,7 @@ const HomePage = () => {
       <Content pins={pins} />
       <div className="post-btn">
         <IconButton onClick={() => setPostOpen(!isPostOpen)}>
-          <AddCircleIcon style={{ color: "red", fontSize: 50 }} />
+          <AddCircleOutlineIcon style={{ color: "#BE1E2D", fontSize: 50 }} />
         </IconButton>
       </div>
 

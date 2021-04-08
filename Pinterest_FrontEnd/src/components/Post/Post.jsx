@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {get} from 'lodash/get';
+import { IconButton } from "@material-ui/core";
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import { user } from '../../util/user';
 import { getMess } from '../../util/message';
@@ -56,20 +58,26 @@ const Post = ({isPostOpen, closePost}) => {
     //     .catch((err) => setApiError(err.message));
 }
 
-  let $imagePreview = imagePreviewUrl ? (<div className="imgPreview"><img src={imagePreviewUrl}/></div>): '';
-  
+  let $imagePreview = imagePreviewUrl ? (<span className="imgPreview"><img src={imagePreviewUrl}/></span>): '';
+
   return isPostOpen ? (
-    <div className="form-popup">
-        <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-        <h1>Post <span className="close" onClick={closePost}>x</span></h1>
-        <label htmlFor="status"><b>Status</b></label>
-        <textarea name="status" ref={register} placeholder="How do you feel?"/>
-        <label htmlFor="image"><b>Image</b></label>
-        <input type="file" ref={register} name="file" onChange={(e)=> handleImageChange(e)}/>
-        {$imagePreview}
-        <button type="submit" className="btn">Post</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <section>
+        <div className="text">
+          <img src="http://placehold.it/100/100"/>
+          <span className="close" onClick={closePost}>
+            <IconButton>
+             <CancelIcon fontSize="large"/>
+            </IconButton>
+          </span>
+          <textarea name="status" ref={register} placeholder="What's in your mind"></textarea>
+          <input className="file-input" type="file" ref={register} name="file" onChange={(e)=> handleImageChange(e)}/>
+          {$imagePreview}
+          <input type="submit" value="post"/>
+        </div>
+      </section>
+      <div class="overlay"></div>
+    </form>
   ) : (
     ""
   );
