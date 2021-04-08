@@ -34,7 +34,7 @@ const HomePage = () => {
   const getNewPins = () => {
     let promises = [];
     let pinData = [];
-    let pins = ["anime girls"];
+    let pins = ["cars", "code", "plane"];
     pins.forEach((pinTerm) => {
       promises.push(
         getImages(pinTerm).then((res) => {
