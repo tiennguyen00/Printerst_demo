@@ -1,19 +1,19 @@
 * {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .post-btn {
-    position: -webkit-sticky;
-    position: fixed;
-    top: 80%;
-    left: 92%;
-    z-index: 1
-  }
-  
-  .parentDisable{
-    height: 100%;
-    width: 100%;
-    color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
-  }
+  margin: 0;
+  padding: 0;
+}
+
+.post-btn {
+  position: -webkit-sticky;
+  position: fixed;
+  top: 80%;
+  left: 92%;
+  z-index: 1
+}
+
+.parentDisable{
+  height: 100%;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
