@@ -67,7 +67,7 @@ const HomePage = () => {
       <Content pins={pins} />
       <div className="post-btn">
         <IconButton onClick={() => setPostOpen(!isPostOpen)}>
-          <AddCircleOutlineIcon style={{ color: "#BE1E2D", fontSize: 50 }} />
+          <AddCircleOutlineIcon style={{ color: "#BE1E2D", fontSize: 80 }} />
         </IconButton>
       </div>
 

@@ -36,7 +36,15 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .content__container {
-        column-count: 5;
-        column-gap: 5px;
+        column-count: 6;
+        padding-left: 2px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1600px) {
+    .content__container {
+        column-count: 6;
+        padding-left: 2px;
     }
 }
