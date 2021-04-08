@@ -5,8 +5,6 @@ import { getMess } from "../../util/message";
 import get from "lodash/get";
 import map from "lodash/map";
 import "./Profile.scss";
-import Pin from "../../components/Pin/Pin";
-import styled from "styled-components";
 
 function Profile(props) {
   const [userProfile, setUserProfile] = useState({});
@@ -43,50 +41,21 @@ function Profile(props) {
       });
   }, []);
 
-  const ProfileContainer = styled.div`
-    display: flex;
-    width: 100%;
-    height: 100%;
-  `;
-
-  const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
-    align-items: center;
-  `;
-
-  const ProfilePhoto = styled.img`
-    border-radius: 200%;
-    width: 60px;
-    height: 60px;
-  `;
-
-  const ProfileContent = styled.div`
-    display: flex;
-    width: 80%;
-    height: 100%;
-    padding: 40px 0;
-  `;
-
   return (
-    <ProfileContainer>
-      <Wrapper>
-        <ProfilePhoto src={userProfile.profilePhoto} alt="Not permission" />
-        <form action=""></form>
-        <p>{apiError}</p>
-        <p>Email: {userProfile.email}</p>
-        <p>Name: {userProfile.firstName}</p>
-        <ProfileContent>
+        <div>
+          <p>{apiError}</p>
+          <p>Email: {userProfile.email}</p>
+          <p>Name: {userProfile.firstName}</p>
+          <p>Profile: {userProfile.profilePhoto}</p>
+
+
           {map(userPhotos, (photo) => {
-            return <Pin link={photo.link} />;
+            return (
+              <img src = {photo.link} />
+            )
           })}
-        </ProfileContent>
-      </Wrapper>
-    </ProfileContainer>
-  );
+        </div>
+  )
 }
 
 export { Profile };
