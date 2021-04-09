@@ -140,6 +140,7 @@ const Header = (props) => {
       setNewPins(newPins);
     });
     props.apiPins(pins);
+    return props.history.push("/home");
   };
   
   const getNewPins = () => {
