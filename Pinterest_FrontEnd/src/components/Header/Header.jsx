@@ -25,7 +25,10 @@ import { user } from '../../util/user';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import map from 'lodash/map';
-import './Header.scss'
+import './Header.scss';
+import unsplash from '../../api/unsplash';
+import { apiPins } from '../../redux';
+import { connect } from 'react-redux';
 
 const Wrapper = styled.div`
   display: flex;
@@ -113,10 +116,53 @@ const SearchBarWrapper = styled.div`
 
 const IconsWrapper = styled.div``;
 
-const Header = ({ history }) => {
+const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
+  const [pins, setNewPins] = useState([]);
+  const [input, setInput] = useState('');
+
+  const getImages = (term) => {
+    return unsplash.get("https://api.unsplash.com/search/photos", {
+      params: { query: term },
+    });
+  };
+
+  const onSearchSubmit = async (e) => {
+    e.preventDefault();
+    getImages(input).then((res) => {
+      let results = res.data.results;
+      let newPins = [...results, ...pins];
+      newPins.sort(() => {
+        return 0.5 - Math.random();
+      });
+      setNewPins(newPins);
+    });
+    props.apiPins(pins);
+  };
+  
+  const getNewPins = () => {
+    let promises = [];
+    let pinData = [];
+    let pins = ["cars", "code", "plane"];
+    pins.forEach((pinTerm) => {
+      promises.push(
+        getImages(pinTerm).then((res) => {
+          let results = res.data.results;
+          pinData = pinData.concat(results);
+          pinData.sort(function (a, b) {
+            return 0.5 - Math.random();
+          });
+        })
+      );
+    });
+    console.log("Chạy getnewpins");
+    return Promise.all(promises).then(() => {
+      setNewPins(pinData);
+    });
+  };
+  
 
   useEffect(async () => {
     //Lấy ảnh đại diện
@@ -128,6 +174,10 @@ const Header = ({ history }) => {
       .catch((err) => {
       
       });
+
+    getNewPins().then(() => {
+      props.apiPins(pins);
+    });
   }, []);
 
   const toggleMenu = () => {
@@ -139,14 +189,14 @@ const Header = ({ history }) => {
 
   const handleLogout = () => {
     authService.logout();
-    history.push('/login');
+    props.history.push('/login');
   }
 
 
   const handleClose = path => {
     toggleMenu();
     if(path!=='/signout') {
-      history.push(path);
+      props.history.push(path);
     }
     else
       handleLogout();
@@ -169,8 +219,8 @@ const Header = ({ history }) => {
             <SearchIcon />
           </IconButton>
           <form>
-            <input type="text" />
-            <button type="submit"></button>
+            <input type="text" onChange={(e) => setInput(e.target.value)} />
+            <button type="submit" onClick={onSearchSubmit}></button>
           </form>
         </SearchBarWrapper>
       </SearchWrapper>
@@ -182,7 +232,7 @@ const Header = ({ history }) => {
           <TextsmsIcon/>
         </IconButton>
         <IconButton 
-          onClick={() => history.push('/profile')}
+          onClick={() => props.history.push('/profile')}
           >
           {!userProfile ? <FaceIcon/> : <Avatar style={{height: 30, width: 30}}  src={userProfile.profilePhoto}></Avatar>}
         </IconButton>
@@ -225,8 +275,8 @@ const Header = ({ history }) => {
             </Paper>
           </Grow>
         )}
-      </Poper>
-    </Wrapper>
+      </Poper>  
+    </Wrapper>  
   );
 };
 
@@ -238,4 +288,16 @@ Header.defaultProps = {
   history: {},
 };
 
-export default Header;
+//Phan cua redux
+const mapStateToProps = state => {
+  return {
+    pins: state.pins
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    apiPins: (pins) => dispatch(apiPins(pins))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

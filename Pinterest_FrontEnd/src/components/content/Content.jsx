@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Pin from "../Pin/Pin";
-
+import { useSelector } from 'react-redux';
+import Pin from '../Pin/Pin';
 import "./Content.css";
 
 const Wrapper = styled.div`
@@ -18,8 +18,8 @@ const Container = styled.div`
   background-color: white;
 `;
 
-const Content = (props) => {
-  let { pins } = props;
+const Content = () => {
+  const pins = useSelector(state => state.pins)
 
   return (
     <Wrapper>

@@ -17,7 +17,6 @@ import "./Login.scss";
 function Login(props) {
   const { register, handleSubmit, errors } = useForm();
   const history = get(props, "history", {});
-  console.log("Props ở Login: ", props)
   const stateHistory = history.location.state || {};
 
   const [apiError, setApiError] = useState(
