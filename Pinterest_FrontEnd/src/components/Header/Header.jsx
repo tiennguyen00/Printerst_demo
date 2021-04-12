@@ -120,7 +120,8 @@ const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
-  const [pins, setNewPins] = useState([]);
+  // const [pins, setNewPins] = useState([]);
+  let pins = [];
   const [input, setInput] = useState('');
 
   const getImages = (term) => {
@@ -131,14 +132,15 @@ const Header = (props) => {
 
   const onSearchSubmit = async (e) => {
     e.preventDefault();
-    getImages(input).then((res) => {
+    await getImages(input).then((res) => {
       let results = res.data.results;
-      let newPins = [...results, ...pins];
+      let newPins = [...results];
       newPins.sort(() => {
         return 0.5 - Math.random();
       });
-      setNewPins(newPins);
+      pins = newPins;
     });
+    console.log("Pins search: ", pins);
     props.apiPins(pins);
     return props.history.push("/home");
   };
@@ -146,8 +148,8 @@ const Header = (props) => {
   const getNewPins = () => {
     let promises = [];
     let pinData = [];
-    let pins = ["cars", "code", "plane"];
-    pins.forEach((pinTerm) => {
+    let inpit = ["piano", "code", "plane"];
+    inpit.forEach((pinTerm) => {
       promises.push(
         getImages(pinTerm).then((res) => {
           let results = res.data.results;
@@ -158,15 +160,18 @@ const Header = (props) => {
         })
       );
     });
-    console.log("Chạy getnewpins");
     return Promise.all(promises).then(() => {
-      setNewPins(pinData);
+      pins = pinData;
     });
   };
   
 
   useEffect(async () => {
     //Lấy ảnh đại diện
+    getNewPins().then(() => {
+      // console.log("Pins lúc này: ", pins);
+      props.apiPins(pins);
+    });
     userService
       .getProfile()
       .then((res) => {
@@ -176,9 +181,6 @@ const Header = (props) => {
       
       });
 
-    getNewPins().then(() => {
-      props.apiPins(pins);
-    });
   }, []);
 
   const toggleMenu = () => {
