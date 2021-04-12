@@ -1,0 +1,66 @@
+@import "../../styles/style-common.scss"; 
+
+.wrapper {
+    margin: auto;
+    .error{
+        color: red !important;
+    }
+
+    .myPictures{
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+    }
+
+    &__main {
+        padding: 50px 50px 50px 50px;
+        .text1{
+            text-align: center;
+            font-weight: 700;
+        }  
+        .text2{
+            text-align: center;
+        }
+        .profile{
+            position: absolute;
+            margin: 10px;
+        }  
+        .circle1{
+            margin: 0 auto 20px;
+            position: relative;
+            height: 220px;
+            width: 220px;
+            background: linear-gradient($color--red, $color--success);
+            border-radius: 50%;
+            animation: circle 4s linear 5s infinite;
+        }
+    }
+    &__sub{
+        .box{
+            text-align: center;
+            padding: 0 50px;
+            border: 1px solid black;
+            .text3{
+                font-weight: 600;
+                line-height: 1.5;
+            }
+        }
+        
+    }
+}
+
+@keyframes circle {
+    0%{
+        background: linear-gradient($color--red, $color--success);
+    }
+    25%{
+        background: linear-gradient(90deg ,$color--red, $color--success);
+    }
+    50%{
+        background: linear-gradient(180deg ,$color--red, $color--success)
+    }
+    75%{
+        background: linear-gradient(270deg ,$color--red, $color--success)
+    }
+}

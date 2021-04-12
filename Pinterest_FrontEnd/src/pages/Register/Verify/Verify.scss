@@ -1,0 +1,81 @@
+@import '../../../styles/style-common.scss';
+
+.verify {
+  height: 95vh;
+  margin: 0 auto;
+  .verify-content {
+    justify-content: center;
+    .verify__paper {
+      margin: auto;
+
+      .verify__form {
+        width: 320px;
+        padding: 40px 40px 10px 40px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12); 
+        
+        .title {
+          margin-bottom: 10px;
+        }
+
+        .upload-avatar {
+            position: relative;
+            background-color: darkgray;
+            height: 130px;
+            width: 130px;
+            // background-size:cover; 
+            border-radius: 50%;
+            object-fit:cover;
+
+            input{
+              position: absolute;
+              height: 130px;
+              width: 130px;
+              border-radius: 50%;
+              transform: translate(-100%, 0);
+              color: transparent;
+              background-color: transparent;;
+              
+            }
+        }
+
+        .policy {
+          display: inline;
+          text-align: center;
+
+          .policy-link {
+            .link {
+              display: inline-flex;
+              text-align: center;              
+            }
+          }
+        }
+      }
+    }
+  }
+  .log-in-link {
+    display: flex;
+  }
+
+  .log-in-link, .link {
+    font-size: 14px;
+    a {
+      text-decoration: none;
+    }
+    p {
+      margin: 0px 0px 20px 0px;
+      color: #007bad;
+    }
+  }
+}
+
+.button-verify-logout {
+  margin-top: 10px !important;
+  width: 100%;
+  height: 52px;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  .MuiButton-label {
+    font-size: 16px;
+    text-transform: capitalize;
+  }
+}

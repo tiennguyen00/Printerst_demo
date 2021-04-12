@@ -1,0 +1,47 @@
+@import '../../styles/style-common.scss';
+
+.register {
+    height: 95vh;
+    margin: 0 auto;
+    .register-content {
+      justify-content: center;
+      .register__paper {
+        margin: auto;
+        // background-image: url('../../assets/image/background_tạm.jpg');
+        // background-size: cover;
+        // background-position: center;
+        // height: 38rem;
+
+        .error-text{
+          color: red !important;
+        }
+        .register__form {
+          width: 320px;
+          padding: 40px 40px 10px 40px;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+          .logo {
+            height: 90px;
+            width: 100px;
+            margin-bottom: 15px;
+          }
+  
+          .log-in-link {
+            text-align: center;
+          }
+          
+          .log-in-link div {
+            font-size: 14px;
+            display: flex;
+            margin-top: 15px;
+            a {
+              text-decoration: none;
+            }
+            p {
+              margin: 0px 0px 20px 0px;
+              color: #007bad;
+            }
+          }
+        }
+      }
+    }
+  }  
