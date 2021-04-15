@@ -18,7 +18,10 @@ const Container = styled.div`
     width: 100%;
     cursor: zoom-in;
     border-radius: 16px;
-    object-git: cover;
+    object-fit: cover;
+  }
+  &:hover {
+    opacity: 0.7;
   }
 `;
 
