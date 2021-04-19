@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import map from "lodash/map"; // Tạo ra một mảng các giá trị bằng cách for các phần tử
 import isEmpty from "lodash/isEmpty"; //Kiểm tra gtri truyền vào có trống ko (boolean)
 import { Redirect, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types"; //Kiếm tra Runtime cho React-prop hoặc object tương tự
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 import { pagesHasPermission, pagesNotHasPermission } from "./config/page";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
@@ -15,14 +15,16 @@ import { user } from "./util/user"; //Liên quan đến token của user trên l
 import { NotFound } from "./components/not-found/NotFound";
 import HomePage from "./pages/HomePage/HomePage";
 import { Verify } from "./pages/Register/Verify/Verify"; //Trang xác nhận sau khi Register
-import { Profile } from './pages/Profile/Profile';
-import Header from './components/Header/Header';
+import { Profile } from "./pages/Profile/Profile";
+import Header from "./components/Header/Header";
 import {
   colorPrimary,
   colorSecondary,
   colorPrimaryTypo,
   colorSecondaryTypo,
 } from "./styles/style-common";
+
+import firebase from "./api/firebase";
 
 const theme = createMuiTheme({
   palette: {
@@ -48,8 +50,6 @@ const components = {
   Profile,
 };
 
-
-
 function App({ history, ...rest }) {
   const [isVerifyPage, setIsVerifyPage] = React.useState(false);
   const [pins, setNewPins] = useState([]);
@@ -69,28 +69,26 @@ function App({ history, ...rest }) {
     return <Redirect to="/home" />;
   };
 
-
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className="root-content full-height">
-        {!isVerifyPage && <Header history={history} {...rest} />}
-        <Switch>
-            <Route exact path='/' render={() => redirectHomePage()} />
-            {map(pagesHasPermission, page => {
-              return(
+        <CssBaseline />
+        <div className="root-content full-height">
+          {!isVerifyPage && <Header history={history} {...rest} />}
+          <Switch>
+            <Route exact path="/" render={() => redirectHomePage()} />
+            {map(pagesHasPermission, (page) => {
+              return (
                 <PrivateRoute
-                key={page.component}
-                path={page.path}
-                component={components[page.component]}
-                exact
-              />
-              )
+                  key={page.component}
+                  path={page.path}
+                  component={components[page.component]}
+                  exact
+                />
+              );
             })}
 
-
-            <PublicRoute path='*' component={NotFound} />
+            <PublicRoute path="*" component={NotFound} />
           </Switch>
         </div>
       </MuiThemeProvider>

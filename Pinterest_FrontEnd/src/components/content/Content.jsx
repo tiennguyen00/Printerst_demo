@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useSelector } from 'react-redux';
-import Pin from '../Pin/Pin';
+import { useSelector } from "react-redux";
+import Pin from "../Pin/Pin";
 import "./Content.css";
 
 const Wrapper = styled.div`
@@ -9,8 +9,7 @@ const Wrapper = styled.div`
   height: 100%;
   background-color: white;
   display: flex;
-  margin-top: 15px;
-  justify-content: center;
+  margin: 15px auto;
 `;
 
 const Container = styled.div`
@@ -19,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Content = () => {
-  const pins = useSelector(state => state.pins)
+  const pins = useSelector((state) => state.pins);
 
   return (
     <Wrapper>
