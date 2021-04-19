@@ -39,22 +39,6 @@
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-<<<<<<< HEAD
-@media only screen and (min-width: 1200px) {
-    .content__container {
-        column-count: 6;
-        padding-left: 2px;
-    }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1600px) {
-    .content__container {
-        column-count: 6;
-        padding-left: 2px;
-    }
-}
-=======
 @media (min-width: 1260px) and (max-width: 1511px) {
   .content__container {
     width: 1260px;
@@ -72,4 +56,3 @@
     padding-left: 2px;
   }
 }
->>>>>>> 9b2ed2a53e281a04148182da405d3d998f96d41e
