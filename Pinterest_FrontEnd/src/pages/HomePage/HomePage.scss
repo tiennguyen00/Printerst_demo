@@ -8,10 +8,10 @@
   position: fixed;
   top: 80%;
   left: 92%;
-  z-index: 1
+  z-index: 999;
 }
 
-.parentDisable{
+.parentDisable {
   height: 100%;
   width: 100%;
   color: rgba(0, 0, 0, 0.6);

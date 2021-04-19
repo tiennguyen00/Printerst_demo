@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 export const PostSchema = new mongoose.Schema(
   {
-    userID: { type: String, require: true},
-    status: { type: String},
+    userID: { type: String, require: true },
+    status: { type: String },
     link: { type: String },
-    count: {type: Number, default: 0}
+    count: { type: Number, default: 0 }, //đếm lượt react
   },
   {
     timestamps: true,

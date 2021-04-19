@@ -8,7 +8,7 @@ export const UserSchema = new mongoose.Schema(
     lastName: { type: String },
     age: { type: Number, maxlength: 3 },
     profilePhoto: { type: String },
-    status: { type: String }
+    status: { type: String },
   },
   {
     timestamps: true,

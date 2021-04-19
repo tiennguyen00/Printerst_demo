@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -9,21 +9,27 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TextsmsIcon from "@material-ui/icons/Textsms";
 import FaceIcon from "@material-ui/icons/Face";
 import KeyboardArrowIcon from "@material-ui/icons/KeyboardArrowDown";
-import Poper from '@material-ui/core/Popper';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import MenuList from '@material-ui/core/MenuList';
+import Poper from "@material-ui/core/Popper";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import MenuList from "@material-ui/core/MenuList";
 import { MenuItem } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 
-import { pinterestScreenRight } from '../../config/page';
-import { authService } from '../../services/auth.service';
+import { pinterestScreenRight } from "../../config/page";
+import { authService } from "../../services/auth.service";
+import { userService } from "../../services/user.service";
 
-import { user } from '../../util/user';
-import PropTypes from 'prop-types';
-import get from 'lodash/get';
-import map from 'lodash/map';
-import './Header.scss'
+import { user } from "../../util/user";
+import PropTypes from "prop-types";
+import get from "lodash/get";
+import map from "lodash/map";
+import "./Header.scss";
+import unsplash from "../../api/unsplash";
+import { apiPins } from "../../redux";
+import { connect } from "react-redux";
+import axios from "axios";
 
 const Wrapper = styled.div`
   display: flex;
@@ -111,31 +117,111 @@ const SearchBarWrapper = styled.div`
 
 const IconsWrapper = styled.div``;
 
-const Header = ({ history }) => {
+const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState();
   const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
-  
+  // const [pins, setNewPins] = useState([]);
+  let pins = [];
+  const [input, setInput] = useState("");
+
+  const getImages = (term) => {
+    return unsplash.get("https://api.unsplash.com/search/photos", {
+      params: { query: term },
+    });
+  };
+
+  const getImagesFromPixabay = (term) => {
+    return axios.get(
+      `https://pixabay.com/api/?key=21224893-c61153f1d9b5a52314e204800`,
+      {
+        params: { q: term },
+      }
+    );
+  };
+
+  const onSearchSubmit = async (e) => {
+    e.preventDefault();
+    await getImages(input).then((res) => {
+      let results = res.data.results;
+      let newPins = [...results];
+      newPins.sort(() => {
+        return 0.5 - Math.random();
+      });
+      pins = newPins;
+    });
+    console.log("Pins search: ", pins);
+    props.apiPins(pins);
+    return props.history.push("/home");
+  };
+
+  const onSearchSubmitPixabay = async (e) => {
+    e.preventDefault();
+    await getImagesFromPixabay(input).then((res) => {
+      let results = res.data.results;
+      let newPins = [...results];
+      newPins.sort(() => {
+        return 0.5 - Math.random();
+      });
+      pins = newPins;
+    });
+    console.log("Pins search: ", pins);
+    props.apiPins(pins);
+    return props.history.push("/home");
+  };
+
+  const getNewPins = () => {
+    let promises = [];
+    let pinData = [];
+    let inpit = ["piano", "code", "plane"];
+    inpit.forEach((pinTerm) => {
+      promises.push(
+        getImages(pinTerm).then((res) => {
+          let results = res.data.results;
+          pinData = pinData.concat(results);
+          pinData.sort(function (a, b) {
+            return 0.5 - Math.random();
+          });
+        })
+      );
+    });
+    return Promise.all(promises).then(() => {
+      pins = pinData;
+    });
+  };
+
+  useEffect(async () => {
+    //Lấy ảnh đại diện
+    getNewPins().then(() => {
+      // console.log("Pins lúc này: ", pins);
+      props.apiPins(pins);
+    });
+    userService
+      .getProfile()
+      .then((res) => {
+        setUserProfile(res);
+      })
+      .catch((err) => {});
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  }
+  };
   const clickAnyway = () => {
     setIsMenuOpen(false);
-  }
+  };
 
   const handleLogout = () => {
     authService.logout();
-    history.push('/login');
-  }
+    props.history.push("/login");
+  };
 
-
-  const handleClose = path => {
+  const handleClose = (path) => {
     toggleMenu();
-    if(path!=='/signout') {
-      history.push(path);
-    }
-    else
-      handleLogout();
-  }
+    if (path !== "/signout") {
+      props.history.push(path);
+    } else handleLogout();
+  };
 
   return (
     <Wrapper>
@@ -154,8 +240,8 @@ const Header = ({ history }) => {
             <SearchIcon />
           </IconButton>
           <form>
-            <input type="text" />
-            <button type="submit"></button>
+            <input type="text" onChange={(e) => setInput(e.target.value)} />
+            <button type="submit" onClick={onSearchSubmit}></button>
           </form>
         </SearchBarWrapper>
       </SearchWrapper>
@@ -166,21 +252,26 @@ const Header = ({ history }) => {
         <IconButton>
           <TextsmsIcon />
         </IconButton>
-        <IconButton 
-          onClick={() => history.push('/profile')}
-          >
-          <FaceIcon />
+        <IconButton onClick={() => props.history.push("/profile")}>
+          {!userProfile ? (
+            <FaceIcon />
+          ) : (
+            <Avatar
+              style={{ height: 30, width: 30 }}
+              src={userProfile.profilePhoto}
+            ></Avatar>
+          )}
         </IconButton>
-        <IconButton onClick = {toggleMenu}>
+        <IconButton onClick={toggleMenu}>
           <div ref={anchorRef} onClick={toggleMenu}>
             <KeyboardArrowIcon className="header-user-profile" />
           </div>
         </IconButton>
       </IconsWrapper>
       <Poper
-        open = {isMenuOpen}
+        open={isMenuOpen}
         transition
-        anchorEl = {anchorRef.current}
+        anchorEl={anchorRef.current}
         disablePortal
         className=""
       >
@@ -189,21 +280,21 @@ const Header = ({ history }) => {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === 'bottom' ? 'center top' : 'center bottom',
+                placement === "bottom" ? "center top" : "center bottom",
             }}
           >
             <Paper>
               <ClickAwayListener onClickAway={clickAnyway}>
                 <MenuList>
-                  {map(pinterestScreenRight, nav => {
+                  {map(pinterestScreenRight, (nav) => {
                     return (
-                        <MenuItem
+                      <MenuItem
                         key={nav.path}
-                        onClick = {() => handleClose(nav.path)}
-                        >
-                          {nav.name}
-                        </MenuItem>
-                    )
+                        onClick={() => handleClose(nav.path)}
+                      >
+                        {nav.name}
+                      </MenuItem>
+                    );
                   })}
                 </MenuList>
               </ClickAwayListener>
@@ -223,4 +314,16 @@ Header.defaultProps = {
   history: {},
 };
 
-export default Header;
+//Phan cua redux
+const mapStateToProps = (state) => {
+  return {
+    pins: state.pins,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    apiPins: (pins) => dispatch(apiPins(pins)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
