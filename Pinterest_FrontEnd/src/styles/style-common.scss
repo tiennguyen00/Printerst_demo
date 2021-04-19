@@ -1,0 +1,16 @@
+$color--primary: #4285F4;
+$color--secondary: #FFFFFF;
+$color--tertiary: #e7e5e6;
+$color--red: #BE1E2D;
+
+$color--content: #454545;
+$color--placeholder: #a0a0a0;
+$color--accent: #cbaf87;
+$color--success: #0f9a89;
+$color--error: #e74c3c;
+$bg--hover: rgba(0, 0, 0, 0.04);
+
+$headerHeight: 64px;
+$footerHeight: 0px;
+$maxWidthPage: 1366px;
+$pageContentHeight: calc(100vh - #{$headerHeight} - #{$footerHeight} - 32px);

@@ -1,4 +1,5 @@
 import User, {UserSchema} from "../models/User";
+import Post from "../models/Post"
 import md5 from "md5";
 import {ServiceError} from "../utils/ServiceError";
 import {Token} from '../models/Token'
@@ -56,9 +57,42 @@ import revmd5 from 'reverse-md5';
 
                 return Promise.resolve(updatedUser);
             }
-            return Promise.reject(new ServiceError(400, "User is not exists!"));
+            return Promise.reject(new ServiceError(400, "Load fail!!!"));
         },
         async (error) => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
+    },
+
+    getProfile: async (userId) => {
+        return User.findOne({_id: userId}).then(async (user) => {
+            if(user) {
+                return Promise.resolve(user);
+            }
+            return Promise.reject(new ServiceError(400, "User is not exists!")); 
+        },
+        async (error) => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
+    },
+    post: async (userID, status, link) => {
+        let post = new Post({userID, status, link })
+            return post.save()
+                .then(async (result) => {
+                    let post = JSON.parse(JSON.stringify(result));
+                })
+                .catch(error => {
+                    return Promise.reject(new ServiceError(500, error.message, error));
+                });
+    },
+    getPhotos: async (userId) => {
+        
+        return Post.find({userID: userId}).then(async (photos) => {
+            if(photos){
+                return Promise.resolve(photos);
+            }
+            return Promise.reject(new ServiceError(400, "Not found any photo!"))
+        }, async (error) => {
             return Promise.reject(new ServiceError(500, error.message, error));
         });
     },
@@ -68,7 +102,7 @@ import revmd5 from 'reverse-md5';
         return User.findOne({email}).then(async (user) => {
             if (user) {
                const rev = revmd5();
-               console.log(rev(user.password));
+            //    console.log(rev(user.password));
                 return Promise.resolve({message: `Hi, ${user.email || 'Customer'}. Your password is ${rev(user.password).str}`});
             }
             return Promise.reject(new ServiceError(400, "User is not exists!"));

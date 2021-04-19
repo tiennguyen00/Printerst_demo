@@ -1,0 +1,63 @@
+@import '../../styles/style-common.scss';
+
+.field {
+  margin-bottom: 20px;
+  .field-secondary {
+    input {
+      color: $color--tertiary;
+      border-bottom: 1px solid $color--tertiary;
+    }
+    .MuiInputAdornment-root {
+      p {
+        color: $color--tertiary;
+      }
+    }
+    .MuiInput-underline:after,
+    .MuiInput-underline:before,
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 1px solid $color--tertiary;
+    }
+    label {
+      color: $color--tertiary;
+      opacity: 0.5;
+    }
+    .MuiSelect-select,
+    svg {
+      color: $color--tertiary;
+    }
+  }
+  .field-select {
+    min-width: -webkit-fill-available;
+  }
+  .field-text {
+    margin-bottom: 7px;
+    font-weight: bold;
+  }
+  .filed-disable,
+  .MuiInputBase-root.Mui-disabled {
+    opacity: 0.8;
+    .MuiSelect-icon.Mui-disabled {
+      display: none;
+    }
+    .MuiInputBase-root {
+      input,
+      &:before,
+      &:after,
+      .MuiInput-underline:hover:before {
+        border-bottom: 0 !important;
+      }
+    }
+    input,
+    &:before,
+    &:after {
+      border-bottom: 0;
+    }
+  }
+
+  .MuiFormHelperText-root {
+    position: absolute;
+    bottom: -20px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
