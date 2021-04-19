@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: inline-flex;
-  padding: 0 1 0 2 px;
 `;
 
 const Container = styled.div`
@@ -11,7 +10,8 @@ const Container = styled.div`
   align-items: center;
   box-sizing: border-box;
   cursor: pointer;
-  width: 243px;
+  width: fit-content;
+
   img {
     display: flex;
     width: 100%;
