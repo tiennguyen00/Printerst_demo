@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    padding: 0 1 0 2 px;
+}
+
+.wrapper:hover {
+    opacity: .5;
+    
+}
+
+.container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 243px;
+
+    img {
+        display: flex;
+        width: 100%;
+        cursor: zoom-in;
+        border-radius: 19px;
+        object-fit: cover;
+    }  
+}
+
+.pin-overlay {
+    position: absolute;
+    transition: .5s ease;
+  background-color: red;
+  height: 100%;
+  width: 100%;
+  border-radius: 19px;
+  
+  text-align: center;
+}
+
+.pin-save-btn {
+    z-index: 2;
+    top: 0;
+}
