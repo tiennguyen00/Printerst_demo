@@ -3,16 +3,11 @@ import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
 import get from "lodash/get";
-import { Grid } from "@material-ui/core";
-import { Avatar } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import { Typography } from '@material-ui/core';
 
-import Image1 from '../../components/image1/image1';
+import UserImage from "../../components/user-image/UserImage";
 import map from "lodash/map";
-import "./Profile.scss";
+
+import styled from "styled-components";
 
 function Profile(props) {
   const [userProfile, setUserProfile] = useState({});
@@ -47,67 +42,155 @@ function Profile(props) {
         if (err === 400) setApiError("Not found any photo!!!");
         else setApiError(err.message);
       });
-    }, []);
+  }, []);
 
   return (
-    <Grid 
-      className="wrapper"
-      container
-      justify="center" 
-      alignItems="center"
-    >
+    <Container>
       <p className="error">{apiError}</p>
-      <AddCircleOutlineIcon style={{height: 50, width: 50, color: "#0f9a89"}} />
-      <Grid className="wrapper__main">  
-        <div className="circle1">
-          <Avatar className="profile" style={{height: 200, width: 200}} src={userProfile.profilePhoto} />
-        </div>
+      <Header>
+        <AvatarContainer>
+          <Avatar src={userProfile.profilePhoto} />
+        </AvatarContainer>
 
-        <Typography className="text1" variant="h5">{userProfile.firstName} {userProfile.lastName}</Typography>
-        <Typography className="text2" variant="h5">{userProfile.email}</Typography>
-      </Grid>
-      <RadioButtonUncheckedIcon style={{height: 50, width: 50, color:"#BE1E2D" }}/>
-      <Grid
-        container 
-        className="wrapper__sub"
-        justify="center"
-        alignItems="center" 
-      >
-        <Box className="box" display="flex" flexDirection="column">
-          <Typography variant="h6" className="text3">
-            0
-          </Typography>
-          <Typography variant="h6" className="text3">
-            Followers
-          </Typography>
-        </Box>
-        <Box className="box" display="flex" flexDirection="column">
-          <Typography variant="h6" className="text3">
-            0
-          </Typography>
-          <Typography variant="h6" className="text3">
-            Reacts
-          </Typography>
-        </Box>
-        <Box className="box" display="flex" flexDirection="column" >
-           <Typography variant="h6" className="text3">
-            {userPhotos.length}
-          </Typography>
-          <Typography variant="h6" className="text3">
-            Pictures
-          </Typography>
-        </Box>
-      </Grid>
-      <Typography variant="h4">My pictures </Typography>
-      <Grid className="myPictures">
-        {map(userPhotos, (photo) => {
-          return (
-            <Image1 link={photo.link} />
-          )
-        })}
-      </Grid>
-    </Grid>
-  )
+        <Information>
+          <UserInformation>
+            <UserInformationText>
+              {userProfile.firstName} {userProfile.lastName}
+            </UserInformationText>
+            <UserInformationText>{userProfile.email}</UserInformationText>
+          </UserInformation>
+
+          <AccountInformation>
+            <AccountInformationItem>
+              <AccountInformationText>
+                <strong>0</strong>
+              </AccountInformationText>
+              <AccountInformationText>Followers</AccountInformationText>
+            </AccountInformationItem>
+            <AccountInformationItem>
+              <AccountInformationText>
+                <strong>0</strong>
+              </AccountInformationText>
+              <AccountInformationText>Reacts</AccountInformationText>
+            </AccountInformationItem>
+            <AccountInformationItem>
+              <AccountInformationText>
+                <strong>{userPhotos.length}</strong>
+              </AccountInformationText>
+              <AccountInformationText>Pictures</AccountInformationText>
+            </AccountInformationItem>
+          </AccountInformation>
+        </Information>
+      </Header>
+
+      <HR />
+
+      <Content>
+        <h1>My pictures </h1>
+        <ImageContainer>
+          {map(userPhotos, (photo) => {
+            return <UserImage link={photo.link} />;
+          })}
+        </ImageContainer>
+      </Content>
+    </Container>
+  );
 }
 
 export { Profile };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const Header = styled.div`
+  width: 50%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 20px 20px;
+`;
+
+const AvatarContainer = styled.div`
+  min-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Avatar = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+`;
+
+const Information = styled.div`
+  width: 80%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const UserInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const UserInformationText = styled.span`
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 32px;
+  margin-bottom: 10px;
+`;
+
+const AccountInformationText = styled.span`
+  margin-top: 20px;
+  margin-right: 5px;
+`;
+
+const AccountInformation = styled.ul`
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const AccountInformationItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  font-size: 16px;
+  list-style-type: none;
+  margin-right: 40px;
+`;
+
+const HR = styled.hr`
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Content = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h1 {
+    text-align: center;
+    font-weight: 300;
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+
+  column-gap: 3px;
+`;

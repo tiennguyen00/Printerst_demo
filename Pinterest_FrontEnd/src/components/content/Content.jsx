@@ -9,7 +9,10 @@ const Wrapper = styled.div`
   height: 100%;
   background-color: white;
   display: flex;
-  margin: 15px auto;
+
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Container = styled.div`
