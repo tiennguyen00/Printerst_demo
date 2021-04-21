@@ -34,7 +34,8 @@
               transform: translate(-100%, 0);
               color: transparent;
               background-color: transparent;;
-              
+              opacity: 0;
+              z-index: 2;
             }
         }
 
