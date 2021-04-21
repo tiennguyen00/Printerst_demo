@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+import "./Pin.scss";
 
 const Wrapper = styled.div`
   display: inline-flex;
-  padding: 0 1 0 2 px;
 `;
 
 const Container = styled.div`
@@ -11,7 +14,7 @@ const Container = styled.div`
   align-items: center;
   box-sizing: border-box;
   cursor: pointer;
-  width: 243px;
+  width: fit-content;
   img {
     display: flex;
     width: 100%;
@@ -23,11 +26,24 @@ const Container = styled.div`
 
 const Pin = (props) => {
   let { urls } = props;
+  const [isLike, setIsLike] = useState(false);
+
+  const test = () => {
+    console.log('tét')
+  }
+  
+  const save = () => {
+    console.log('save');
+  };
 
   return (
     <Wrapper>
-      <Container>
+      <Container className="pin-container">
         <img src={urls?.regular} alt="pin" />
+        <div className="pin-overlay" onClick={() => test()} ></div>
+        <button className="pin-save-btn" onClick={() => save()}>Save</button>
+        {isLike ? <div onClick={() => {setIsLike(!isLike)}} className="pin-like-btn"><FavoriteIcon  fontSize="large" style={{ color: '#e7e5e6' }}/></div>
+                : <div onClick={() => {setIsLike(!isLike)}} className="pin-like-btn"><FavoriteBorderIcon  fontSize="large" style={{ color: '#e7e5e6' }}/></div>}
       </Container>
     </Wrapper>
   );
