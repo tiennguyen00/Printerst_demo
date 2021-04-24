@@ -27,7 +27,9 @@ const Pin = (props) => {
   return (
     <Wrapper>
       <Container>
-        <img src={urls?.regular} alt="pin" />
+        <a href="/detail">
+          <img src={urls?.regular} alt="pin" />
+        </a>
       </Container>
     </Wrapper>
   );

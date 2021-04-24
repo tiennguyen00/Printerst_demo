@@ -7,7 +7,8 @@ export default function UserImage(props) {
 
 const UserImg = styled.img`
   display: flex;
-  width: fit-content;
+  width: 150px;
+  height: 150px;
 
   cursor: zoom-in;
   object-fit: cover;
