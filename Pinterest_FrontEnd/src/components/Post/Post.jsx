@@ -64,12 +64,14 @@ const Post = ({isPostOpen, closePost}) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <section>
         <div className="text">
-          <img src="http://placehold.it/100/100"/>
+          <h1 className="post-title">Create Post</h1>
           <span className="close" onClick={closePost}>
             <IconButton>
              <CancelIcon fontSize="large"/>
             </IconButton>
           </span>
+          <hr/>
+          <img src="http://placehold.it/100/100"/>
           <textarea name="status" ref={register} placeholder="What's in your mind"></textarea>
           <input className="file-input" type="file" ref={register} name="file" onChange={(e)=> handleImageChange(e)}/>
           {$imagePreview}

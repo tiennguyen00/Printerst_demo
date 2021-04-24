@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { IconButton } from "@material-ui/core";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddIcon from '@material-ui/icons/Add';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 import "./HomePage.scss";
 import Content from "../../components/content/Content";
@@ -21,7 +22,13 @@ const HomePage = (props) => {
       <Content pins={props.pins} />
       <div className="post-btn">
         <IconButton onClick={() => setPostOpen(!isPostOpen)}>
-          <AddCircleOutlineIcon style={{ color: "#BE1E2D", fontSize: 80 }} />
+          <AddIcon fontSize="large"/>
+        </IconButton>
+      </div>
+
+      <div className="scroll-top-btn">
+        <IconButton >
+          <ArrowUpwardIcon fontSize="large"/>
         </IconButton>
       </div>
 
