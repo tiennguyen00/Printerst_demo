@@ -28,7 +28,7 @@ import map from 'lodash/map';
 import './Header.scss';
 import unsplash from '../../api/unsplash';
 import { apiPins } from '../../redux';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 const Wrapper = styled.div`
   display: flex;
@@ -123,6 +123,7 @@ const Header = (props) => {
   // const [pins, setNewPins] = useState([]);
   let pins = [];
   const [input, setInput] = useState('');
+  const dispatch = useDispatch()
 
   const getImages = (term) => {
     return unsplash.get("https://api.unsplash.com/search/photos", {
@@ -141,7 +142,7 @@ const Header = (props) => {
       pins = newPins;
     });
     console.log("Pins search: ", pins);
-    props.apiPins(pins);
+    dispatch(apiPins(pins));
     return props.history.push("/home");
   };
   
@@ -170,7 +171,7 @@ const Header = (props) => {
     //Lấy ảnh đại diện
     getNewPins().then(() => {
       // console.log("Pins lúc này: ", pins);
-      props.apiPins(pins);
+      dispatch(apiPins(pins));
     });
     userService
       .getProfile()
@@ -292,15 +293,16 @@ Header.defaultProps = {
 };
 
 //Phan cua redux
-const mapStateToProps = state => {
-  return {
-    pins: state.pins
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    apiPins: (pins) => dispatch(apiPins(pins))
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     pins: state.pins
+//   }
+// }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     apiPins: (pins) => dispatch(apiPins(pins))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
