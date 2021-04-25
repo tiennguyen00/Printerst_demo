@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 
 const Content = () => {
-  const pins = useSelector((state) => state.pins);
+  const pins = useSelector((state) => state.pin.pins);
 
   return (
     <Wrapper>

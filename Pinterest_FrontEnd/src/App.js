@@ -17,6 +17,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import { Verify } from "./pages/Register/Verify/Verify"; //Trang xác nhận sau khi Register
 import { Profile } from "./pages/Profile/Profile";
 import Header from "./components/Header/Header";
+import { Detail } from "./pages/Detail/Detail";
 import {
   colorPrimary,
   colorSecondary,
@@ -48,6 +49,7 @@ const components = {
   HomePage,
   Verify,
   Profile,
+  Detail,
 };
 
 function App({ history, ...rest }) {

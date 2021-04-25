@@ -118,6 +118,7 @@ const SearchBarWrapper = styled.div`
 const IconsWrapper = styled.div``;
 
 const Header = (props) => {
+  console.log(props);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState();
   const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)

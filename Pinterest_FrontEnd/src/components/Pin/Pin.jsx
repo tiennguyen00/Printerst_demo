@@ -23,6 +23,7 @@ const Container = styled.div`
 
 const Pin = (props) => {
   let { urls } = props;
+  console.log(urls);
 
   return (
     <Wrapper>

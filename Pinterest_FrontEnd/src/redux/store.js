@@ -1,6 +1,6 @@
-import { createStore } from 'redux';
-import pinReducer from './pin/pinReducer';
+import { createStore } from "redux";
+import reducer from "./reducer";
 
-const store = createStore(pinReducer)
+const store = createStore(reducer);
 
 export default store;
