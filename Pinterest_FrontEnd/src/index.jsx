@@ -8,7 +8,6 @@ import { Register } from "./pages/Register/Register";
 import { Login } from "./pages/Login/Login";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
 import { Detail } from "./pages/Detail/Detail";
-import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <Router>
@@ -16,7 +15,7 @@ ReactDOM.render(
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/forgotpassword" component={ForgotPassword} />
-      <Route exact path="/detail" component={Detail} />
+      <Route name="detail" path="/detail" component={Detail} />
 
       <Route path="*" component={App} />
     </Switch>
@@ -24,8 +23,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
