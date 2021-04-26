@@ -25,8 +25,6 @@ import {
   colorSecondaryTypo,
 } from "./styles/style-common";
 
-import firebase from "./api/firebase";
-
 const theme = createMuiTheme({
   palette: {
     primary: { main: colorPrimary },

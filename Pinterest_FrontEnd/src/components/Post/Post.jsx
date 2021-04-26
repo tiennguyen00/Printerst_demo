@@ -57,7 +57,7 @@ const Post = ({ isPostOpen, closePost }) => {
 
   let $imagePreview = imagePreviewUrl ? (
     <span className="imgPreview">
-      <img src={imagePreviewUrl} alt="preview" />
+      <img src={imagePreviewUrl} />
     </span>
   ) : (
     ""
@@ -67,12 +67,14 @@ const Post = ({ isPostOpen, closePost }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <section>
         <div className="text">
-          <img src="http://placehold.it/100/100" />
+          <h1 className="post-title">Create Post</h1>
           <span className="close" onClick={closePost}>
             <IconButton>
               <CancelIcon fontSize="large" />
             </IconButton>
           </span>
+          <hr />
+          <img src="http://placehold.it/100/100" />
           <textarea
             name="status"
             ref={register}

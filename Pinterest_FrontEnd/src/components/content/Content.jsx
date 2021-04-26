@@ -9,10 +9,7 @@ const Wrapper = styled.div`
   height: 100%;
   background-color: white;
   display: flex;
-
-  margin-top: 15px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 15px auto;
 `;
 
 const Container = styled.div`
@@ -21,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Content = () => {
-  const pins = useSelector((state) => state.pin.pins);
+  const pins = useSelector((state) => state.pins);
 
   return (
     <Wrapper>

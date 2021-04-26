@@ -4,7 +4,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Link } from "react-router-dom";
 
-// import "./Pin.scss";
+import "./Pin.scss";
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -16,9 +16,11 @@ const Container = styled.div`
   box-sizing: border-box;
   cursor: pointer;
   width: fit-content;
+
   img {
     display: flex;
     width: 100%;
+    cursor: zoom-in;
     border-radius: 19px;
     object-fit: cover;
   }

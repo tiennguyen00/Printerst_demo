@@ -6,6 +6,7 @@ import {
   GoBack,
 } from "./styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { ScrollToTop } from "../HomePage/scroll";
 
 function Detail(props) {
   return (
@@ -17,6 +18,7 @@ function Detail(props) {
         <ImageDetail src={props.location.state.url} alt="picture" />
         <h1>This is Demo Text</h1>
       </ImageContainer>
+      <ScrollToTop />
     </DetailWrapper>
   );
 }

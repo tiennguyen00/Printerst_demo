@@ -6,9 +6,21 @@
 .post-btn {
   position: -webkit-sticky;
   position: fixed;
-  top: 80%;
-  left: 92%;
-  z-index: 1;
+  bottom: 11%;
+  right: 2%;
+  z-index: 999;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.scroll-top-btn {
+  position: -webkit-sticky;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 999;
+  background-color: white;
+  border-radius: 50%;
 }
 
 .parentDisable {

@@ -4,8 +4,7 @@
     width: 300px;
     column-count: 2;
     column-gap: 2px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
   }
 }
 
@@ -15,9 +14,7 @@
     width: 504px;
     column-count: 2;
     column-gap: 5px;
-    margin-left: auto;
-
-    margin-right: auto;
+    margin: 0 auto;
   }
 }
 
@@ -27,8 +24,7 @@
     width: 756px;
     column-count: 3;
     column-gap: 5px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto;
   }
 }
 
@@ -36,8 +32,7 @@
 @media (min-width: 1008px) and (max-width: 1259px) {
   .content__container {
     width: 1008px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     column-count: 4;
     column-gap: 10px;
   }
