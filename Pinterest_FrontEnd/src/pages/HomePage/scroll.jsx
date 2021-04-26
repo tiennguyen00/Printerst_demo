@@ -29,7 +29,6 @@ const ScrollToTop = () => {
 
   return (
     <div className="scroll-top-btn">
-      {" "}
       {isVisible && (
         <IconButton onClick={scrollToTop}>
           <ArrowUpwardIcon fontSize="large" />
