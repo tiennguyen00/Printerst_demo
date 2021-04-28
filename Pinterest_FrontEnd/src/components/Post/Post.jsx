@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {useForm} from "react-hook-form";
-import {get} from 'lodash/get';
 import { IconButton } from "@material-ui/core";
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import { user } from '../../util/user';
-import { getMess } from '../../util/message';
 import { userService } from '../../services/user.service';
 
 import "./Post.scss"
@@ -13,9 +10,8 @@ import "./Post.scss"
 const Post = ({isPostOpen, closePost}) => {
 
   const [file, setFile] = useState('');
-  const [file1, setFile1] = useState('');
   const [imagePreviewUrl, setImg] = useState('');
-  const [userID, setUserID] = useState('');
+  const [userProfile, setUserProfile] = useState();
   const { register, handleSubmit } = useForm();
 
   const handleImageChange = (e) => {
@@ -29,35 +25,33 @@ const Post = ({isPostOpen, closePost}) => {
       setImg(reader.result)
     }
 
-    setFile1(e.target.files[0])
     reader.readAsDataURL(file)
   }
 
   useEffect(async () => {
-    let userInfo = user.getUserInfo();
-  setUserID(userInfo.id);
-  console.log(userID)
+    userService
+      .getProfile()
+      .then((res) => {
+        setUserProfile(res);
+      })
+      .catch((err) => {});
   }, []);
 
   
 
   const onSubmit = (data) => {
-    // setApiError('');
-
-    const { status, file } = data;
+    const { status} = data;
 
     let formData  =  new FormData();
-    formData.append('userID', userID);
+    formData.append('userID', userProfile._id);
     formData.append('status', status);
-    formData.append('linkFile', file1);
+    formData.append('linkFile', file);
   
     console.log(formData);
     userService.post(formData);
-    // authService.updateRegisterProfile(formData)
-    //     .then(() => history.push(stateHistory.prePath || '/home'))
-    //     .catch((err) => setApiError(err.message));
 }
 
+  let avatar = userProfile ? userProfile.profilePhoto : '';
   let $imagePreview = imagePreviewUrl ? (<span className="imgPreview"><img src={imagePreviewUrl}/></span>): '';
 
   return isPostOpen ? (
@@ -71,14 +65,14 @@ const Post = ({isPostOpen, closePost}) => {
             </IconButton>
           </span>
           <hr/>
-          <img src="http://placehold.it/100/100"/>
-          <textarea name="status" ref={register} placeholder="What's in your mind"></textarea>
+          <img className="post-avatar" src={avatar}/>
+          <textarea name="status" ref={register} placeholder="What's in your mind?"></textarea>
           <input className="file-input" type="file" ref={register} name="file" onChange={(e)=> handleImageChange(e)}/>
           {$imagePreview}
           <input type="submit" value="post"/>
         </div>
       </section>
-      <div class="overlay"></div>
+      <div className="overlay"></div>
     </form>
   ) : (
     ""

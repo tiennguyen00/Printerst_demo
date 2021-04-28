@@ -47,6 +47,7 @@ function Profile(props) {
         if (err === 400) setApiError("Not found any photo!!!");
         else setApiError(err.message);
       });
+      console.log(userPhotos)
     }, []);
 
   return (
@@ -105,6 +106,7 @@ function Profile(props) {
             <Image1 link={photo.link} />
           )
         })}
+        
       </Grid>
     </Grid>
   )

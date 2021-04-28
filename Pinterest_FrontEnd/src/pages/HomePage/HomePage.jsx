@@ -15,6 +15,8 @@ const HomePage = (props) => {
     setPostOpen(false);
   };
 
+  const scollTop = () => {window.scrollTo(0, 0)}
+
   return (
     <div className="homepage">
       {/* Phần header đã chuyển sang bên App.js để hiển thị cho tất cả các trang */}
@@ -22,17 +24,17 @@ const HomePage = (props) => {
       <Content pins={props.pins} />
       <div className="post-btn">
         <IconButton onClick={() => setPostOpen(!isPostOpen)}>
-          <AddIcon fontSize="large"/>
+          <AddIcon fontSize="large" style={{ color: "black" }}/>
         </IconButton>
       </div>
 
       <div className="scroll-top-btn">
-        <IconButton >
-          <ArrowUpwardIcon fontSize="large"/>
+        <IconButton onClick={() => scollTop()}>
+          <ArrowUpwardIcon fontSize="large" style={{ color: "black" }}/>
         </IconButton>
       </div>
 
-      <Post isPostOpen={isPostOpen} closePost={closePost} />
+      <Post isPostOpen={isPostOpen} closePost={closePost}/>
       {/* Test connect to backend */}
     </div>
   );
