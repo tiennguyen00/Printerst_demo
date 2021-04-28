@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Pin from "../Pin/Pin";
@@ -20,12 +19,13 @@ const Container = styled.div`
 const Content = () => {
   const pins = useSelector((state) => state.pins);
 
+
   return (
     <Wrapper>
       <Container className="content__container">
         {pins.map((pin, index) => {
-          let { urls } = pin;
-          return <Pin key={index} urls={urls} />;
+
+          return <Pin key={index} url={pin.urls} />;
         })}
       </Container>
     </Wrapper>

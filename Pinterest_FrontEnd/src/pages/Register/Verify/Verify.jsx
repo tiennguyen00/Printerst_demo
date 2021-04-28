@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import get from "lodash/get"; //_.get(obj, path, [defaultValue]) lấy giá trị của biết obj tại đường dẫn path
+import React, { useState } from "react";
+import get from "lodash/get"; //_.get(obj, path, [defaultValue]) lấy giá trị của obj tại đường dẫn path
 import { useForm } from "react-hook-form"; //Sử dụng react-hook-form giúp quản lí form dễ hơn
 import { getMess } from "../../../util/message";
 import { authService } from "../../../services/auth.service";
@@ -8,9 +8,8 @@ import { Field } from "../../../components/Field/Field";
 import { Button } from "../../../components/button/button";
 import { patternEmail } from "../../../util/form";
 import Grid from "@material-ui/core/Grid";
-import { Divider, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { isEmpty } from "lodash/isEmpty";
 import "./Verify.scss";
 
 function Verify(props) {
@@ -25,16 +24,6 @@ function Verify(props) {
   const [file, setFile] = useState("");
 
   let userInfo = user.getUserInfo();
-
-  //Tương tự componentDidMount
-  // eslint-disable-next-line consistent-return
-  // React.useEffect(() => {
-  //     userInfo = user.getUserInfo();
-  //     const unLogin = isEmpty(userInfo);
-  //     if (!unLogin) {
-  //       if (userInfo.status !== 'defer') return history.push('/');
-  //     }
-  // }, []);
 
   const onSubmit = (formState) => {
     setApiError("");

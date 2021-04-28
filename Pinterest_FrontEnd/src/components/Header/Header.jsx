@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import styled from "styled-components";
+import {
+  IconsWrapper,
+  SearchWrapper,
+  HomePageButton,
+  LogoWrapper,
+  Wrapper,
+  SearchBarWrapper,
+} from "./styled-components";
 
 import PinterestIcon from "@material-ui/icons/Pinterest";
 import IconButton from "@material-ui/core/IconButton";
@@ -21,128 +28,70 @@ import { pinterestScreenRight } from "../../config/page";
 import { authService } from "../../services/auth.service";
 import { userService } from "../../services/user.service";
 
-import { user } from "../../util/user";
 import PropTypes from "prop-types";
-import get from "lodash/get";
+
 import map from "lodash/map";
 import "./Header.scss";
-import unsplash from "../../api/unsplash";
+import { unsplash, pixabay } from "../../api/api";
 import { apiPins } from "../../redux";
 import { connect } from "react-redux";
-import axios from "axios";
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 56px;
-  padding: 12px 4px 4px 12px;
-  background-color: white;
-  color: black;
-`;
-
-const LogoWrapper = styled.div`
-  .MuiSvgIcon-root {
-    color: #e60023;
-    font-size: 32px;
-    cursor: pointer;
-    display: flex;
-  }
-`;
-
-const Button = styled.div`
-  display: flex;
-  height: 48px;
-  min-width: 123px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 24px;
-  cursor: pointer;
-`;
-
-const HomePageButton = styled(Button)`
-  background-color: rgb(17, 17, 17);
-  a {
-    text-decoration: none;
-    color: white;
-    font-weight: 700;
-  }
-`;
-
-const FollowingButton = styled(Button)`
-  background-color: white;
-  a {
-    text-decoration: none;
-    color: white;
-    font-weight: 700;
-  }
-  :hover {
-    background-color: #e1e1e1;
-  }
-`;
-
-const SearchWrapper = styled.div`
-  flex: 1;
-`;
-
-const SearchBarWrapper = styled.div`
-  background-color: #efefef;
-  display: flex;
-  height: 40px;
-  width: 100%;
-  border-radius: 50px;
-  border: none;
-  padding-left: 10px;
-
-  form {
-    display: flex;
-    flex: 1;
-  }
-
-  form > input {
-    background-color: transparent;
-    border: none;
-    width: 100%;
-    margin-left: 5px;
-    font-size: 16px;
-  }
-
-  form > button {
-    display: none;
-  }
-
-  input:focus {
-    outline: none;
-  }
-`;
-
-const IconsWrapper = styled.div``;
+import { useDispatch } from "react-redux";
 
 const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState();
-  const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
-  // const [pins, setNewPins] = useState([]);
+  const anchorRef = React.useRef(null); //useRef trả về một đối tượng ref có thể thay đổi (Refs truy cập virtual DOM của React)
   let pins = [];
   const [input, setInput] = useState("");
 
-  const getImages = (term) => {
-    return unsplash.get("https://api.unsplash.com/search/photos", {
+  const getImgFromUnsplash = async (term) =>
+    unsplash.get("https://api.unsplash.com/search/photos", {
       params: { query: term },
     });
-  };
 
-  const getImagesFromPixabay = (term) => {
-    return axios.get(
-      `https://pixabay.com/api/?key=21224893-c61153f1d9b5a52314e204800`,
-      {
-        params: { q: term },
+  const getNewPins = async () => {
+    let pinDatav1 = [];
+    let pinDatav2 = [];
+    let defaultImgPixabay = ["piano", "code", "plane"];
+
+    try {
+      for (let term in defaultImgPixabay) {
+        const getImg = await unsplash.get(
+          "https://api.unsplash.com/search/photos",
+          {
+            params: { query: term },
+          }
+        );
+
+        const dataPinV1 = getImg.data.results.map((img) => {
+          return { urls: img.urls.full };
+        });
+        pinDatav1 = [...pinDatav1, ...dataPinV1];
+
+        const getImgV2 = await pixabay.get(`https://pixabay.com/api/`, {
+          params: {
+            key: "21224893-c61153f1d9b5a52314e204800",
+            q: term,
+            per_page: 20,
+          },
+        });
+
+        const pinDataV2 = getImgV2.data.hits.map((img) => {
+          return { urls: img.webformatURL };
+        });
+        pinDatav2 = [...pinDatav2, ...pinDataV2];
       }
-    );
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    return [...pinDatav1, ...pinDatav2];
   };
 
   const onSearchSubmit = async (e) => {
     e.preventDefault();
-    await getImages(input).then((res) => {
+
+    await getImgFromUnsplash(input).then((res) => {
       let results = res.data.results;
       let newPins = [...results];
       newPins.sort(() => {
@@ -150,58 +99,34 @@ const Header = (props) => {
       });
       pins = newPins;
     });
-    console.log("Pins search: ", pins);
+
     props.apiPins(pins);
     return props.history.push("/home");
   };
 
-  const onSearchSubmitPixabay = async (e) => {
-    e.preventDefault();
-    await getImagesFromPixabay(input).then((res) => {
-      let results = res.data.results;
-      let newPins = [...results];
-      newPins.sort(() => {
-        return 0.5 - Math.random();
-      });
-      pins = newPins;
-    });
-    console.log("Pins search: ", pins);
-    props.apiPins(pins);
-    return props.history.push("/home");
-  };
-
-  const getNewPins = () => {
-    let promises = [];
-    let pinData = [];
-    let inpit = ["piano", "code", "plane"];
-    inpit.forEach((pinTerm) => {
-      promises.push(
-        getImages(pinTerm).then((res) => {
-          let results = res.data.results;
-          pinData = pinData.concat(results);
-          pinData.sort(function (a, b) {
-            return 0.5 - Math.random();
+  useEffect(() => {
+    async function getAvatar() {
+      try {
+        userService
+          .getProfile()
+          .then((res) => {
+            setUserProfile(res);
+          })
+          .catch((error) => {
+            console.log(error.message);
           });
-        })
-      );
-    });
-    return Promise.all(promises).then(() => {
-      pins = pinData;
-    });
-  };
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    getAvatar();
+  }, []);
 
-  useEffect(async () => {
-    //Lấy ảnh đại diện
-    getNewPins().then(() => {
-      // console.log("Pins lúc này: ", pins);
-      props.apiPins(pins);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getNewPins().then((value) => {
+      dispatch(apiPins(value));
     });
-    userService
-      .getProfile()
-      .then((res) => {
-        setUserProfile(res);
-      })
-      .catch((err) => {});
   }, []);
 
   const toggleMenu = () => {
@@ -231,9 +156,7 @@ const Header = (props) => {
       <HomePageButton>
         <a href="/">Homepage</a>
       </HomePageButton>
-      <FollowingButton>
-        <a href="/">Following</a>
-      </FollowingButton>
+
       <SearchWrapper>
         <SearchBarWrapper>
           <IconButton>
@@ -241,7 +164,7 @@ const Header = (props) => {
           </IconButton>
           <form>
             <input type="text" onChange={(e) => setInput(e.target.value)} />
-            <button type="submit" onClick={onSearchSubmit}></button>
+            <button type="submit" onClick={onSearchSubmit} />
           </form>
         </SearchBarWrapper>
       </SearchWrapper>
@@ -252,7 +175,7 @@ const Header = (props) => {
         <IconButton>
           <TextsmsIcon />
         </IconButton>
-        <IconButton onClick={() => props.history.push("/profile")}>
+        <IconButton onClick={(e) => props.history.push("/profile")}>
           {!userProfile ? (
             <FaceIcon />
           ) : (
@@ -263,7 +186,7 @@ const Header = (props) => {
           )}
         </IconButton>
         <IconButton onClick={toggleMenu}>
-          <div ref={anchorRef} onClick={toggleMenu}>
+          <div ref={anchorRef}>
             <KeyboardArrowIcon className="header-user-profile" />
           </div>
         </IconButton>

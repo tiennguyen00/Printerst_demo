@@ -25,38 +25,38 @@ const Avatar = styled.img`
   border-radius: 50%;
 `;
 
-const Information = styled.div`
+const Info = styled.div`
   width: 80%;
   height: 20%;
   display: flex;
   flex-direction: column;
 `;
 
-const UserInformation = styled.div`
+const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const UserInformationText = styled.span`
+const UserInfoText = styled.span`
   font-weight: 300;
   font-size: 28px;
   line-height: 32px;
   margin-bottom: 10px;
 `;
 
-const AccountInformationText = styled.span`
+const AccountInfoText = styled.span`
   margin-top: 20px;
   margin-right: 5px;
 `;
 
-const AccountInformation = styled.ul`
+const AccountInfo = styled.ul`
   width: 20%;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
-const AccountInformationItem = styled.li`
+const AccountInfoItem = styled.li`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -100,14 +100,14 @@ export {
   ImageContainer,
   Content,
   HR,
-  AccountInformationItem,
-  AccountInformation,
-  AccountInformationText,
+  AccountInfoItem,
+  AccountInfo,
+  AccountInfoText,
   Header,
   AvatarContainer,
   Avatar,
-  Information,
-  UserInformation,
-  UserInformationText,
+  Info,
+  UserInfo,
+  UserInfoText,
   Container,
 };

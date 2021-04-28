@@ -5,7 +5,7 @@ import { IconButton } from "@material-ui/core";
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show button when page is scorlled upto given distance
+  // Show button when page is scrolled upto given distance
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
       setIsVisible(true);
@@ -14,7 +14,7 @@ const ScrollToTop = () => {
     }
   };
 
-  // Set the top cordinate to 0
+  // Set the top coordinate to 0
   // make scrolling smooth
   const scrollToTop = () => {
     window.scrollTo({

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { get } from "lodash/get";
 import { IconButton } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 import { user } from "../../util/user";
-import { getMess } from "../../util/message";
 import { userService } from "../../services/user.service";
 
 import "./Post.scss";
@@ -32,10 +30,12 @@ const Post = ({ isPostOpen, closePost }) => {
     reader.readAsDataURL(file);
   };
 
-  useEffect(async () => {
-    let userInfo = user.getUserInfo();
-    setUserID(userInfo.id);
-    console.log(userID);
+  useEffect(() => {
+    async function fetchUserInfo() {
+      let userInfo = user.getUserInfo();
+      setUserID(userInfo.id);
+    }
+    fetchUserInfo();
   }, []);
 
   const onSubmit = (data) => {
@@ -48,7 +48,6 @@ const Post = ({ isPostOpen, closePost }) => {
     formData.append("status", status);
     formData.append("linkFile", file1);
 
-    console.log(formData);
     userService.post(formData);
     // authService.updateRegisterProfile(formData)
     //     .then(() => history.push(stateHistory.prePath || '/home'))
@@ -57,7 +56,7 @@ const Post = ({ isPostOpen, closePost }) => {
 
   let $imagePreview = imagePreviewUrl ? (
     <span className="imgPreview">
-      <img src={imagePreviewUrl} />
+      <img src={imagePreviewUrl} alt="Preview" />
     </span>
   ) : (
     ""
@@ -74,7 +73,7 @@ const Post = ({ isPostOpen, closePost }) => {
             </IconButton>
           </span>
           <hr />
-          <img src="http://placehold.it/100/100" />
+          <img src="http://placehold.it/100/100" alt="" />
           <textarea
             name="status"
             ref={register}

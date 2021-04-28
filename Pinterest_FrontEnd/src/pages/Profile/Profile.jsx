@@ -3,6 +3,7 @@ import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
 import get from "lodash/get";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import UserImage from "../../components/user-image/UserImage";
 import map from "lodash/map";
@@ -11,17 +12,19 @@ import {
   ImageContainer,
   Content,
   HR,
-  AccountInformationItem,
-  AccountInformation,
-  AccountInformationText,
+  AccountInfoItem,
+  AccountInfo,
+  AccountInfoText,
   Header,
   AvatarContainer,
   Avatar,
-  Information,
-  UserInformation,
-  UserInformationText,
+  Info,
+  UserInfo,
+  UserInfoText,
   Container,
 } from "./styled-components";
+
+import { GoBack } from "../Detail/styled-components";
 
 function Profile(props) {
   const [userProfile, setUserProfile] = useState({});
@@ -29,72 +32,80 @@ function Profile(props) {
 
   const history = get(props, "history", {});
   const stateHistory = history.location.state || {};
+
+  //thêm apiError để xác nhận  getPhotos với getProfile
   const [apiError, setApiError] = useState(
     stateHistory.expired ? getMess("M15") : ""
   );
-  //thêm apiError để xác nhận 2 cái. getPhotos với get Profile
 
-  useEffect(async () => {
-    //Lấy ảnh đại diện
-    userService
-      .getProfile()
-      .then((res) => {
-        setUserProfile(res);
-      })
-      .catch((err) => {
-        if (err === 400) setApiError("Load fail!!!");
-        else setApiError(err.message);
-      });
+  useEffect(() => {
+    async function fetchData() {
+      //Lấy ảnh đại diện
+      userService
+        .getProfile()
+        .then((res) => {
+          setUserProfile(res);
+        })
+        .catch((err) => {
+          if (err === 400) setApiError("Load fail!!!");
+          else setApiError(err.message);
+        });
 
-    //Lấy ảnh mà user đó đã đăng
-    userService
-      .getPhotos()
-      .then((res) => {
-        setUserPhotos(res);
-      })
-      .catch((err) => {
-        if (err === 400) setApiError("Not found any photo!!!");
-        else setApiError(err.message);
-      });
+      //Lấy ảnh mà user đã đăng
+      userService
+        .getPhotos()
+        .then((res) => {
+          setUserPhotos(res);
+        })
+        .catch((err) => {
+          if (err === 400) setApiError("Not found any photo!!!");
+          else setApiError(err.message);
+        });
+    }
+    fetchData();
   }, []);
 
   return (
     <Container>
       <p className="error">{apiError}</p>
       <Header>
+        <GoBack onClick={props.history.goBack}>
+          <ArrowBackIcon />
+        </GoBack>
+
         <AvatarContainer>
           <Avatar src={userProfile.profilePhoto} />
         </AvatarContainer>
 
-        <Information>
-          <UserInformation>
-            <UserInformationText>
+        <Info>
+          <UserInfo>
+            <UserInfoText>
               {userProfile.firstName} {userProfile.lastName}
-            </UserInformationText>
-            <UserInformationText>{userProfile.email}</UserInformationText>
-          </UserInformation>
+            </UserInfoText>
+            <UserInfoText>{userProfile.email}</UserInfoText>
+          </UserInfo>
 
-          <AccountInformation>
-            <AccountInformationItem>
-              <AccountInformationText>
+          <AccountInfo>
+            <AccountInfoItem>
+              <AccountInfoText>
                 <strong>0</strong>
-              </AccountInformationText>
-              <AccountInformationText>Followers</AccountInformationText>
-            </AccountInformationItem>
-            <AccountInformationItem>
-              <AccountInformationText>
+              </AccountInfoText>
+              <AccountInfoText>Followers</AccountInfoText>
+            </AccountInfoItem>
+            <AccountInfoItem>
+              <AccountInfoText>
                 <strong>0</strong>
-              </AccountInformationText>
-              <AccountInformationText>Reacts</AccountInformationText>
-            </AccountInformationItem>
-            <AccountInformationItem>
-              <AccountInformationText>
+              </AccountInfoText>
+              <AccountInfoText>Reacts</AccountInfoText>
+            </AccountInfoItem>
+            <AccountInfoItem>
+              <AccountInfoText>
                 <strong>{userPhotos.length}</strong>
-              </AccountInformationText>
-              <AccountInformationText>Pictures</AccountInformationText>
-            </AccountInformationItem>
-          </AccountInformation>
-        </Information>
+              </AccountInfoText>
+              <AccountInfoText>Pictures</AccountInfoText>
+            </AccountInfoItem>
+          </AccountInfo>
+        </Info>
       </Header>
 
       <HR />
