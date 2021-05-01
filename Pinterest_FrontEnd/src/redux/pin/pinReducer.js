@@ -1,6 +1,5 @@
 import { ADD_PINS } from "./pinTypes";
-// =======================
-// ======================
+
 const initialState = {
   pins: [],
 };

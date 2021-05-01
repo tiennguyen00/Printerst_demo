@@ -13,7 +13,7 @@ const GoBack = styled.button`
   z-index: 4;
   width: 60px;
   max-width: 265px;
-  top: 80px;
+  top: 100px;
   position: fixed;
   left: 40px;
   outline: none;
@@ -24,14 +24,14 @@ const GoBack = styled.button`
 
 const ImageDetail = styled.img`
   display: flex;
-  max-width: 600px;
+  max-width: 400px;
   max-height: 400px;
   align-items: center;
   margin-right: 40px;
 `;
 
 const ImageContainer = styled.div`
-  max-width: 900px;
+  max-width: 1200px;
   height: 700px;
   display: flex;
   align-items: center;

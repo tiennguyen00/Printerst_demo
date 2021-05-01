@@ -16,4 +16,83 @@ const pixabay = axios.create({
     "X-RateLimit-Limit": 100,
   },
 });
-export { unsplash, pixabay };
+
+const resultFromApi = async (result) => {
+  let resultsFromUnsplash = [];
+  let resultsFromPixabay = [];
+
+  try {
+    const getImgUnsplash = await unsplash.get(
+      "https://api.unsplash.com/search/photos",
+      {
+        params: { query: result, per_page: 100 },
+      }
+    );
+
+    const dataFromUnsplash = getImgUnsplash.data.results.map((img) => {
+      return { urls: img.urls.full };
+    });
+
+    resultsFromUnsplash = [...resultsFromUnsplash, ...dataFromUnsplash];
+
+    const getImgPixabay = await pixabay.get(`https://pixabay.com/api/`, {
+      params: {
+        key: "21224893-c61153f1d9b5a52314e204800",
+        q: result,
+        per_page: 100,
+      },
+    });
+
+    const dataFromPixabay = getImgPixabay.data.hits.map((img) => {
+      return { urls: img.webformatURL };
+    });
+    resultsFromPixabay = [...resultsFromPixabay, ...dataFromPixabay];
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return [...resultsFromPixabay, ...resultsFromUnsplash];
+};
+
+const getNewPins = async () => {
+  let pinDataFromUnsplash = [];
+  let pinDataFromPixabay = [];
+  let pinData;
+  let sampleInput = ["piano", "girl", "plane"];
+
+  try {
+    for (let term in sampleInput) {
+      const getImgUnsplash = await unsplash.get(
+        "https://api.unsplash.com/photos/random",
+        {
+          params: { query: term, count: 50 },
+        }
+      );
+
+      const dataFromUnsplash = getImgUnsplash.data.map((img) => {
+        return { urls: img.urls.regular };
+      });
+
+      pinDataFromUnsplash = [...pinDataFromUnsplash, ...dataFromUnsplash];
+
+      const getImgPixabay = await pixabay.get(`https://pixabay.com/api/`, {
+        params: {
+          key: "21224893-c61153f1d9b5a52314e204800",
+          q: term,
+          per_page: 100,
+        },
+      });
+
+      const dataFromPixabay = getImgPixabay.data.hits.map((img) => {
+        return { urls: img.webformatURL };
+      });
+      pinDataFromPixabay = [...pinDataFromPixabay, ...dataFromPixabay];
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+  pinData = [...pinDataFromUnsplash, ...pinDataFromPixabay];
+  return pinData;
+};
+
+export { getNewPins, resultFromApi };

@@ -16,7 +16,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TextsmsIcon from "@material-ui/icons/Textsms";
 import FaceIcon from "@material-ui/icons/Face";
 import KeyboardArrowIcon from "@material-ui/icons/KeyboardArrowDown";
-import Poper from "@material-ui/core/Popper";
+import Popper from "@material-ui/core/Popper";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -24,15 +24,16 @@ import MenuList from "@material-ui/core/MenuList";
 import { MenuItem } from "@material-ui/core";
 import { Avatar } from "@material-ui/core";
 
-import { pinterestScreenRight } from "../../config/page";
+import { PinterestScreenRight } from "../../config/page";
 import { authService } from "../../services/auth.service";
 import { userService } from "../../services/user.service";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
 import map from "lodash/map";
 import "./Header.scss";
-import { unsplash, pixabay } from "../../api/api";
+import { resultFromApi, getNewPins } from "../../api/api";
 import { apiPins } from "../../redux";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -40,64 +41,26 @@ import { useDispatch } from "react-redux";
 const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState();
-  const anchorRef = React.useRef(null); //useRef trả về một đối tượng ref có thể thay đổi (Refs truy cập virtual DOM của React)
+  const anchorRef = React.useRef(null);
   let pins = [];
   const [input, setInput] = useState("");
-
-  const getImgFromUnsplash = async (term) =>
-    unsplash.get("https://api.unsplash.com/search/photos", {
-      params: { query: term },
-    });
-
-  const getNewPins = async () => {
-    let pinDatav1 = [];
-    let pinDatav2 = [];
-    let defaultImgPixabay = ["piano", "code", "plane"];
-
-    try {
-      for (let term in defaultImgPixabay) {
-        const getImg = await unsplash.get(
-          "https://api.unsplash.com/search/photos",
-          {
-            params: { query: term },
-          }
-        );
-
-        const dataPinV1 = getImg.data.results.map((img) => {
-          return { urls: img.urls.full };
-        });
-        pinDatav1 = [...pinDatav1, ...dataPinV1];
-
-        const getImgV2 = await pixabay.get(`https://pixabay.com/api/`, {
-          params: {
-            key: "21224893-c61153f1d9b5a52314e204800",
-            q: term,
-            per_page: 20,
-          },
-        });
-
-        const pinDataV2 = getImgV2.data.hits.map((img) => {
-          return { urls: img.webformatURL };
-        });
-        pinDatav2 = [...pinDatav2, ...pinDataV2];
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-
-    return [...pinDatav1, ...pinDatav2];
-  };
 
   const onSearchSubmit = async (e) => {
     e.preventDefault();
 
-    await getImgFromUnsplash(input).then((res) => {
-      let results = res.data.results;
-      let newPins = [...results];
+    await resultFromApi(input).then((res) => {
+      let results = res.map((img) => {
+        return { urls: img.urls };
+      });
+
+      let newPins = [];
+      newPins = [...newPins, ...results];
       newPins.sort(() => {
         return 0.5 - Math.random();
       });
+
       pins = newPins;
+      setInput();
     });
 
     props.apiPins(pins);
@@ -151,15 +114,17 @@ const Header = (props) => {
   return (
     <Wrapper>
       <LogoWrapper>
-        <PinterestIcon />
+        <Link to="/home">
+          <PinterestIcon className="pinterest-icon" />
+        </Link>
       </LogoWrapper>
       <HomePageButton>
-        <a href="/">Homepage</a>
+        <Link to="/home">Homepage</Link>
       </HomePageButton>
 
       <SearchWrapper>
         <SearchBarWrapper>
-          <IconButton>
+          <IconButton onClick={onSearchSubmit}>
             <SearchIcon />
           </IconButton>
           <form>
@@ -191,12 +156,12 @@ const Header = (props) => {
           </div>
         </IconButton>
       </IconsWrapper>
-      <Poper
+      <Popper
         open={isMenuOpen}
         transition
         anchorEl={anchorRef.current}
         disablePortal
-        className="poper"
+        className="popper"
       >
         {({ TransitionProps, placement }) => (
           <Grow
@@ -209,7 +174,7 @@ const Header = (props) => {
             <Paper>
               <ClickAwayListener onClickAway={clickAnyway}>
                 <MenuList>
-                  {map(pinterestScreenRight, (nav) => {
+                  {map(PinterestScreenRight, (nav) => {
                     return (
                       <MenuItem
                         key={nav.path}
@@ -224,7 +189,7 @@ const Header = (props) => {
             </Paper>
           </Grow>
         )}
-      </Poper>
+      </Popper>
     </Wrapper>
   );
 };

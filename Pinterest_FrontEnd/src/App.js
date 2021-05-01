@@ -50,7 +50,7 @@ const components = {
   Detail,
 };
 
-function App({ history, ...rest }) {
+const App = ({ history, ...rest }) => {
   const [isVerifyPage, setIsVerifyPage] = React.useState(false);
 
   React.useEffect(() => {
@@ -93,7 +93,7 @@ function App({ history, ...rest }) {
       </MuiThemeProvider>
     </Provider>
   );
-}
+};
 
 App.propTypes = {
   history: PropTypes.instanceOf(Object),

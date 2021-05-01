@@ -3,7 +3,6 @@ import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import "./Pin.scss";
 
 const Wrapper = styled.div`
@@ -42,7 +41,7 @@ const Pin = (props) => {
             }}
             className="pin-like-btn"
           >
-            <FavoriteIcon fontSize="large" style={{ color: "#e7e5e6" }} />
+            <FavoriteIcon fontSize="default" style={{ color: "red" }} />
           </div>
         ) : (
           <div
@@ -51,7 +50,7 @@ const Pin = (props) => {
             }}
             className="pin-like-btn"
           >
-            <FavoriteBorderIcon fontSize="large" style={{ color: "#e7e5e6" }} />
+            <FavoriteBorderIcon fontSize="default" style={{ color: "white" }} />
           </div>
         )}
         <Link

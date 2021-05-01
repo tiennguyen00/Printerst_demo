@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   height: 100%;
   background-color: white;
   display: flex;
-  margin: 15px auto;
+  margin: 0 auto;
 `;
 
 const Container = styled.div`
@@ -19,12 +19,11 @@ const Container = styled.div`
 const Content = () => {
   const pins = useSelector((state) => state.pins);
 
-
   return (
     <Wrapper>
+      <div style={{ paddingTop: "80px", backgroundColor: "transparent" }}></div>
       <Container className="content__container">
         {pins.map((pin, index) => {
-
           return <Pin key={index} url={pin.urls} />;
         })}
       </Container>

@@ -24,10 +24,11 @@
 }
 
 .pin-container:hover img {
-  transform: scale(1.02);
+  transform: scale(1.01);
   overflow: hidden;
   transition: all 0.81s;
   border-radius: 19px;
+  cursor: pointer;
 }
 
 .pin-save-btn {
@@ -40,10 +41,12 @@
   top: 0;
   right: -7px;
   font-weight: bold;
-  padding: 10px;
-  border-radius: 19px;
+  padding: 12px;
+  border-radius: 15px;
+  border: none;
   z-index: 25;
   opacity: 0;
+  cursor: pointer;
 }
 
 .pin-container:hover .pin-save-btn {

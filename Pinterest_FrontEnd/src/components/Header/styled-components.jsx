@@ -3,10 +3,13 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 56px;
-  padding: 12px 4px 4px 12px;
+  height: 80px;
   background-color: white;
   color: black;
+  top: 0;
+  position: sticky;
+  z-index: 997;
+  height: 80px;
 `;
 
 const LogoWrapper = styled.div`
@@ -35,6 +38,9 @@ const HomePageButton = styled(Button)`
     text-decoration: none;
     color: white;
     font-weight: 700;
+  }
+  :hover {
+    opacity: 0.8;
   }
 `;
 

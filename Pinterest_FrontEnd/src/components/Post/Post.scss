@@ -6,46 +6,40 @@
 
 body {
   margin: 0;
+  padding: 0;
   background-color: #f1f1f1;
 }
-section {
-  width: 90%;
-  position: fixed;
-  top: 0;
-  left: 5%;
-  z-index: 999;
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-section div {
-  width: 34%;
-  margin: 50px auto;
+.wrapper > .postImg-form {
+  width: 50%;
+  height: 80%;
+  margin: 0 auto;
+  display: block;
   background-color: #fff;
   overflow: hidden;
   padding: 20px;
-  border-radius: 3px;
+  border-radius: 30px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  position: absolute;
-  top: 0;
-  left: 33%;
+  position: relative;
 }
 
-section div img {
-  float: left;
-  width: 60px;
-  height: 60px;
-}
-
-section div textarea {
-  float: right;
-  width: 360px;
+.wrapper div textarea {
+  margin-top: 20px;
+  width: 100%;
   height: 100px;
   border: none;
-  padding: 5px 10px;
   font-family: arial;
   resize: none;
   outline: none;
-  border-bottom: 2px solid #0077cc;
+  padding-left: 10px;
 }
 
 textarea::-webkit-scrollbar {
@@ -58,14 +52,18 @@ textarea::-webkit-scrollbar-thumb {
   border-radius: 2px;
 }
 
-section div [type="submit"] {
-  float: right;
-  margin: 15px 10px auto auto;
+.wrapper div [type="submit"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 60px 0;
+
   border: none;
   background-color: #0077cc;
   color: #fff;
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 3px;
   font-size: 16px;
 }
@@ -81,39 +79,48 @@ section div [type="submit"] {
 }
 
 .file-input {
-  margin: 10px;
-  border: 1px solid;
+  margin: 10px auto;
   padding: 10px;
-  width: 95%;
+  width: 100%;
 }
 
 .imgPreview {
   text-align: center;
-  margin: auto;
-  height: 200px;
+  height: 100%;
   width: 100%;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  border-top: 5px solid gray;
-  border-bottom: 5px solid gray;
+  z-index: 9999;
+
   img {
     width: 100%;
-    height: 300px;
+    height: 100%;
   }
 }
 
 .post-title {
   text-align: center;
+  margin-bottom: 5px;
 }
 
 .close {
   cursor: pointer;
-  position: absolute;
   top: 0;
   right: 15px;
   color: red;
+  position: absolute;
 }
 
 hr {
   margin: 10px;
+}
+
+.submit-button {
+  cursor: pointer;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
