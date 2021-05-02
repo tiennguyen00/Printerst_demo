@@ -1,4 +1,4 @@
-import { SHOW_VIEWER } from './viewerTypes';
+import { SHOW_VIEWER, HIDE_VIEWER } from './viewerTypes';
 
 export const showViewer = (fileId, isFullScreenViewer = false) => {
     return {
@@ -7,5 +7,11 @@ export const showViewer = (fileId, isFullScreenViewer = false) => {
             fileId,
             isFullScreenViewer
         }
+    }
+};
+
+export const hideViewer = () => {
+    return {
+        type: HIDE_VIEWER
     }
 }

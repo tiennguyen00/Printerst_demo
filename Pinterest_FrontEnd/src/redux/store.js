@@ -13,6 +13,6 @@ const store = createStore(
     rootReducers,
     composeEnhancers()
 )
-console.log(store.getState())
+console.log("Store: ",  store.getState())
 
 export default store;

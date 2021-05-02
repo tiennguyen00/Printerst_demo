@@ -1,19 +1,25 @@
-import { SHOW_VIEWER } from './viewerTypes';
+import { SHOW_VIEWER, HIDE_VIEWER } from './viewerTypes';
 
 // =======================
 // ======================
 const initialState = {
-    pins: {
-        fileId: null,
-        visible: false
-    }
+    fileId: null,
+    visible: false
 }
 
 const viewerReducer = (state = initialState, action) => {
     switch(action.type){
         case SHOW_VIEWER: return {
-            // ...state,
-        }
+            ...state,
+            fileId: action.payload.fileId,
+            isFullScreenViewer: action.payload.isFullScreenViewer,
+            visible: true,
+        };
+        case HIDE_VIEWER: return {
+            ...state,
+            fileId: null,
+            visible: false,
+        };
         default: 
             return state;
     }

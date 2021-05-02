@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { useDispatch } from 'react-redux';
+import { showViewer } from '../../redux';
+import { Link } from 'react-router-dom';
 
 import "./Pin.scss";
 
@@ -25,11 +28,12 @@ const Container = styled.div`
 `;
 
 const Pin = (props) => {
-  let { urls } = props;
+  let { url } = props;
   const [isLike, setIsLike] = useState(false);
+  const dispatch = useDispatch();
 
   const test = () => {
-    console.log('tét')
+    dispatch(showViewer(props.id));
   }
   
   const save = () => {
@@ -39,11 +43,34 @@ const Pin = (props) => {
   return (
     <Wrapper>
       <Container className="pin-container">
-        <img src={urls?.regular} alt="pin" />
-        <div className="pin-overlay" onClick={() => test()} ></div>
-        <button className="pin-save-btn" onClick={() => save()}>Save</button>
-        {isLike ? <div onClick={() => {setIsLike(!isLike)}} className="pin-like-btn"><FavoriteIcon  fontSize="large" style={{ color: '#e7e5e6' }}/></div>
-                : <div onClick={() => {setIsLike(!isLike)}} className="pin-like-btn"><FavoriteBorderIcon  fontSize="large" style={{ color: '#e7e5e6' }}/></div>}
+        <button className="pin-save-btn">Save</button>
+        {isLike ? (
+          <div
+            onClick={() => {
+              setIsLike(!isLike);
+            }}
+            className="pin-like-btn"
+          >
+            <FavoriteIcon fontSize="default" style={{ color: "red" }} />
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              setIsLike(!isLike);
+            }}
+            className="pin-like-btn"
+          >
+            <FavoriteBorderIcon fontSize="default" style={{ color: "white" }} />
+          </div>
+        )}
+        <Link
+          to={{
+            pathname: "detail",
+            state: { url: url },
+          }}
+        >
+          <img src={url} alt="pin" />
+        </Link>
       </Container>
     </Wrapper>
   );

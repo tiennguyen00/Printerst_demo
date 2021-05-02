@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import map from 'lodash/map';
 import './Header.scss';
-import unsplash from '../../api/unsplash';
+import { resultFromApi, getNewPins } from "../../api/api";
 import { apiPins } from '../../redux';
 import { connect, useDispatch } from 'react-redux';
 
@@ -125,54 +125,47 @@ const Header = (props) => {
   const [input, setInput] = useState('');
   const dispatch = useDispatch()
 
-  const getImages = (term) => {
-    return unsplash.get("https://api.unsplash.com/search/photos", {
-      params: { query: term },
-    });
-  };
-
   const onSearchSubmit = async (e) => {
     e.preventDefault();
-    await getImages(input).then((res) => {
-      let results = res.data.results;
-      let newPins = [...results];
+    // await getImages(input).then((res) => {
+    //   let results = res.data.results;
+    //   let newPins = [...results];
+    //   newPins.sort(() => {
+    //     return 0.5 - Math.random();
+    //   });
+    //   pins = newPins;
+    // });
+    // console.log("Pins search: ", pins);
+    // dispatch(apiPins(pins));
+    // return props.history.push("/home");
+
+    await resultFromApi(input).then((res) => {
+      let results = res.map((img) => {
+        return { urls: img.urls };
+      });
+
+      let newPins = [];
+      newPins = [...results];
       newPins.sort(() => {
         return 0.5 - Math.random();
       });
+
       pins = newPins;
-    });
-    console.log("Pins search: ", pins);
-    dispatch(apiPins(pins));
-    return props.history.push("/home");
-  };
-  
-  const getNewPins = () => {
-    let promises = [];
-    let pinData = [];
-    let inpit = ["piano", "code", "plane"];
-    inpit.forEach((pinTerm) => {
-      promises.push(
-        getImages(pinTerm).then((res) => {
-          let results = res.data.results;
-          pinData = pinData.concat(results);
-          pinData.sort(function (a, b) {
-            return 0.5 - Math.random();
-          });
-        })
-      );
-    });
-    return Promise.all(promises).then(() => {
-      pins = pinData;
+      setInput();
+
+      console.log("Pins từ search; ", pins);
+      dispatch(apiPins(pins));
+      return props.history.push("/home");
     });
   };
-  
 
   useEffect(async () => {
-    //Lấy ảnh đại diện
-    getNewPins().then(() => {
+    getNewPins().then((value) => {
       // console.log("Pins lúc này: ", pins);
-      dispatch(apiPins(pins));
+      dispatch(apiPins(value));
     });
+    
+    //Lấy ảnh đại diện
     userService
       .getProfile()
       .then((res) => {

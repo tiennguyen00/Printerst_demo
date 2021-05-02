@@ -17,6 +17,9 @@ import HomePage from "./pages/HomePage/HomePage";
 import { Verify } from "./pages/Register/Verify/Verify"; //Trang xác nhận sau khi Register
 import { Profile } from './pages/Profile/Profile';
 import Header from './components/Header/Header';
+import ViewerDialog from './pages/Viewer/ViewerDialog';
+import { Detail } from './pages/Detail/Detail';
+
 import {
   colorPrimary,
   colorSecondary,
@@ -46,6 +49,7 @@ const components = {
   HomePage,
   Verify,
   Profile,
+  Detail
 };
 
 
@@ -74,6 +78,7 @@ function App({ history, ...rest }) {
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
       <CssBaseline />
+      <ViewerDialog/>
       <div className="root-content full-height">
         {!isVerifyPage && <Header history={history} {...rest} />}
         <Switch>

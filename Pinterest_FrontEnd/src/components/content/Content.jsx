@@ -19,14 +19,15 @@ const Container = styled.div`
 `;
 
 const Content = () => {
-  const pins = useSelector(state => state.pinReducer.pins)
+  const pins = useSelector(state => state.pinReducer.pins);
+  console.log(pins);
 
   return (
     <Wrapper>
       <Container className="content__container">
         {pins.map((pin, index) => {
-          let { urls } = pin;
-          return <Pin key={index} urls={urls} />;
+          let { urls, id } = pin;
+          return <Pin key={index} url={urls} />;
         })}
       </Container>
     </Wrapper>
