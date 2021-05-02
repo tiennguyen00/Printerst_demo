@@ -31,10 +31,11 @@ section div {
   left: 33%;
 }
 
-section div img {
+.post-avatar {
   float: left;
   width: 60px;
   height: 60px;
+  border-radius: 50%;
 }
 
 section div textarea {
@@ -86,6 +87,7 @@ section div [type = submit] {
   border: 1px solid;
   padding: 10px;
   width: 95%;
+  box-shadow: 5px 10px #666;
 }
 
 .imgPreview{
@@ -105,7 +107,7 @@ section div [type = submit] {
 
 .post-title {
   text-align: center;
-
+  
 }
 
 .close {
@@ -118,4 +120,132 @@ section div [type = submit] {
 
 hr {
   margin: 10px;
+  border-top: 1px dashed black;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper > .postImg-form {
+  width: 50%;
+  height: 80%;
+  margin: 0 auto;
+  display: block;
+  background-color: #fff;
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.wrapper div textarea {
+  margin-top: 20px;
+  width: 100%;
+  height: 100px;
+  border: none;
+  font-family: arial;
+  resize: none;
+  outline: none;
+  padding-left: 10px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0px;
+  background-color: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 2px;
+}
+
+.wrapper div [type="submit"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 60px 0;
+
+  border: none;
+  background-color: #0077cc;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 998;
+}
+
+.file-input {
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+}
+
+.imgPreview {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.post-title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.close {
+  cursor: pointer;
+  top: 0;
+  right: 15px;
+  color: red;
+  position: absolute;
+}
+
+hr {
+  margin: 10px;
+}
+
+.submit-button {
+  cursor: pointer;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
