@@ -84,7 +84,7 @@ function ViewerDialogContent() {
 
     const dispatch = useDispatch();
 
-    const viewerState = useSelector(state => state.viewerReducer.viewer);
+    const viewerState = useSelector(state => state.viewerReducer);
     // const file = useSelector(state => getFileById(state, viewerState.fileId)) || {};
     // const file = {
     //     addDate: '2021-03-05T14:10:31.754Z',
