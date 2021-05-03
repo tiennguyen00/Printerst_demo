@@ -26,7 +26,7 @@ const Container = styled.div`
 `;
 
 const Pin = (props) => {
-  const { url } = props;
+  const { url, downloads, likes, tags, user, views } = props;
 
   const [isLike, setIsLike] = useState(false);
 
@@ -56,7 +56,14 @@ const Pin = (props) => {
         <Link
           to={{
             pathname: "detail",
-            state: { url: url },
+            state: {
+              url: url,
+              downloads: downloads,
+              likes: likes,
+              tags: tags,
+              user: user,
+              views: views,
+            },
           }}
         >
           <img src={url} alt="pin" />

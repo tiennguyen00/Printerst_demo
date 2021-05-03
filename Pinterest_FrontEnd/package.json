@@ -47,14 +47,16 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 2 chrome version",
+      "last 2 firefox version",
+      "last 2 safari version"
     ]
   },
   "devDependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "eslint": "^7.25.0",
+    "eslint-plugin-react": "^7.23.2",
     "node-sass": "^5.0.0"
   }
 }

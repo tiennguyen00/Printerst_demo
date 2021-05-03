@@ -7,19 +7,8 @@ const DetailWrapper = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   margin: 0 auto;
-`;
-
-const GoBack = styled.button`
-  z-index: 4;
-  width: 60px;
-  max-width: 265px;
-  top: 100px;
-  position: fixed;
-  left: 40px;
-  outline: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
+  height: 100%;
+  width: 100%;
 `;
 
 const ImageDetail = styled.img`
@@ -30,13 +19,15 @@ const ImageDetail = styled.img`
   margin-right: 40px;
 `;
 
+const ImageInformation = styled.div``;
+
 const ImageContainer = styled.div`
   max-width: 1200px;
-  height: 700px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
 `;
 
-export { DetailWrapper, ImageContainer, ImageDetail, GoBack };
+export { DetailWrapper, ImageContainer, ImageDetail, ImageInformation };

@@ -24,7 +24,7 @@ import {
   Container,
 } from "./styled-components";
 
-import { GoBack } from "../Detail/styled-components";
+import { GoBack } from "../../components/GoBackButton/GoBack";
 
 function Profile(props) {
   const [userProfile, setUserProfile] = useState({});

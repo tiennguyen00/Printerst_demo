@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IconButton } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
+import { Avatar } from "@material-ui/core";
 
 import { user } from "../../util/user";
 import { userService } from "../../services/user.service";
@@ -15,6 +16,7 @@ const Post = ({ isPostOpen, closePost }) => {
   const [imagePreviewUrl, setImg] = useState("");
   const [userID, setUserID] = useState("");
   const { register, handleSubmit } = useForm();
+  const [avatar, setAvatar] = useState("");
 
   const handleImageChange = (e) => {
     e.preventDefault();

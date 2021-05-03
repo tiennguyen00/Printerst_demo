@@ -15,7 +15,6 @@ ReactDOM.render(
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/forgotpassword" component={ForgotPassword} />
-      <Route name="detail" path="/detail" component={Detail} />
 
       <Route path="*" component={App} />
     </Switch>

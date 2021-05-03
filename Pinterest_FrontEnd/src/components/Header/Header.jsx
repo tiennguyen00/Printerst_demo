@@ -50,9 +50,16 @@ const Header = (props) => {
 
     await resultFromApi(input).then((res) => {
       let results = res.map((img) => {
-        return { urls: img.urls };
+        return {
+          urls: img.urls,
+          downloads: img.downloads,
+          likes: img.likes,
+          tags: img.tags,
+          user: img.user,
+          views: img.views,
+        };
       });
-
+      console.log(res);
       let newPins = [];
       newPins = [...newPins, ...results];
       newPins.sort(() => {
@@ -147,7 +154,7 @@ const Header = (props) => {
             <Avatar
               style={{ height: 30, width: 30 }}
               src={userProfile.profilePhoto}
-            ></Avatar>
+            />
           )}
         </IconButton>
         <IconButton onClick={toggleMenu}>
