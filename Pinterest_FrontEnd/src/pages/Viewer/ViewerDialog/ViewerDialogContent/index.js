@@ -13,9 +13,19 @@ import {
 } from '@material-ui/core';
 
 import { hideViewer } from '../../../../redux/viewer/viewerAction';
+import { setMessage } from '../../../../redux/message/messageActions';
+import { fileService } from '../../../../services/file.service';
+import Viewer from '../../Viewer/index';
+import Loading from '../../../../UI/Loading';
+import EmbebDialog from './EmbedDialog';
+import Dialog from '../../../../UI/Dialog';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import CodeIcon from '@material-ui/icons/Code';
+import DeleteIcon from '@material-ui/icons/Delete';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
     containerWithDetailer: {
@@ -81,10 +91,22 @@ function ViewerDialogContent() {
     const [deleteConfirmOpened, setDeleteConfirmOpened] = useState(false);
     const [embedDialogOpened, setEmbedDialogOpened] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [file, setFile] = useState({}); //Chứa nội dung của file khi click vào.
+    const [apiError, setApiError] = useState();
 
     const dispatch = useDispatch();
 
     const viewerState = useSelector(state => state.viewerReducer);
+    useEffect(() => {
+        if(viewerState.fileId) {
+            fileService.getFileById(viewerState.fileId)
+            .then(res => setFile(res[0]))
+            .catch(err => setApiError(err.message));
+        }
+       
+    }, []);
+    console.log("Files: ", file); 
+
     // const file = useSelector(state => getFileById(state, viewerState.fileId)) || {};
     // const file = {
     //     addDate: '2021-03-05T14:10:31.754Z',
@@ -123,7 +145,14 @@ function ViewerDialogContent() {
     // }, [isFullScreenViewer,  viewerState.fileId])
 
     const handleFileDelete = () => {
+        // const array = [file.link.split("=")[1], file._id]
+        fileService.deleteFileById(file._id).then(
+            
+        );
+        dispatch(setMessage('File has been deleted.', 'success'));
 
+        setDeleteConfirmOpened(false);
+        // dispatch(hideViewer());
     }
 
     const downloadLink = () => {
@@ -135,13 +164,13 @@ function ViewerDialogContent() {
     }
 
     const onLoad = () => {
-
+        setIsLoading(false);
     }
 
     const loadingComponent = isLoading
         ? (
             <div className={s.loadingWrapper}>
-                {/* <Loading /> */}
+                <Loading />
             </div>
         )
         : null;
@@ -175,8 +204,7 @@ function ViewerDialogContent() {
                     item
                 >
                     <Typography className={s.fileName} variant="h6">
-                        {/* {file?.name || content?.name} */}
-                        name
+                        {file?.originalName || ""}
                     </Typography>
                 </Grid> 
 
@@ -185,7 +213,7 @@ function ViewerDialogContent() {
                     <Grid item>
                         <Tooltip title="Embeb">
                             <IconButton className={s.icon} 
-                                // onClick
+                                onClick={() => setEmbedDialogOpened(true)}
                             >
                                 <CodeIcon style={{height: 30, width: 30}}/>
                             </IconButton>
@@ -194,20 +222,76 @@ function ViewerDialogContent() {
                 )}
 
                 {/* Copy-Link */}
-                {/* Delete */}
-                {/* Download Link */}
-                {/* Details */}
-                {/* Close */}
+
+                {!isFullScreenViewer && (
+                    <Grid item>
+                        <Tooltip title="Delete">
+                            <IconButton
+                                className={s.icon}
+                                onClick={() => setDeleteConfirmOpened(true)}
+                            >
+                                <DeleteIcon style={{height: 30, width: 30}}/>
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                )}
+
+                <Grid item>
+                    <Tooltip title="Download">
+                        <IconButton className={s.icon} onClick={downloadLink}>
+                            <GetAppIcon style={{height: 30, width: 30}}/>
+                        </IconButton>
+                    </Tooltip>  
+                </Grid>
+                {!fileNotFound && (
+                    <Grid item>
+                        <Tooltip title="Details">
+                            <IconButton className={s.icon} onClick={() => setDetailsVisible(!detailsVisible)}>
+                                <InfoOutlinedIcon style={{height: 30, width: 30}}/>
+                            </IconButton>
+                        </Tooltip>  
+                    </Grid>
+                )}
+                {!isFullScreenViewer && (
+                    <Grid item>
+                        <Tooltip title="Close">
+                            <IconButton className={s.icon} onClick={() => dispatch(hideViewer())}>
+                                <CloseIcon style={{height: 30, width: 30}}/>
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                )}
 
                 {/* <DetailPanel></DetailPanel> */}
-                {/* <EmbebDialog></EmbebDialog> */}
-                {/* <Dialog> */}
+                
+                <EmbebDialog 
+                    item={!isEmpty(file) ? file : ""}
+                    onClose={() => setEmbedDialogOpened(false)}
+                    open={embedDialogOpened}
+                />
+
+                <Dialog 
+                    okText="Yes, delete"
+                    onClose={() => setDeleteConfirmOpened(false)}
+                    onOk={handleFileDelete}
+                    open={deleteConfirmOpened}
+                    title="Are you sure?"
+                >
+                    <p>
+                        {'After deleting a file, you won\'t be able to preview or access it.'}
+                    </p>
+                </Dialog>
 
                 <Paper
                     className={clsx(s.paper, isFullScreenViewer && s.fullScreenViewerContainer)}
                     elevation={24}
                 >
-                    {/* <Viewer /> */}
+                    <Viewer 
+                       file = {file}
+                       detailsVisible = {detailsVisible}
+                       onLoad = {onLoad}
+
+                    />
                 </Paper>
 
             </Grid>

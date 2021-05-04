@@ -1,7 +1,7 @@
 import User from "../models/User";
 import UserService from "../services/UserService";
 import Log from "../core/logging";
-import googleAPI from "../services/GoogleDrive";
+import { googleAPI } from "../services/GoogleDrive";
 
 export default {
   register: async (req, res, next) => {
@@ -62,12 +62,13 @@ export default {
       });
   }, 
   post: async (req, res, err) => {
+    const originalName = req.file.originalname;
     let link;
     let {userID, status, linkFile} = req.body;
 
     googleAPI(req, res, err).then((path) => {
       link = path;
-      UserService.post(userID, status, link)
+      UserService.post(userID, status, link, originalName)
         .then((result) => {
           return res.status(200).json(result);
         })

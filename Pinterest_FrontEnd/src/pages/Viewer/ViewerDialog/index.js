@@ -15,7 +15,6 @@ function ViewerDialog() {
     const s = useStyles();
 
     const viewerState = useSelector(state => state.viewerReducer);
-    console.log("ViewerState: ", viewerState);
 
     return (
         <Dialog
