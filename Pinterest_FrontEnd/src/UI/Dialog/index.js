@@ -12,6 +12,7 @@ import {
   Grid,
 } from '@material-ui/core';
 import clsx from 'clsx';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   actionsLeft: {
@@ -74,7 +75,7 @@ function Dialog(props) {
         onClick={onClose}
         size="small"
       >
-        <Icon>close</Icon>
+        <CloseIcon/>
       </Fab>
       {props.title && (
         <DialogTitle>{title}</DialogTitle>

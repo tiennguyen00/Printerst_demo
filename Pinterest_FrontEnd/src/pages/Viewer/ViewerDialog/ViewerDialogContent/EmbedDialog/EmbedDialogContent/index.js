@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-// import copy from 'copy-to-clipboard';
+import copy from 'copy-to-clipboard';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { setMessage } from '../../../../../../redux/message/messageActions';
+
 import {
   Button,
   ButtonBase,
@@ -55,6 +57,7 @@ const useStyles = makeStyles(theme => ({
       textTransform: 'none',
     },
     textareaWrapper: {
+      width: '100%',
       paddingBottom: theme.spacing(1.5),
       paddingTop: theme.spacing(1),
     },
@@ -71,11 +74,97 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function EmbedDialogContent(props) {
+    const dispatch = useDispatch();
     const s = useStyles();
+    const [activeOption, setActiveOption] = useState(0);
+
+    const viewerURL = `${window.origin}/${props.item._id}`;
+
+    const embedScript = useMemo(() => {
+      if (activeOption === 1) {
+        const script = 'link';
+  
+        return script;
+      }
+  
+      const iframeTitle = 'Pinterest';
+  
+      const iframeAttributes = [
+        'width="100%"',
+        'height="100%"',
+        'border="0"',
+        'frameborder="0"',
+        'style="border: 0;"',
+        'allowfullscreen',
+        'mozallowfullscreen',
+        'webkitallowfullscreen',
+        'allow="vr;gyroscope;accelerometer"',
+        `title="${iframeTitle}"`,
+      ].join(' ');
+  
+      return `<iframe src="${viewerURL}" ${iframeAttributes} />`;
+    }, [activeOption, props.item._id, viewerURL]);
+
+    const handleCopyScript = () => {
+      copy(embedScript);
+      dispatch(setMessage('Link copied to your clipboard', 'success'));
+    };
+  
+
     return (
-      <div>
-        this is a embebdialogcontent
-      </div>
+      <Grid container direction="column">
+        <Grid container item spacing={2}>
+          <Grid className={s.embedOptionWrapper} item>
+            <ButtonBase className={s.embedOptionButton} disableRipple onClick={() => setActiveOption(0)}>
+              <Paper className={clsx(s.embedOption, activeOption === 0 && s.embedOptionActive)}>
+                <Typography variant="body2">Embed a Content Viewer directly on your page.</Typography>
+              </Paper>
+            </ButtonBase> 
+          </Grid>
+
+          <Grid className={s.embedOptionWrapper} item>
+            <ButtonBase
+              className={s.embedOptionButton}
+              disableRipple
+              onClick={() => setActiveOption(1)}
+            >
+              <Paper
+                className={clsx(s.embedOption, activeOption === 1 && s.embedOptionActive)}
+              >
+                <Typography variant="body2">Embed a Content Thumbnail that will open a Pinterest Viewer when clicked.</Typography>
+              </Paper>
+            </ButtonBase>
+          </Grid>
+          <Grid className={s.textareaWrapper} item>
+            <TextField
+              classes={{
+                root: s.textFieldRoot,
+              }}
+              InputProps={{
+                readOnly: true,
+              }}
+              multiline
+              placeholder="Embed Script"
+              rowsMax={3}
+              value={embedScript}
+              variant="outlined"
+            />
+            <Button
+              classes={{
+                label: s.linkButtonLabel,
+              }}
+              className={s.linkButton}
+              color="primary"
+              disableElevation
+              disableRipple
+              onClick={() => handleCopyScript()}
+            >
+              Copy Embed Script
+            </Button>
+          </Grid>
+        </Grid>
+
+      </Grid>
     )
 
 }

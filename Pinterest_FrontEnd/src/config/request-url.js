@@ -8,6 +8,7 @@ const getPhotos = 'api/user/getPhotos';
 
 const getFileById = 'api/file/getFileById';
 const deleteFileById = 'api/file/deleteFileById';
+const getDownloadUrl = '/api/file/download';
 
 export const requestUrl = {
     auth,
@@ -18,5 +19,6 @@ export const requestUrl = {
     post,
     getPhotos,
     getFileById,
-    deleteFileById
+    deleteFileById,
+    getDownloadUrl
 };

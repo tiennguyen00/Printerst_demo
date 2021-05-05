@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         background: theme.palette.common.black,
-        margin: 0,
+        margin: '130px',
         maxWidth: 'initial',
         overflow: 'hidden',
         transform: `translateY(${theme.spacing(3)}px)`,
@@ -149,14 +149,14 @@ function ViewerDialogContent() {
         fileService.deleteFileById(file._id).then(
             
         );
-        dispatch(setMessage('File has been deleted.', 'success'));
 
+        dispatch(setMessage('File has been deleted.', 'success'));
         setDeleteConfirmOpened(false);
-        // dispatch(hideViewer());
+        dispatch(hideViewer());
     }
 
     const downloadLink = () => {
-
+        //Gọi api download ở đây.
     }
 
     const handleCopyText = (url) => {
@@ -281,20 +281,20 @@ function ViewerDialogContent() {
                         {'After deleting a file, you won\'t be able to preview or access it.'}
                     </p>
                 </Dialog>
-
-                <Paper
+                {loadingComponent}
+            
+            </Grid>
+            <Paper
                     className={clsx(s.paper, isFullScreenViewer && s.fullScreenViewerContainer)}
                     elevation={24}
                 >
                     <Viewer 
                        file = {file}
-                       detailsVisible = {detailsVisible}
-                       onLoad = {onLoad}
+                    //    detailsVisible = {detailsVisible}
+                    //    onLoad = {onLoad}
 
                     />
-                </Paper>
-
-            </Grid>
+            </Paper>
         </>
     )
 }

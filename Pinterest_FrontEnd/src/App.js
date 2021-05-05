@@ -19,6 +19,7 @@ import { Profile } from './pages/Profile/Profile';
 import Header from './components/Header/Header';
 import ViewerDialog from './pages/Viewer/ViewerDialog';
 import { Detail } from './pages/Detail/Detail';
+import Message from './pages/Message/index';
 
 import {
   colorPrimary,
@@ -79,6 +80,7 @@ function App({ history, ...rest }) {
       <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <ViewerDialog/>
+      <Message/>
       <div className="root-content full-height">
         {!isVerifyPage && <Header history={history} {...rest} />}
         <Switch>

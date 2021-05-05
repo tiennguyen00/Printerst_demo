@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import MemoizedViewer from './memoizedViewer';
 import { getFileFormat } from '../../../util/helper/index';
+import Loading from '../../../UI/Loading/index';
+import ImageViewer from './ImageViewer';
 
 const IMAGE_FORMATS = ['GIF', 'JPEG', 'JPG', 'PNG', 'TIFF'];
-
-
 const useStyles = makeStyles(() => ({
     loadingWrapper: {
       height: '100%',
@@ -19,31 +19,19 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ImageViewer = React.lazy(() => import('./ImageViewer'));
+// const ImageViewer = React.lazy(() => import('./ImageViewer'));
 
 function Viewer(props) {
-    const [isLoading, setIsLoading] = useState(true);
-    const s = useStyles();
-    const { file } = props;
-    const readyForPreview = true;
-    const fileFormat = getFileFormat(file.originalName);
+  const [isLoading, setIsLoading] = useState(true);
+  const s = useStyles();
+  const { file } = props;
+  const readyForPreview = true;
 
-    const viewer = useRef(); //???
-
-
-    useEffect(() => {
-
-      const isFileSuported = [...IMAGE_FORMATS].includes(fileFormat);
-
-      if(IMAGE_FORMATS.includes(fileFormat) && readyForPreview) {
-        viewer.current = <ImageViewer />
-      }
-
-    })
-
-    return (
-      <></>
-    )
+  return (
+    <>
+      <ImageViewer file={props.file}/>
+    </>
+  )
 
 }
 

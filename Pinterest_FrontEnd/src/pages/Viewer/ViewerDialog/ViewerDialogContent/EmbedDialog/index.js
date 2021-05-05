@@ -16,8 +16,14 @@ function EmbedDialog(props) {
     const s = useStyles();
 
     return(
-        <Dialog>
-            <EmbedDialogContent />
+        <Dialog
+            classes={{ paper: s.dialogPaper }}
+            hideDialogActions
+            onClose={props.onClose}
+            open={props.open}
+            title="Embed Content"
+        >
+            <EmbedDialogContent item={props.item} />
         </Dialog>
     )
 }
