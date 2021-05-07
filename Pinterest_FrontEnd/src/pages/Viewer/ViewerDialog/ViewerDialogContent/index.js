@@ -19,6 +19,7 @@ import Viewer from '../../Viewer/index';
 import Loading from '../../../../UI/Loading';
 import EmbebDialog from './EmbedDialog';
 import Dialog from '../../../../UI/Dialog';
+import DetailsPanel from '../../Viewer/DetailsPanel/index';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import CodeIcon from '@material-ui/icons/Code';
@@ -105,7 +106,6 @@ function ViewerDialogContent() {
         }
        
     }, []);
-    console.log("Files: ", file); 
 
     // const file = useSelector(state => getFileById(state, viewerState.fileId)) || {};
     // const file = {
@@ -261,8 +261,6 @@ function ViewerDialogContent() {
                         </Tooltip>
                     </Grid>
                 )}
-
-                {/* <DetailPanel></DetailPanel> */}
                 
                 <EmbebDialog 
                     item={!isEmpty(file) ? file : ""}
@@ -284,6 +282,10 @@ function ViewerDialogContent() {
                 {loadingComponent}
             
             </Grid>
+            <DetailsPanel 
+                    file={file}
+                    visible={detailsVisible}
+                />
             <Paper
                     className={clsx(s.paper, isFullScreenViewer && s.fullScreenViewerContainer)}
                     elevation={24}

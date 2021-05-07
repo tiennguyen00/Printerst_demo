@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch } from 'react-redux';
 import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
@@ -11,12 +12,14 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import Post from '../../components/Post/Post';
+import {getCurrentUser} from '../../redux/user/userAction';
 
 import Image1 from '../../components/image1/image1';
 import map from "lodash/map";
 import "./Profile.scss";
 
 function Profile(props) {
+  const dispatch = useDispatch();
   const [isPostOpen, setPostOpen] = useState(false); // dùng để mở Post
   const defaultNumberToRender = 5; //Số lượng hình ảnh mặc định đc render;
   const [userProfile, setUserProfile] = useState({});
@@ -36,6 +39,7 @@ function Profile(props) {
       .getProfile()
       .then((res) => {
         setUserProfile(res);
+        dispatch(getCurrentUser(res));
       })
       .catch((err) => {
         if (err === 400) setApiError("Load fail!!!");
