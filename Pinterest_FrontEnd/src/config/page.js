@@ -19,6 +19,11 @@ const pinterserScreens = [
         name: 'PROFILE',
         path: '/profile',
         component: 'Profile'
+    },
+    {
+        name: 'DETAIL',
+        path: '/detail',
+        component: 'Detail'
     }
 ]
 

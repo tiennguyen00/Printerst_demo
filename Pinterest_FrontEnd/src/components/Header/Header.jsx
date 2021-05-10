@@ -21,6 +21,7 @@ import { pinterestScreenRight } from "../../config/page";
 import { authService } from "../../services/auth.service";
 import { userService } from "../../services/user.service";
 
+<<<<<<< HEAD
 import { user } from "../../util/user";
 import PropTypes from "prop-types";
 import get from "lodash/get";
@@ -30,6 +31,16 @@ import unsplash from "../../api/unsplash";
 import { apiPins } from "../../redux";
 import { connect } from "react-redux";
 import axios from "axios";
+=======
+import { user } from '../../util/user';
+import PropTypes from 'prop-types';
+import get from 'lodash/get';
+import map from 'lodash/map';
+import './Header.scss';
+import { resultFromApi, getNewPins } from "../../api/api";
+import { apiPins } from '../../redux';
+import { connect, useDispatch } from 'react-redux';
+>>>>>>> badd24d583b62b797d385d77559ae0af07222b84
 
 const Wrapper = styled.div`
   display: flex;
@@ -123,6 +134,7 @@ const Header = (props) => {
   const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
   // const [pins, setNewPins] = useState([]);
   let pins = [];
+<<<<<<< HEAD
   const [input, setInput] = useState("");
 
   const getImages = (term) => {
@@ -130,6 +142,10 @@ const Header = (props) => {
       params: { query: term },
     });
   };
+=======
+  const [input, setInput] = useState('');
+  const dispatch = useDispatch()
+>>>>>>> badd24d583b62b797d385d77559ae0af07222b84
 
   const getImagesFromPixabay = (term) => {
     return axios.get(
@@ -142,13 +158,31 @@ const Header = (props) => {
 
   const onSearchSubmit = async (e) => {
     e.preventDefault();
-    await getImages(input).then((res) => {
-      let results = res.data.results;
-      let newPins = [...results];
+    // await getImages(input).then((res) => {
+    //   let results = res.data.results;
+    //   let newPins = [...results];
+    //   newPins.sort(() => {
+    //     return 0.5 - Math.random();
+    //   });
+    //   pins = newPins;
+    // });
+    // console.log("Pins search: ", pins);
+    // dispatch(apiPins(pins));
+    // return props.history.push("/home");
+
+    await resultFromApi(input).then((res) => {
+      let results = res.map((img) => {
+        return { urls: img.urls };
+      });
+
+      let newPins = [];
+      newPins = [...results];
       newPins.sort(() => {
         return 0.5 - Math.random();
       });
+
       pins = newPins;
+<<<<<<< HEAD
     });
     console.log("Pins search: ", pins);
     props.apiPins(pins);
@@ -187,15 +221,23 @@ const Header = (props) => {
     });
     return Promise.all(promises).then(() => {
       pins = pinData;
+=======
+      setInput();
+
+      console.log("Pins từ search; ", pins);
+      dispatch(apiPins(pins));
+      return props.history.push("/home");
+>>>>>>> badd24d583b62b797d385d77559ae0af07222b84
     });
   };
 
   useEffect(async () => {
-    //Lấy ảnh đại diện
-    getNewPins().then(() => {
+    getNewPins().then((value) => {
       // console.log("Pins lúc này: ", pins);
-      props.apiPins(pins);
+      dispatch(apiPins(value));
     });
+    
+    //Lấy ảnh đại diện
     userService
       .getProfile()
       .then((res) => {
@@ -315,6 +357,7 @@ Header.defaultProps = {
 };
 
 //Phan cua redux
+<<<<<<< HEAD
 const mapStateToProps = (state) => {
   return {
     pins: state.pins,
@@ -325,5 +368,18 @@ const mapDispatchToProps = (dispatch) => {
     apiPins: (pins) => dispatch(apiPins(pins)),
   };
 };
+=======
+// const mapStateToProps = state => {
+//   return {
+//     pins: state.pins
+//   }
+// }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     apiPins: (pins) => dispatch(apiPins(pins))
+//   }
+// }
+>>>>>>> badd24d583b62b797d385d77559ae0af07222b84
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

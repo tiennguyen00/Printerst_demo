@@ -6,6 +6,10 @@ const getProfile = 'api/user/getProfile';
 const post = 'api/user/post';
 const getPhotos = 'api/user/getPhotos';
 
+const getFileById = 'api/file/getFileById';
+const deleteFileById = 'api/file/deleteFileById';
+const getDownloadUrl = '/api/file/download';
+
 export const requestUrl = {
     auth,
     register,
@@ -13,5 +17,8 @@ export const requestUrl = {
     forgotPassword,
     getProfile,
     post,
-    getPhotos
+    getPhotos,
+    getFileById,
+    deleteFileById,
+    getDownloadUrl
 };

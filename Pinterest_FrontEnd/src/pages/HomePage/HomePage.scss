@@ -23,6 +23,16 @@
   border-radius: 50%;
 }
 
+.scroll-top-btn {
+  position: -webkit-sticky;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 999;
+  background-color: white;
+  border-radius: 50%;
+}
+
 .parentDisable {
   height: 100%;
   width: 100%;

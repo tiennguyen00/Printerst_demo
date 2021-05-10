@@ -24,13 +24,13 @@ const HomePage = (props) => {
       <Content pins={props.pins} />
       <div className="post-btn">
         <IconButton onClick={() => setPostOpen(!isPostOpen)}>
-          <AddIcon fontSize="large" style={{ color: "black" }}/>
+          <AddIcon fontSize="large"/>
         </IconButton>
       </div>
 
       <div className="scroll-top-btn">
-        <IconButton onClick={() => scollTop()}>
-          <ArrowUpwardIcon fontSize="large" style={{ color: "black" }}/>
+        <IconButton >
+          <ArrowUpwardIcon fontSize="large"/>
         </IconButton>
       </div>
 

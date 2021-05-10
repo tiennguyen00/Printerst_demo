@@ -15,8 +15,12 @@ import { user } from "./util/user"; //Liên quan đến token của user trên l
 import { NotFound } from "./components/not-found/NotFound";
 import HomePage from "./pages/HomePage/HomePage";
 import { Verify } from "./pages/Register/Verify/Verify"; //Trang xác nhận sau khi Register
-import { Profile } from "./pages/Profile/Profile";
-import Header from "./components/Header/Header";
+import { Profile } from './pages/Profile/Profile';
+import Header from './components/Header/Header';
+import ViewerDialog from './pages/Viewer/ViewerDialog';
+import { Detail } from './pages/Detail/Detail';
+import Message from './pages/Message/index';
+
 import {
   colorPrimary,
   colorSecondary,
@@ -46,6 +50,7 @@ const components = {
   HomePage,
   Verify,
   Profile,
+  Detail
 };
 
 function App({ history, ...rest }) {
@@ -70,13 +75,15 @@ function App({ history, ...rest }) {
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="root-content full-height">
-          {!isVerifyPage && <Header history={history} {...rest} />}
-          <Switch>
-            <Route exact path="/" render={() => redirectHomePage()} />
-            {map(pagesHasPermission, (page) => {
-              return (
+      <CssBaseline />
+      <ViewerDialog/>
+      <Message/>
+      <div className="root-content full-height">
+        {!isVerifyPage && <Header history={history} {...rest} />}
+        <Switch>
+            <Route exact path='/' render={() => redirectHomePage()} />
+            {map(pagesHasPermission, page => {
+              return(
                 <PrivateRoute
                   key={page.component}
                   path={page.path}

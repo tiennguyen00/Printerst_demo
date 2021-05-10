@@ -7,7 +7,11 @@ import { user } from "../../util/user";
 import { userService } from "../../services/user.service";
 
 import "./Post.scss";
+<<<<<<< HEAD
 import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-conponents";
+=======
+import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-components";
+>>>>>>> badd24d583b62b797d385d77559ae0af07222b84
 
 const Post = ({ isPostOpen, closePost }) => {
   const [file, setFile] = useState("");

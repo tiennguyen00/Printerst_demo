@@ -6,6 +6,7 @@ export const PostSchema = new mongoose.Schema(
     status: { type: String },
     link: { type: String },
     count: { type: Number, default: 0 }, //đếm lượt react
+    originalName: { type: String, default: "hi" }
   },
   {
     timestamps: true,
