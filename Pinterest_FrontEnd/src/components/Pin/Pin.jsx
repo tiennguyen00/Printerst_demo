@@ -1,11 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import { useDispatch } from 'react-redux';
-import { showViewer } from '../../redux';
-import { Link } from 'react-router-dom';
-
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Link } from "react-router-dom";
 import "./Pin.scss";
 
 const Wrapper = styled.div`
@@ -28,17 +25,9 @@ const Container = styled.div`
 `;
 
 const Pin = (props) => {
-  let { url } = props;
-  const [isLike, setIsLike] = useState(false);
-  const dispatch = useDispatch();
+  const { url, downloads, likes, tags, user, views } = props;
 
-  const test = () => {
-    dispatch(showViewer(props.id));
-  }
-  
-  const save = () => {
-    console.log('save');
-  };
+  const [isLike, setIsLike] = useState(false);
 
   return (
     <Wrapper>
@@ -66,7 +55,14 @@ const Pin = (props) => {
         <Link
           to={{
             pathname: "detail",
-            state: { url: url },
+            state: {
+              url: url,
+              downloads: downloads,
+              likes: likes,
+              tags: tags,
+              user: user,
+              views: views,
+            },
           }}
         >
           <img src={url} alt="pin" />

@@ -150,7 +150,7 @@ function ViewerDialogContent() {
             
         );
 
-        dispatch(setMessage('File has been deleted.', 'success'));
+        dispatch(setMessage('Photo has been deleted.', 'success'));
         setDeleteConfirmOpened(false);
         dispatch(hideViewer());
     }

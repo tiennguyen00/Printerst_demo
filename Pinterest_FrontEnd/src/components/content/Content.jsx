@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   height: 100%;
   background-color: white;
   display: flex;
-  margin-top: 15px;
+  margin-top: 100px;
   justify-content: center;
 `;
 
@@ -26,8 +26,7 @@ const Content = () => {
     <Wrapper>
       <Container className="content__container">
         {pins.map((pin, index) => {
-          let { urls, id } = pin;
-          return <Pin key={index} url={urls} />;
+          return <Pin key={index} url={pin.urls} user={pin.user} downloads={pin.downloads} likes={pin.likes} tags={pin.tags} views={pin.views}/>;
         })}
       </Container>
     </Wrapper>

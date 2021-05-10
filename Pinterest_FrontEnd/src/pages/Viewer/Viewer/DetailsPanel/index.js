@@ -22,32 +22,32 @@ const useStyles = makeStyles(theme => ({
     },
     row: {
         marginTop: '10px'
+    },
+    title: {
+        marginBottom: '20px'
     }
    
 }));
   
 function DetailsPanel(props) {
-    console.log('props: ', props);
     const s = useStyles();
     const user = useSelector(state => state.userReducer.user);
-    console.log('user: ', user);
     
 
     return(
         <div className={clsx(s.root, props.visible && user._id && s.visible)}>
-            <h1>Details:</h1>
-           <div className="row">Uploaded:</div>
-            {` ${moment(props.file.createdAt).format('MM.DD.YYYY')}`}
+            <h1 className={s.title}>Details:</h1>
 
-            <div className={s.row}>By:</div>
-            {` ${user.firstName} ${user.lastName}`}
+            <div className={s.row}>Uploaded:{` ${moment(props.file.createdAt).format('DD.MM.YYYY')}`}</div>
+
+            <div className={s.row}>By: {` ${user.firstName} ${user.lastName}`}</div>
 
             {props.file.status !== undefined && (
                 <div className={s.row}>Status: {props.file.status}</div>
             )}
 
             {props.file.updatedAt !== undefined && (
-                <div className={s.row}>Last modified: {` ${moment(props.file.updatedAt).format('MM.DD.YYYY')}`}</div>
+                <div className={s.row}>Last modified: {` ${moment(props.file.updatedAt).format('DD.MM.YYYY')}`}</div>
             )}
 
             {props.file.size !== undefined && (
