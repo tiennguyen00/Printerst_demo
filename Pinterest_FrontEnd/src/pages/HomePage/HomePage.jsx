@@ -17,7 +17,7 @@ const HomePage = (props) => {
   };
 
   return (
-    <div className="homepage">
+    <div className="homepage" style={{ paddingTop: "80px" }}>
       <Content pins={props.pins} />
 
       <div className="post-btn">

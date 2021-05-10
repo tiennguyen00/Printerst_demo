@@ -8,7 +8,6 @@ const Content = () => {
 
   return (
     <Wrapper>
-      <div style={{ paddingTop: "80px", backgroundColor: "transparent" }}></div>
       <Container className="content__container">
         {pins.map((pin, index) => {
           return (

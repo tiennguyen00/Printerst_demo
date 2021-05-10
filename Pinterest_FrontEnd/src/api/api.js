@@ -40,7 +40,7 @@ const resultFromApi = async (result) => {
       params: {
         key: "21224893-c61153f1d9b5a52314e204800",
         q: result,
-        per_page: 100,
+        per_page: 150,
       },
     });
 
@@ -67,7 +67,7 @@ const getNewPins = async () => {
   let pinDataFromUnsplash = [];
   let pinDataFromPixabay = [];
   let pinData;
-  let sampleInput = ["piano", "girl", "plane"];
+  let sampleInput = ["coin", "landscape", "dog"];
 
   try {
     for (let term in sampleInput) {
@@ -95,7 +95,7 @@ const getNewPins = async () => {
         params: {
           key: "21224893-c61153f1d9b5a52314e204800",
           q: term,
-          per_page: 100,
+          per_page: 150,
         },
       });
 
@@ -115,6 +115,7 @@ const getNewPins = async () => {
     console.log(err.message);
   }
   pinData = [...pinDataFromUnsplash, ...pinDataFromPixabay];
+
   return pinData;
 };
 

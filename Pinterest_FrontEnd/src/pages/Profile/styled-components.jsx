@@ -10,7 +10,7 @@ const Header = styled.div`
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  padding: 30px 20px 20px;
+  padding: 100px 20px 20px;
 `;
 
 const AvatarContainer = styled.div`

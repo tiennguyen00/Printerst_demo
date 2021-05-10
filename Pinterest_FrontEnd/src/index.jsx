@@ -7,7 +7,6 @@ import { Loading } from "./components/loading/Loading";
 import { Register } from "./pages/Register/Register";
 import { Login } from "./pages/Login/Login";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
-import { Detail } from "./pages/Detail/Detail";
 
 ReactDOM.render(
   <Router>

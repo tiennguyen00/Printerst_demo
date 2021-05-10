@@ -66,59 +66,61 @@ function Profile(props) {
   }, []);
 
   return (
-    <Container>
-      <p className="error">{apiError}</p>
-      <Header>
-        <GoBack onClick={props.history.goBack}>
-          <ArrowBackIcon />
-        </GoBack>
+    <div style={{ height: "100vh" }}>
+      <Container>
+        <p className="error">{apiError}</p>
+        <Header>
+          <GoBack onClick={props.history.goBack}>
+            <ArrowBackIcon />
+          </GoBack>
 
-        <AvatarContainer>
-          <Avatar src={userProfile.profilePhoto} />
-        </AvatarContainer>
+          <AvatarContainer>
+            <Avatar src={userProfile.profilePhoto} />
+          </AvatarContainer>
 
-        <Info>
-          <UserInfo>
-            <UserInfoText>
-              {userProfile.firstName} {userProfile.lastName}
-            </UserInfoText>
-            <UserInfoText>{userProfile.email}</UserInfoText>
-          </UserInfo>
+          <Info>
+            <UserInfo>
+              <UserInfoText>
+                {userProfile.firstName} {userProfile.lastName}
+              </UserInfoText>
+              <UserInfoText>{userProfile.email}</UserInfoText>
+            </UserInfo>
 
-          <AccountInfo>
-            <AccountInfoItem>
-              <AccountInfoText>
-                <strong>0</strong>
-              </AccountInfoText>
-              <AccountInfoText>Followers</AccountInfoText>
-            </AccountInfoItem>
-            <AccountInfoItem>
-              <AccountInfoText>
-                <strong>0</strong>
-              </AccountInfoText>
-              <AccountInfoText>Reacts</AccountInfoText>
-            </AccountInfoItem>
-            <AccountInfoItem>
-              <AccountInfoText>
-                <strong>{userPhotos.length}</strong>
-              </AccountInfoText>
-              <AccountInfoText>Pictures</AccountInfoText>
-            </AccountInfoItem>
-          </AccountInfo>
-        </Info>
-      </Header>
+            <AccountInfo>
+              <AccountInfoItem>
+                <AccountInfoText>
+                  <strong>0</strong>
+                </AccountInfoText>
+                <AccountInfoText>Followers</AccountInfoText>
+              </AccountInfoItem>
+              <AccountInfoItem>
+                <AccountInfoText>
+                  <strong>0</strong>
+                </AccountInfoText>
+                <AccountInfoText>Reacts</AccountInfoText>
+              </AccountInfoItem>
+              <AccountInfoItem>
+                <AccountInfoText>
+                  <strong>{userPhotos.length}</strong>
+                </AccountInfoText>
+                <AccountInfoText>Pictures</AccountInfoText>
+              </AccountInfoItem>
+            </AccountInfo>
+          </Info>
+        </Header>
 
-      <HR />
+        <HR />
 
-      <Content>
-        <h1>My pictures </h1>
-        <ImageContainer>
-          {map(userPhotos, (photo) => {
-            return <UserImage link={photo.link} />;
-          })}
-        </ImageContainer>
-      </Content>
-    </Container>
+        <Content>
+          <h1>My pictures </h1>
+          <ImageContainer>
+            {map(userPhotos, (photo) => {
+              return <UserImage link={photo.link} />;
+            })}
+          </ImageContainer>
+        </Content>
+      </Container>
+    </div>
   );
 }
 

@@ -7,9 +7,10 @@ const Wrapper = styled.div`
   background-color: white;
   color: black;
   top: 0;
-  position: sticky;
+  position: fixed;
   z-index: 997;
-  height: 80px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
 `;
 
 const LogoWrapper = styled.div`
@@ -33,6 +34,7 @@ const Button = styled.div`
 
 const HomePageButton = styled(Button)`
   background-color: rgb(17, 17, 17);
+  margin-right: 5px;
 
   a {
     text-decoration: none;
