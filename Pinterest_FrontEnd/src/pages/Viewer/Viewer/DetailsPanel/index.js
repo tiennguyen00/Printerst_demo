@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import { Typography, Grid } from '@material-ui/core';
 import clsx from 'clsx';
 import moment from 'moment';
+import CreateIcon from '@material-ui/icons/Create';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles(theme => ({
         top: 0,
         width: 0,
         zIndex: 100,
+        paddingLeft: '10px'
     },
     visible: {
         width: 250,
@@ -25,6 +27,13 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         marginBottom: '20px'
+    },
+    button: {
+        backgroundColor: '#4d1a1f',
+        marginTop: '10px',
+        padding: '10px',
+        color: 'white',
+        borderRadius: '8px'
     }
    
 }));
@@ -32,7 +41,6 @@ const useStyles = makeStyles(theme => ({
 function DetailsPanel(props) {
     const s = useStyles();
     const user = useSelector(state => state.userReducer.user);
-    
 
     return(
         <div className={clsx(s.root, props.visible && user._id && s.visible)}>
@@ -40,10 +48,12 @@ function DetailsPanel(props) {
 
             <div className={s.row}>Uploaded:{` ${moment(props.file.createdAt).format('DD.MM.YYYY')}`}</div>
 
-            <div className={s.row}>By: {` ${user.firstName} ${user.lastName}`}</div>
+            {props.file.photoOfUser === "" ? (
+                <div className={s.row}>By: {` ${user.firstName} ${user.lastName}`}</div>
+            ) : (<div className={s.row}>By: {` ${props.file.photoOfUser}`}</div>)}
 
             {props.file.status !== undefined && (
-                <div className={s.row}>Status: {props.file.status}</div>
+                <div className={s.row}>Status: {props.file.status} <CreateIcon style={{height: 20, width: 30}}/></div>
             )}
 
             {props.file.updatedAt !== undefined && (
@@ -53,6 +63,8 @@ function DetailsPanel(props) {
             {props.file.size !== undefined && (
                 <div className={s.row}>Size: {props.file.size || 0}</div>
             )}
+
+            <button className={s.button}>Save</button>
 
         </div>
     )

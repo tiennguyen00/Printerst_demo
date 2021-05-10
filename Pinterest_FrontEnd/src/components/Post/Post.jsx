@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { IconButton } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 import { user } from "../../util/user";
 import { userService } from "../../services/user.service";
+import { setMessage } from '../../redux/message/messageActions';
 
 import "./Post.scss";
 import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-components";
@@ -14,6 +16,7 @@ const Post = ({ isPostOpen, closePost }) => {
   const [imagePreviewUrl, setImg] = useState("");
   const [userID, setUserID] = useState("");
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -40,14 +43,20 @@ const Post = ({ isPostOpen, closePost }) => {
 
   const onSubmit = (data) => {
     const { status } = data;
-    console.log(data)
 
     let formData = new FormData();
     formData.append("userID", userID);
     formData.append("status", status);
     formData.append("linkFile", file);
 
-    userService.post(formData);
+    userService.post(formData)
+      .then(() => {
+        dispatch(setMessage('Uploaded!!.', 'success'));
+        closePost();
+      })
+      .catch(err => {
+        console.log("Err: ", err.message);
+      });
   };
 
   let $imagePreview = imagePreviewUrl ? (

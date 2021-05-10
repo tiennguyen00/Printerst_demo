@@ -85,6 +85,17 @@ export default {
                     return Promise.reject(new ServiceError(500, error.message, error));
                 });
     },
+    postWithTicket: async (userID, link, originalName, photoOfUser) => {
+        let post = new Post({userID, link, originalName, photoOfUser});
+            return post.save()
+                    .then(async (result) => {
+                         return JSON.parse(JSON.stringify(result));
+                    })
+                    .catch(error => {
+                        return Promise.reject(new ServiceError(500, error.message, error));
+                    });
+    },
+
     getPhotos: async (userId) => {
         
         return Post.find({userID: userId}).then(async (photos) => {

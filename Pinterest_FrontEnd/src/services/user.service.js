@@ -7,8 +7,11 @@ const post = (data) => requestService.post(requestUrl.post, data);
 
 const getPhotos = () => requestService.get(requestUrl.getPhotos);
 
+const postWithTicket = (data) => requestService.post(requestUrl.postWithTicket, data);
+
 export const userService = {
     getProfile,
     post, //Post khi user post ảnh mới lên
-    getPhotos
+    getPhotos,
+    postWithTicket
 }

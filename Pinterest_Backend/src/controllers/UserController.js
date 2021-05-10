@@ -78,6 +78,16 @@ export default {
         });
     });
   },
+  postWithTicket: async (req, res, err) => {
+    UserService.postWithTicket(req.user._id, req.body.linkFile, req.body.originalName, req.body.photoOfUser)
+        .then((result) => {
+          return res.status(200).json(result);
+        })
+        .catch((error) => {
+          Log.error("Post", error.message, error);
+          return res.status(error.code).json(error);
+        });
+  },
   getPhotos: async (req, res, err) => {
     const user = req.user;
     UserService.getPhotos(user._id)
