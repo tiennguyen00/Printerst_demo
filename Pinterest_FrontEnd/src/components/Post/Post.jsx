@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { IconButton } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
-import { Avatar } from "@material-ui/core";
 
 import { user } from "../../util/user";
 import { userService } from "../../services/user.service";
+import { setMessage } from '../../redux/message/messageActions';
 
 import "./Post.scss";
-import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-conponents";
+import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-components";
 
 const Post = ({ isPostOpen, closePost }) => {
   const [file, setFile] = useState("");
-  const [fileUploaded, setFileUploaded] = useState("");
   const [imagePreviewUrl, setImg] = useState("");
   const [userID, setUserID] = useState("");
   const { register, handleSubmit } = useForm();
-  const [avatar, setAvatar] = useState("");
+  const dispatch = useDispatch();
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -29,9 +29,8 @@ const Post = ({ isPostOpen, closePost }) => {
       setImg(reader.result);
     };
 
-    setFileUploaded(e.target.files[0]);
+    setFile(e.target.files[0])
     reader.readAsDataURL(file);
-    console.log(setFileUploaded(""));
   };
 
   useEffect(() => {
@@ -48,20 +47,45 @@ const Post = ({ isPostOpen, closePost }) => {
     let formData = new FormData();
     formData.append("userID", userID);
     formData.append("status", status);
-    formData.append("linkFile", fileUploaded);
+    formData.append("linkFile", file);
 
-    userService.post(formData);
+    userService.post(formData)
+      .then(() => {
+        dispatch(setMessage('Uploaded!!.', 'success'));
+        closePost();
+      })
+      .catch(err => {
+        console.log("Err: ", err.message);
+      });
   };
 
   let $imagePreview = imagePreviewUrl ? (
     <div
       className="imgPreview"
-      style={{ border: "1px solid black", borderRadius: "20px" }}
+      style={{ border: "1px solid black", borderRadius: "20px", position: "relative" }}
     >
       <img
         src={imagePreviewUrl}
         alt="Preview"
-        style={{ borderRadius: "20px" }}
+        style={{ borderRadius: "20px", position: "absolute", left: 0, objectFit: "cover"}}
+      />
+      <input
+        id="file-input"
+        type="file"
+        accept="image/bmp,image/gif,image/jpeg,image/png,image/tiff,image/webp"
+        aria-hidden="true"
+        style={{
+          cursor: "pointer",
+          width: "100%",
+          height: "100%",
+          opacity: "0",
+          zIndex: '999',
+          position: 'absolute',
+          left: 0
+        }}
+        name="file"
+        ref={register}
+        onChange={(e) => handleImageChange(e)}
       />
     </div>
   ) : (
@@ -132,7 +156,7 @@ const Post = ({ isPostOpen, closePost }) => {
 
             <ContentContainer>
               <ImgWrapper>
-                {$imagePreview} {$showInput}
+              {$showInput} {$imagePreview}
               </ImgWrapper>
 
               <FormWrapper className="form">
@@ -170,7 +194,7 @@ const Post = ({ isPostOpen, closePost }) => {
                   }}
                 />
 
-                <input className="submit-button" type="submit" value="Post" />
+                <input className="submit-button" type="submit" value="post" />
               </FormWrapper>
             </ContentContainer>
           </div>

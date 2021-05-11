@@ -4,7 +4,12 @@ const updateRegisterProfile = '/api/user/updateRegisterProfile';
 const forgotPassword = '/api/user/forgotPassword';
 const getProfile = 'api/user/getProfile';
 const post = 'api/user/post';
+const postWithTicket = 'api/user/postWithTicket';
 const getPhotos = 'api/user/getPhotos';
+
+const getFileById = 'api/file/getFileById';
+const deleteFileById = 'api/file/deleteFileById';
+const getDownloadUrl = '/api/file/download';
 
 export const requestUrl = {
     auth,
@@ -13,5 +18,9 @@ export const requestUrl = {
     forgotPassword,
     getProfile,
     post,
-    getPhotos
+    postWithTicket,
+    getPhotos,
+    getFileById,
+    deleteFileById,
+    getDownloadUrl
 };

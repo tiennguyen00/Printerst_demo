@@ -1,4 +1,5 @@
 import map from "lodash/map";
+
 const PinterestScreens = [
   {
     name: "HOME",

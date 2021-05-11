@@ -30,5 +30,6 @@ router.post("/forgotPassword", controller.forgotPassword);
 router.get("/getProfile", JWTMiddleware, controller.getProfile);
 router.post("/post", JWTMiddleware, upload.single("linkFile"), controller.post);
 router.get("/getPhotos", JWTMiddleware, controller.getPhotos);
+router.post("/postWithTicket", upload.single("linkFile"), JWTMiddleware, controller.postWithTicket);
 
 export default router;

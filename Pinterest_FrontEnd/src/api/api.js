@@ -95,7 +95,11 @@ const getNewPins = async () => {
         params: {
           key: "21224893-c61153f1d9b5a52314e204800",
           q: term,
+<<<<<<< HEAD
           per_page: 150,
+=======
+          per_page: 25,
+>>>>>>> 09c588e
         },
       });
 
@@ -119,4 +123,8 @@ const getNewPins = async () => {
   return pinData;
 };
 
+<<<<<<< HEAD
 export { getNewPins, resultFromApi };
+=======
+export { getNewPins, resultFromApi };
+>>>>>>> 09c588e

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
@@ -27,8 +28,12 @@ import {
 import { GoBack } from "../../components/GoBackButton/GoBack";
 
 function Profile(props) {
+  const dispatch = useDispatch();
+  const [isPostOpen, setPostOpen] = useState(false); // dùng để mở Post
+  const defaultNumberToRender = 5; //Số lượng hình ảnh mặc định đc render;
   const [userProfile, setUserProfile] = useState({});
   const [userPhotos, setUserPhotos] = useState([]);
+  const [photoToShow, setPhotoToShow] = useState([]);
 
   const history = get(props, "history", {});
   const stateHistory = history.location.state || {};

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { ScrollToTop } from "./scroll";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 import "./HomePage.scss";
 
@@ -23,6 +24,12 @@ const HomePage = (props) => {
       <div className="post-btn">
         <IconButton onClick={() => setPostOpen(!isPostOpen)}>
           <AddIcon fontSize="large" />
+        </IconButton>
+      </div>
+
+      <div className="scroll-top-btn">
+        <IconButton>
+          <ArrowUpwardIcon fontSize="large" />
         </IconButton>
       </div>
       <ScrollToTop />

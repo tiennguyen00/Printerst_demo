@@ -59,9 +59,9 @@ const Header = (props) => {
           views: img.views,
         };
       });
-      console.log(res);
+
       let newPins = [];
-      newPins = [...newPins, ...results];
+      newPins = [...results];
       newPins.sort(() => {
         return 0.5 - Math.random();
       });
