@@ -24,5 +24,15 @@ export default {
             }, async (error) => {
                 return Promise.reject(new ServiceError(500, error.message, error));
             });
+    },
+    getAllFile: async () => {
+        return File.find()
+            .then(async (file) => {
+                if(file.length === 0)
+                    return Promise.reject(new ServiceError(400, "File not existed!"));
+                return Promise.resolve(file);
+            }, async (error) => {
+                return Promise.reject(new ServiceError(500, error.message, error));
+            });
     }
 }

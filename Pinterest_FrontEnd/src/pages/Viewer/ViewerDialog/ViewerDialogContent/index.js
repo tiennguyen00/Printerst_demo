@@ -101,9 +101,10 @@ function ViewerDialogContent() {
     useEffect(() => {
         if(viewerState.fileId) {
             fileService.getFileById(viewerState.fileId)
-            .then(res => setFile(res[0]))
-            .catch(err => setApiError(err.message));
+            .then(res => {setFile(res[0]);})
+            .catch(err => setApiError(err.message));         
         }
+        
        
     }, []);
 
@@ -150,7 +151,7 @@ function ViewerDialogContent() {
             
         );
 
-        dispatch(setMessage('File has been deleted.', 'success'));
+        dispatch(setMessage('Photo has been deleted.', 'success'));
         setDeleteConfirmOpened(false);
         dispatch(hideViewer());
     }
@@ -283,9 +284,9 @@ function ViewerDialogContent() {
             
             </Grid>
             <DetailsPanel 
-                    file={file}
-                    visible={detailsVisible}
-                />
+                file={file}
+                visible={detailsVisible}
+            />
             <Paper
                     className={clsx(s.paper, isFullScreenViewer && s.fullScreenViewerContainer)}
                     elevation={24}

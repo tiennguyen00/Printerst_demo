@@ -93,41 +93,6 @@ function Profile(props) {
         justify="center" 
         alignItems="center"
       >
-<<<<<<< HEAD
-        <Box className="box" display="flex" flexDirection="column">
-          <Typography variant="h6" className="text3">
-            0
-          </Typography>
-          <Typography variant="h6" className="text3">
-            Followers
-          </Typography>
-        </Box>
-        <Box className="box" display="flex" flexDirection="column">
-          <Typography variant="h6" className="text3">
-            0
-          </Typography>
-          <Typography variant="h6" className="text3">
-            Reacts
-          </Typography>
-        </Box>
-        <Box className="box" display="flex" flexDirection="column" >
-           <Typography variant="h6" className="text3">
-            {userPhotos.length}
-          </Typography>
-          <Typography variant="h6" className="text3">
-            Pictures
-          </Typography>
-        </Box>
-      </Grid>
-      <Typography variant="h4">My pictures </Typography>
-      <Grid className="myPictures">
-        {map(userPhotos, (photo) => {
-          return (
-            <Image1 link={photo.link} />
-          )
-        })}
-        
-=======
         <p className="error">{apiError}</p>
         <AddCircleOutlineIcon onClick={() => setPostOpen(!isPostOpen)} style={{height: 50, width: 50, color: "#0f9a89"}} />
         <Grid className="wrapper__main">  
@@ -202,7 +167,6 @@ function Profile(props) {
             </div>
           }
         </div>
->>>>>>> badd24d583b62b797d385d77559ae0af07222b84
       </Grid>
       <Post isPostOpen={isPostOpen} closePost={() => setPostOpen(false)}></Post>
     </>

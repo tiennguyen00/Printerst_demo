@@ -24,7 +24,6 @@ const useStyles = makeStyles(() => ({
 function Viewer(props) {
   const [isLoading, setIsLoading] = useState(true);
   const s = useStyles();
-  const { file } = props;
   const readyForPreview = true;
 
   return (
