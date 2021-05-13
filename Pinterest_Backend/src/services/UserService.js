@@ -1,5 +1,6 @@
 import User, {UserSchema} from "../models/User";
 import Post from "../models/Post"
+import Comment from '../models/Comment';
 import md5 from "md5";
 import {ServiceError} from "../utils/ServiceError";
 import {Token} from '../models/Token'
@@ -107,7 +108,16 @@ export default {
             return Promise.reject(new ServiceError(500, error.message, error));
         });
     },
-
+    postComment: async (userID, postID, ownerName, linkAvatar, content) => {
+        let comment = new Comment({userID, postID, ownerName, linkAvatar, content});
+        return comment.save()
+        .then(async (result) => {
+            let post = JSON.parse(JSON.stringify(result));
+        })
+        .catch(error => {
+            return Promise.reject(new ServiceError(500, error.message, error));
+        });
+    },
 
     forgotPassword: async (email) => {
         return User.findOne({email}).then(async (user) => {

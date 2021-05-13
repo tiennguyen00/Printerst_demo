@@ -35,5 +35,16 @@ export default {
                 Log.error('FileService', error.message, error);
                 return res.status(error.code).json(error);
             })
+    },
+    getAllCommentById: async (req, res, next) => {
+        let { fileId } = req.params;
+        fileService.getAllCommentById(fileId)
+            .then(result => {
+                return res.status(200).json(result)
+            })
+            .catch(error => {
+                Log.error('FileService', error.message, error);
+                return res.status(error.code).json(error);
+            })
     }
 }

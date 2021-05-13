@@ -8,7 +8,7 @@ import { requestUrl } from "../config/request-url";
 
 const DEF_HEADERS = {
   // Accept: "application/json",
-  // "Content-Type": "application/json",
+  // "Content-Type": "multipart/form-data",
 };
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT; // http://localhost:5000 ở backend

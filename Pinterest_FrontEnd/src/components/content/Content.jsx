@@ -40,7 +40,7 @@ const Content = () => {
         {pins.map((pin, index) => {
           if(pin.urls)
             return <Pin key={index} url={pin.urls} user={pin.user} downloads={pin.downloads} likes={pin.likes} tags={pin.tags} views={pin.views}/>;
-          return <Pin key={index} url={pin.link} user={pin.userId} />
+          return <Pin key={index} url={pin.link} userID={pin.userID} postID={pin._id}/>
         })}
       </Container>
     </Wrapper>

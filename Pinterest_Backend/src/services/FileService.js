@@ -1,6 +1,7 @@
 import { ServiceError } from "../utils/ServiceError";
 import mongoose from "mongoose";
 import File from "../models/Post";
+import Comment from "../models/Comment";
 
 export default {
     getFileById: async (fileId) => {
@@ -27,6 +28,16 @@ export default {
     },
     getAllFile: async () => {
         return File.find()
+            .then(async (file) => {
+                if(file.length === 0)
+                    return Promise.reject(new ServiceError(400, "File not existed!"));
+                return Promise.resolve(file);
+            }, async (error) => {
+                return Promise.reject(new ServiceError(500, error.message, error));
+            });
+    },
+    getAllCommentById: async (fileId) => {
+        return Comment.find({postID: fileId})
             .then(async (file) => {
                 if(file.length === 0)
                     return Promise.reject(new ServiceError(400, "File not existed!"));

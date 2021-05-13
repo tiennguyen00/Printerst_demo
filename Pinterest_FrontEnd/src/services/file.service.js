@@ -5,9 +5,11 @@ const getFileById = fileId => requestService.getWithoutTrackLoading(`${requestUr
 const deleteFileById = (fileId) => requestService.getWithoutTrackLoading(`${requestUrl.deleteFileById}/${fileId}`);
 const getDownloadUrl = fileId => requestService.get(`${requestUrl.getDownloadUrl}/${fileId}`);
 const getAllFile = () => requestService.get(requestUrl.getAllFile);
+const getAllCommentById = (fileId) => requestService.getWithoutTrackLoading(`${requestUrl.getAllCommentById}/${fileId}`);
 
 export const fileService = {
     getFileById,
     deleteFileById,
-    getAllFile
+    getAllFile,
+    getAllCommentById
 }
