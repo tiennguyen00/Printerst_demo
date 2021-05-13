@@ -1,4 +1,4 @@
-@import "../../../styles/style-common.scss";
+@import '../../../styles/style-common.scss';
 
 .verify {
   height: 95vh;
@@ -11,32 +11,32 @@
       .verify__form {
         width: 320px;
         padding: 40px 40px 10px 40px;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12); 
+        
         .title {
           margin-bottom: 10px;
         }
 
         .upload-avatar {
-          position: relative;
-          background-color: darkgray;
-          height: 130px;
-          width: 130px;
-          // background-size:cover;
-          border-radius: 50%;
-          object-fit: cover;
-
-          input {
-            position: absolute;
+            position: relative;
+            background-color: darkgray;
             height: 130px;
             width: 130px;
+            // background-size:cover; 
             border-radius: 50%;
-            transform: translate(-100%, 0);
-            color: transparent;
-            background-color: transparent;
-            opacity: 0;
-            z-index: 2;
-          }
+            object-fit:cover;
+
+            input{
+              position: absolute;
+              height: 130px;
+              width: 130px;
+              border-radius: 50%;
+              transform: translate(-100%, 0);
+              color: transparent;
+              background-color: transparent;;
+              opacity: 0;
+              z-index: 2;
+            }
         }
 
         .policy {
@@ -46,7 +46,7 @@
           .policy-link {
             .link {
               display: inline-flex;
-              text-align: center;
+              text-align: center;              
             }
           }
         }
@@ -57,8 +57,7 @@
     display: flex;
   }
 
-  .log-in-link,
-  .link {
+  .log-in-link, .link {
     font-size: 14px;
     a {
       text-decoration: none;

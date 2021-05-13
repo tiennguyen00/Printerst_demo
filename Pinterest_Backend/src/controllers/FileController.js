@@ -25,7 +25,15 @@ export default {
                 Log.error('FileService', error.message, error);
                 return res.status(error.code).json(error);
             })
+    },
+    getAllFile: async (req, res, next) => {
+        fileService.getAllFile()
+            .then((result) => {
+                return res.status(200).json(result)
+            })
+            .catch(error => {
+                Log.error('FileService', error.message, error);
+                return res.status(error.code).json(error);
+            })
     }
-    
-    
 }

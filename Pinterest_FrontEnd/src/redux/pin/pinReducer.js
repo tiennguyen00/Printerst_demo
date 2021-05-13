@@ -1,18 +1,19 @@
-import { ADD_PINS } from "./pinTypes";
-
+import { ADD_PINS } from './pinTypes';
+// =======================
+// ======================
 const initialState = {
-  pins: [],
-};
+    pins: []
+}
 
 const pinReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_PINS:
-      return {
-        pins: action.payLoad,
-      };
-    default:
-      return state;
-  }
-};
+    switch(action.type){
+        case ADD_PINS: return {
+            pins: action.payLoad
+        }
+        default: return state
+    }
+}
 
-export default pinReducer;
+export default pinReducer
+
+

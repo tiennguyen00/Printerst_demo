@@ -9,6 +9,7 @@ import { Button } from "../../components/button/button";
 import { getMess } from "../../util/message";
 import { patternEmail } from "../../util/form";
 import { Field } from "../../components/Field/Field";
+import { user } from "../../util/user";
 import logoLogin from "../../assets/image/logo.JPG";
 import "./ForgotPassword.scss";
 
@@ -57,11 +58,7 @@ function ForgotPassword(props) {
               justify="center"
               alignItems="center"
             >
-              <img
-                src={logoLogin}
-                className="forgot-password__logo"
-                alt="logo"
-              ></img>
+              <img src={logoLogin} className="forgot-password__logo"></img>
               <Typography variant="h5" gutterBottom>
                 Forgot Your Password?
               </Typography>

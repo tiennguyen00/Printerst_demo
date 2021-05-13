@@ -12,12 +12,11 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import { Comment } from "../../components/comment/Comment";
 
 const Detail = (props) => {
   return (
-    <div
-      style={{ height: "100vh", backgroundColor: "rgba(118, 118, 118, 0.1)" }}
-    >
+    <div style={{ height: "100vh" }}>
       <DetailWrapper>
         <GoBack onClick={props.history.goBack}>
           <ArrowBackIcon />
@@ -48,6 +47,8 @@ const Detail = (props) => {
             </h4>
           </ImageInformation>
         </ImageContainer>
+
+        <Comment />
 
         <ScrollToTop />
       </DetailWrapper>

@@ -35,7 +35,6 @@ const Button = styled.div`
 const HomePageButton = styled(Button)`
   background-color: rgb(17, 17, 17);
   margin-right: 5px;
-
   a {
     text-decoration: none;
     color: white;
@@ -58,12 +57,10 @@ const SearchBarWrapper = styled.div`
   border-radius: 50px;
   border: none;
   padding-left: 10px;
-
   form {
     display: flex;
     flex: 1;
   }
-
   form > input {
     background-color: transparent;
     border: none;
@@ -71,11 +68,9 @@ const SearchBarWrapper = styled.div`
     margin-left: 5px;
     font-size: 16px;
   }
-
   form > button {
     display: none;
   }
-
   input:focus {
     outline: none;
   }

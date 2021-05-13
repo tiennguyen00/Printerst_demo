@@ -24,26 +24,28 @@ import MenuList from "@material-ui/core/MenuList";
 import { MenuItem } from "@material-ui/core";
 import { Avatar } from "@material-ui/core";
 
-import { PinterestScreenRight } from "../../config/page";
+import { pinterestScreenRight } from "../../config/page";
 import { authService } from "../../services/auth.service";
 import { userService } from "../../services/user.service";
 import { Link } from "react-router-dom";
 
+import { user } from "../../util/user";
 import PropTypes from "prop-types";
-
+import get from "lodash/get";
 import map from "lodash/map";
 import "./Header.scss";
 import { resultFromApi, getNewPins } from "../../api/api";
 import { apiPins } from "../../redux";
-import { connect } from "react-redux";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState();
-  const anchorRef = React.useRef(null);
+  const anchorRef = React.useRef(null); //useReflà một hàm trả về một đối tượng ref có thể thay đổi (Refs truy cập các nút DOM trong React)
+  // const [pins, setNewPins] = useState([]);
   let pins = [];
   const [input, setInput] = useState("");
+  const dispatch = useDispatch();
 
   const onSearchSubmit = async (e) => {
     e.preventDefault();
@@ -68,35 +70,27 @@ const Header = (props) => {
 
       pins = newPins;
       setInput();
-    });
 
-    props.apiPins(pins);
-    return props.history.push("/home");
+      console.log("Pins từ search; ", pins);
+      dispatch(apiPins(pins));
+      return props.history.push("/home");
+    });
   };
 
   useEffect(() => {
-    async function getAvatar() {
-      try {
-        userService
-          .getProfile()
-          .then((res) => {
-            setUserProfile(res);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
-    getAvatar();
-  }, []);
+    try {
+      getNewPins().then((value) => {
+        // console.log("Pins lúc này: ", pins);
+        dispatch(apiPins(value));
+      });
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getNewPins().then((value) => {
-      dispatch(apiPins(value));
-    });
+      //Lấy ảnh đại diện
+      userService.getProfile().then((res) => {
+        setUserProfile(res);
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
   }, []);
 
   const toggleMenu = () => {
@@ -181,7 +175,7 @@ const Header = (props) => {
             <Paper>
               <ClickAwayListener onClickAway={clickAnyway}>
                 <MenuList>
-                  {map(PinterestScreenRight, (nav) => {
+                  {map(pinterestScreenRight, (nav) => {
                     return (
                       <MenuItem
                         key={nav.path}
@@ -210,15 +204,16 @@ Header.defaultProps = {
 };
 
 //Phan cua redux
-const mapStateToProps = (state) => {
-  return {
-    pins: state.pins,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    apiPins: (pins) => dispatch(apiPins(pins)),
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     pins: state.pins
+//   }
+// }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     apiPins: (pins) => dispatch(apiPins(pins))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

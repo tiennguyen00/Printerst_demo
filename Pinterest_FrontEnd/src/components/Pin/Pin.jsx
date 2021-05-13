@@ -103,6 +103,7 @@ const Pin = (props) => {
         onOk={saveButton}
         open={deleteConfirmOpened}
         title="Would you like to save this photo?"
+        children=""
       />
     </Wrapper>
   );

@@ -1,26 +1,27 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { useForm } from "react-hook-form";
-import get from "lodash/get";
-import { Link } from "react-router-dom";
-import isEmpty from "lodash/isEmpty";
-import { authService } from "../../services/auth.service";
-import { Button } from "../../components/button/button";
-import { patternEmail } from "../../util/form";
-import { getMess } from "../../util/message";
-import { Field } from "../../components/Field/Field";
-import { user } from "../../util/user";
-import logoLogin from "../../assets/image/pinterest_PNG40.png";
-import "./Register.scss";
+import React, { useState } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { useForm } from 'react-hook-form';
+import get from 'lodash/get';
+import { Link } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
+import { authService } from '../../services/auth.service';
+import { Button } from '../../components/button/button';
+import { patternEmail } from '../../util/form';
+import { getMess } from '../../util/message';
+import { Field } from '../../components/Field/Field';
+import { user } from '../../util/user';
+import logoLogin from '../../assets/image/pinterest_PNG40.png';
+import './Register.scss';
+
 
 function Register(props) {
   const { register, handleSubmit, errors } = useForm();
-  const history = get(props, "history", {});
+  const history = get(props, 'history', {});
   const stateHistory = history.location.state || {};
 
   const [apiError, setApiError] = useState(
-    stateHistory.expired ? getMess("M15") : ""
+    stateHistory.expired ? getMess('M15') : ''
   );
 
   // eslint-disable-next-line consistent-return
@@ -29,22 +30,21 @@ function Register(props) {
     const userInfo = user.getUserInfo();
     const unLogin = isEmpty(userInfo);
     if (!unLogin) {
-      if (userInfo.status === "defer") return history.push("/verify");
-      return history.push("/");
+      if (userInfo.status === 'defer') return history.push('/verify');
+      return history.push('/');
     }
   }, []);
 
-  const onSubmit = (formState) => {
-    authService
-      .register(formState)
+  const onSubmit = formState => {
+    authService.register(formState)
       .then(() => {
         authService
           .login(formState)
-          .then((res) => {
+          .then(res => {
             user.saveUserStorage(res.token);
-            return history.push("/verify", formState);
+            return history.push('/verify', formState);
           })
-          .catch((err) => {
+          .catch(err => {
             const requiredNewPassword = 401;
 
             if (err.code === requiredNewPassword) {
@@ -52,13 +52,13 @@ function Register(props) {
             }
 
             return setApiError(err.message);
-          });
-      })
-      .catch((err) => {
+          })
+      }).catch(err => {
         if (err.code === 400) {
-          setApiError("That email address is already registered!!");
-        } else if (err.code === 405) {
-          setApiError("These passwords do not match!!");
+          setApiError('That email address is already registered!!');
+        }
+        else if(err.code === 405){
+          setApiError('These passwords do not match!!');
         }
       });
   };
@@ -78,7 +78,7 @@ function Register(props) {
               justify="center"
               alignItems="center"
             >
-              <img src={logoLogin} className="logo" alt="logo"></img>
+              <img src={logoLogin} className="logo"></img>
               <Typography variant="h5" gutterBottom>
                 Create Your Account!
               </Typography>
@@ -95,10 +95,10 @@ function Register(props) {
               notRightLabel
               required
               inputRef={register({
-                required: getMess("M01", "Email address"),
+                required: getMess('M01', 'Email address'),
                 pattern: {
                   value: patternEmail,
-                  message: getMess("M05"),
+                  message: getMess('M05'),
                 },
               })}
             />
@@ -111,7 +111,7 @@ function Register(props) {
               variant="outlined"
               required
               inputRef={register({
-                required: getMess("M01", "Password"),
+                required: getMess('M01', 'Password'),
               })}
               notRightLabel
             />
@@ -124,7 +124,7 @@ function Register(props) {
               variant="outlined"
               required
               inputRef={register({
-                required: getMess("M01", "Password"),
+                required: getMess('M01', 'Password'),
               })}
               notRightLabel
             />
@@ -135,7 +135,7 @@ function Register(props) {
               classes="button-register"
               disableElevation
             />
-            <div className="log-in-link">
+            <div className="log-in-link" >
               <div>
                 Already have an account?&nbsp;
                 <Link to="/login">

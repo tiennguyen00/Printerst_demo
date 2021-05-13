@@ -40,7 +40,7 @@ function Login(props) {
       .login(formState)
       .then((res) => {
         user.saveUserStorage(res.token);
-
+        console.log("StateHistory: ", stateHistory.prePath );
         return history.push(stateHistory.prePath || "/home");
       })
       .catch((err) => {
@@ -69,7 +69,7 @@ function Login(props) {
               justify="center"
               alignItems="center"
             >
-              <img src={logo} className="logo" alt="logo"></img>
+              <img src={logo} className="logo"></img>
               <Typography variant="h5" gutterBottom>
                 Welcome Back!
               </Typography>
