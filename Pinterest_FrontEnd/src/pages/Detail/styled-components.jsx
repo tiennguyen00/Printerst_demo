@@ -1,34 +1,17 @@
 import styled from "styled-components";
 
 const DetailWrapper = styled.div`
-  height: 100%;
-  width: 65%;
+  width: 1016px;
+  height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   flex-direction: column;
+
   margin: auto;
-  margin-top: 120px;
-`;
-
-const ImageDetail = styled.img`
-  display: flex;
-  max-width: 420px;
-  max-height: 420px;
-  align-items: center;
-`;
-
-const ImageInformation = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: 40px;
-  h4 {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-  }
+  padding-top: 110px;
 `;
 
 const ImageContainer = styled.div`
@@ -43,4 +26,31 @@ const ImageContainer = styled.div`
   background-color: white;
 `;
 
+const ImageDetail = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+  }
+`;
+
+const ImageInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+
+  h4 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+`;
+
 export { DetailWrapper, ImageContainer, ImageDetail, ImageInformation };
+
