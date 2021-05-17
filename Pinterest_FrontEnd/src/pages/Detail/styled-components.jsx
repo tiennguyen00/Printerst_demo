@@ -9,7 +9,7 @@ const DetailWrapper = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   margin: auto;
-  padding-top: 30px;
+  margin-top: 120px;
 `;
 
 const ImageDetail = styled.img`

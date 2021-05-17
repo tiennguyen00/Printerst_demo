@@ -36,6 +36,8 @@ import map from 'lodash/map';
 import './Header.scss';
 import { resultFromApi, getNewPins } from "../../api/api";
 import { apiPins } from '../../redux';
+import { getCurrentUser } from '../../redux';
+
 import { connect, useDispatch } from 'react-redux';
 
 const Header = (props) => {
@@ -97,6 +99,7 @@ const Header = (props) => {
       .getProfile()
       .then((res) => {
         setUserProfile(res);
+        dispatch(getCurrentUser(res));
       })
       .catch((err) => {
       

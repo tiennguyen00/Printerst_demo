@@ -6,11 +6,13 @@ const getProfile = 'api/user/getProfile';
 const post = 'api/user/post';
 const postWithTicket = 'api/user/postWithTicket';
 const getPhotos = 'api/user/getPhotos';
+const postComment = 'api/user/postComment';
 
 const getFileById = 'api/file/getFileById';
 const deleteFileById = 'api/file/deleteFileById';
 const getDownloadUrl = '/api/file/download';
 const getAllFile = '/api/file/getAllFile';
+const getAllCommentById = '/api/file/getAllCommentById';
 
 export const requestUrl = {
     auth,
@@ -24,5 +26,7 @@ export const requestUrl = {
     getFileById,
     deleteFileById,
     getDownloadUrl,
-    getAllFile
+    getAllFile,
+    postComment,
+    getAllCommentById
 };
