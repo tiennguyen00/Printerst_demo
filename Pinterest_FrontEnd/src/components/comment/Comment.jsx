@@ -12,6 +12,7 @@ import {
 } from "./styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '../../redux/message/messageActions';
+import { loadComments } from '../../redux/file/fileActions';
 
 
 const Comment = (props) => {
@@ -19,14 +20,17 @@ const Comment = (props) => {
   const [comment, setComment] = useState();
   const [allCommentOfPhoto, setAllCommentOfPhoto] = useState([]);
   const userCurrent = useSelector(state => state.userReducer.user);
+  //
+  const state = useSelector(state => state.fileReducer.isLoad);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     setData(userCurrent);
+    console.log("ĐÂ", userCurrent);
     fileService.getAllCommentById(props.postID)
       .then(res => setAllCommentOfPhoto(res))
       .catch(err => console.log("ERR: ", err.message));
-  }, []);
+  }, [state]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,6 +44,7 @@ const Comment = (props) => {
     userService.postComment(formData)
       .then(() => {
         dispatch(setMessage('Success!!.', 'success'));
+        dispatch(loadComments(!state));
       })
       .catch(err => {
         console.log("Err: ", err.message);
