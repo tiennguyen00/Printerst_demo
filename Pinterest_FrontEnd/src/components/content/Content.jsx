@@ -22,18 +22,18 @@ const Container = styled.div`
 const Content = () => {
   const [pins, setPins] = useState([]);
   const photoOfApi = useSelector(state => state.pinReducer.pins);
+  const state = useSelector(state => state.userReducer.isLoad);
 
  useEffect(() => {
   fileService.getAllFile()
   .then((res) => {
-    console.log("RES: ", res);
-    const photoOfDatabase = res;
+    const photoOfDatabase = res.reverse();
     setPins([...photoOfDatabase, ...photoOfApi]);
   })
   .catch(err => {
     console.log("ERROR: ", err.message);
   });
- }, [photoOfApi]);
+ }, [photoOfApi, state]);
 
   return (
     <Wrapper>

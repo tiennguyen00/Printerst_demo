@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
@@ -20,6 +20,7 @@ import "./Profile.scss";
 
 function Profile(props) {
   const dispatch = useDispatch();
+  const state = useSelector(state => state.userReducer.isLoad);
   const [isPostOpen, setPostOpen] = useState(false); // dùng để mở Post
   const defaultNumberToRender = 5; //Số lượng hình ảnh mặc định đc render;
   const [userProfile, setUserProfile] = useState({});
@@ -50,13 +51,26 @@ function Profile(props) {
     userService
       .getPhotos()
       .then((res) => {
-        setUserPhotos(res);
+        setUserPhotos(res.reverse());
       })
       .catch((err) => {
         if (err === 400) setApiError("Not found any photo!!!");
         else setApiError(err.message);
       });
     }, []);
+
+    useEffect(() => {
+      //Lấy ảnh mà user đó đã đăng
+      userService
+      .getPhotos()
+      .then((res) => {
+        setUserPhotos(res.reverse());
+      })
+      .catch((err) => {
+        if (err === 400) setApiError("Not found any photo!!!");
+        else setApiError(err.message);
+      });
+    }, [state])
 
     const handleDefaultView = useCallback(() => {
       const data = userPhotos.filter((item, index) => index < defaultNumberToRender);
@@ -79,10 +93,6 @@ function Profile(props) {
       setPhotoToShow(userPhotos.slice(0, photoToShow.length === 0 ? defaultNumberToRender : photoToShow.length));
     }, [userPhotos]);
 
-    // const dispatch = useDispatch();
-    // const onClick = fileId => {
-    //   dispatch(showViewer(fileId));
-    // };
 
   return (
     <>

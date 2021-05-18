@@ -7,6 +7,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import { user } from "../../util/user";
 import { userService } from "../../services/user.service";
 import { setMessage } from '../../redux/message/messageActions';
+import { loadPhotos } from '../../redux/user/userAction';
 
 import "./Post.scss";
 import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-components";
@@ -34,6 +35,9 @@ const Post = ({ isPostOpen, closePost }) => {
   };
   const userInfo  = useSelector(state => state.userReducer.user);
 
+  //Khi user thêm ảnh hoặc xóa ảnh thì sẽ thay đổi biến này dê load lại hình ảnh
+  const isLoad  = useSelector(state => state.userReducer.isLoad);
+
   const onSubmit = (data) => {
     const { status } = data;
 
@@ -47,6 +51,7 @@ const Post = ({ isPostOpen, closePost }) => {
       .then(() => {
         dispatch(setMessage('Uploaded!!.', 'success'));
         closePost();
+        dispatch(loadPhotos(!isLoad));
       })
       .catch(err => {
         console.log("Err: ", err.message);
@@ -66,7 +71,7 @@ const Post = ({ isPostOpen, closePost }) => {
       <input
         id="file-input"
         type="file"
-        accept="image/bmp,image/gif,image/jpeg,image/png,image/tiff,image/webp"
+        accept="image/*"
         aria-hidden="true"
         style={{
           cursor: "pointer",

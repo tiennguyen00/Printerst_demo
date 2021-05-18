@@ -46,16 +46,18 @@ const Detail = (props) => {
   }, [])
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ height: "100vh", backgroundColor: "rgba(118, 118, 118, 0.1)" }}>
       <DetailWrapper>
         <GoBack onClick={props.history.goBack}>
           <ArrowBackIcon />
         </GoBack>
         <ImageContainer>
-          <ImageDetail src={props.location.state.url} alt="picture" />
+          <ImageDetail>
+            {" "}
+            <img src={props.location.state.url} alt="" />
+          </ImageDetail>{" "}
           <ImageInformation>
-            <h1>User: {props.location.state.user}</h1>
-
+            <h1>Upload by: {props.location.state.user}</h1>
             <h4>
               <VisibilityIcon style={{ fill: "#111", marginRight: "10px" }} />
               {props.location.state.views}

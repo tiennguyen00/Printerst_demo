@@ -98,6 +98,10 @@ function ViewerDialogContent() {
     const dispatch = useDispatch();
 
     const viewerState = useSelector(state => state.viewerReducer);
+
+     //Khi user thêm ảnh hoặc xóa ảnh thì sẽ thay đổi biến này dê load lại hình ảnh
+    const isLoad  = useSelector(state => state.userReducer.isLoad);
+
     useEffect(() => {
         if(viewerState.fileId) {
             fileService.getFileById(viewerState.fileId)
@@ -107,25 +111,6 @@ function ViewerDialogContent() {
         
        
     }, []);
-
-    // const file = useSelector(state => getFileById(state, viewerState.fileId)) || {};
-    // const file = {
-    //     addDate: '2021-03-05T14:10:31.754Z',
-    //     addUserId: '617cee61-0d2a-44bc-a197-9e5552df65ad',
-    //     buildingId: 'c29a3c06-323c-436a-8bde-ee0a94a4cd55',
-    //     id: '3e7f7b0b-0dbb-4095-abbc-bc7fabcf42fc',
-    //     is360: false,
-    //     lastModifiedDate: '2021-03-05T14:10:31.753Z',
-    //     name: 'Bruce-Lee.jpeg',
-    //     path: 'https://www.w3schools.com/images/lamp.jpg',
-    //     sections: [
-    //     'photos',
-    //     '4415fc68-989c-4168-9f00-936a5b6df739'
-    //     ],
-    //     size: '29023',
-    //     status: 'READY',
-    //     tags: []
-    // };
     
     // const content = useSelector(state => getContentById(state, viewerState.fileId)) || {};
     const isContentPublic = true;
@@ -133,22 +118,11 @@ function ViewerDialogContent() {
     const fileNotFound = false;
     const isFullScreenViewer = false; //isEmpty(content) && isEmpty(file);
 
-    // useEffect(() => {
-    //     if(isFullScreenViewer) {
-    //         return;
-    //     }
-
-    //     if(viewerState.fileId && viewerState.fileId !== lastFileId && false) {
-    //         lastFileId = viewerState.fileId;
-    //         dispatch(addFileStats(building.id, viewerState.fileId))
-    //             .then(() => dispatch(fetchFilesStats(building.id)));
-    //     }
-    // }, [isFullScreenViewer,  viewerState.fileId])
 
     const handleFileDelete = () => {
         // const array = [file.link.split("=")[1], file._id]
         fileService.deleteFileById(file._id).then(
-            
+           
         );
 
         dispatch(setMessage('Photo has been deleted.', 'success'));
