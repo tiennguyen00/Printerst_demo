@@ -26,6 +26,7 @@ const Content = () => {
  useEffect(() => {
   fileService.getAllFile()
   .then((res) => {
+    console.log("RES: ", res);
     const photoOfDatabase = res;
     setPins([...photoOfDatabase, ...photoOfApi]);
   })
@@ -40,7 +41,7 @@ const Content = () => {
         {pins.map((pin, index) => {
           if(pin.urls)
             return <Pin key={index} url={pin.urls} user={pin.user} downloads={pin.downloads} likes={pin.likes} tags={pin.tags} views={pin.views}/>;
-          return <Pin key={index} url={pin.link} userID={pin.userID} postID={pin._id}/>
+          return <Pin key={index} url={pin.link} user={pin.photoOfUser} userID={pin.userID}  likes={pin.count} postID={pin._id} tags={pin.status} views={pin.views} downloads="0"/>
         })}
       </Container>
     </Wrapper>

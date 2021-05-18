@@ -13,6 +13,7 @@ const deleteFileById = 'api/file/deleteFileById';
 const getDownloadUrl = '/api/file/download';
 const getAllFile = '/api/file/getAllFile';
 const getAllCommentById = '/api/file/getAllCommentById';
+const updateFileById = '/api/file/updateFileById';
 
 export const requestUrl = {
     auth,
@@ -28,5 +29,6 @@ export const requestUrl = {
     getDownloadUrl,
     getAllFile,
     postComment,
-    getAllCommentById
+    getAllCommentById,
+    updateFileById
 };

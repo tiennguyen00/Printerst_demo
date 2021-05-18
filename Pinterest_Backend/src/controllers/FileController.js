@@ -46,5 +46,17 @@ export default {
                 Log.error('FileService', error.message, error);
                 return res.status(error.code).json(error);
             })
+    },
+    updateFileById: async (req, res, next) => {
+        let post = req.body;
+        fileService.updateFileById(post)
+            .then(result => {
+                return res.status(200).json(result)
+            })
+            .catch(error => {
+                Log.error('FileService', error.message, error);
+                return res.status(error.code).json(error)
+            })
     }
+
 }

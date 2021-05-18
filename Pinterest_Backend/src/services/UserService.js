@@ -76,8 +76,8 @@ export default {
             return Promise.reject(new ServiceError(500, error.message, error));
         });
     },
-    post: async (userID, status, link, originalName) => {
-        let post = new Post({userID, status, link, originalName })
+    post: async (userID, status, link, originalName, photoOfUser) => {
+        let post = new Post({userID, status, link, originalName, photoOfUser })
             return post.save()
                 .then(async (result) => {
                     let post = JSON.parse(JSON.stringify(result));

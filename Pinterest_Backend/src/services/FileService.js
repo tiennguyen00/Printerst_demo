@@ -40,10 +40,17 @@ export default {
         return Comment.find({postID: fileId})
             .then(async (file) => {
                 if(file.length === 0)
-                    return Promise.reject(new ServiceError(400, "File not existed!"));
+                    return Promise.reject(new ServiceError(400, "Not comment is founded!"));
                 return Promise.resolve(file);
             }, async (error) => {
                 return Promise.reject(new ServiceError(500, error.message, error));
             });
+    },
+    updateFileById: async (post) => {
+        const query = {'_id': post.postID};
+        return await File.findByIdAndUpdate(query, post).catch(err => {
+            console.log(err);
+            return err;
+        })
     }
 }

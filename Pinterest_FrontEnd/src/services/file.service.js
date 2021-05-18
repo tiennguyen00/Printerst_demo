@@ -6,10 +6,12 @@ const deleteFileById = (fileId) => requestService.getWithoutTrackLoading(`${requ
 const getDownloadUrl = fileId => requestService.get(`${requestUrl.getDownloadUrl}/${fileId}`);
 const getAllFile = () => requestService.get(requestUrl.getAllFile);
 const getAllCommentById = (fileId) => requestService.getWithoutTrackLoading(`${requestUrl.getAllCommentById}/${fileId}`);
+const updateFileById = payload => requestService.put(`${requestUrl.updateFileById}/${payload.postID}`, payload);
 
 export const fileService = {
     getFileById,
     deleteFileById,
     getAllFile,
-    getAllCommentById
+    getAllCommentById,
+    updateFileById
 }
