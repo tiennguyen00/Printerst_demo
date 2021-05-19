@@ -29,7 +29,7 @@ const Container = styled.div`
 `;
 
 const Pin = (props) => {
-  const { url, downloads, likes, tags, user, views } = props;
+  const {userID, postID, url, downloads, likes, tags, user, views } = props;
   const [deleteConfirmOpened, setDeleteConfirmOpened] = useState(false);
   const dispatch = useDispatch();
 
@@ -91,6 +91,7 @@ const Pin = (props) => {
               tags: tags,
               user: user,
               views: views,
+              postID
             },
           }}
         >

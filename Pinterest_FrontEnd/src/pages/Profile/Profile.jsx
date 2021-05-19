@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
@@ -20,6 +20,7 @@ import "./Profile.scss";
 
 function Profile(props) {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.userReducer.isLoad);
   const [isPostOpen, setPostOpen] = useState(false); // dùng để mở Post
   const defaultNumberToRender = 5; //Số lượng hình ảnh mặc định đc render;
   const [userProfile, setUserProfile] = useState({});
@@ -34,7 +35,7 @@ function Profile(props) {
 
   //thêm apiError để xác nhận 2 cái. getPhotos với get Profile
   useEffect(() => {
-    const fetchData = async () => {
+    const getAvatar = async () => {
       //Lấy ảnh đại diện
       await userService
         .getProfile()
@@ -46,20 +47,22 @@ function Profile(props) {
           if (err === 400) setApiError("Load fail!!!");
           else setApiError(err.message);
         });
-
-      //Lấy ảnh mà user đó đã đăng
-      await userService
-        .getPhotos()
-        .then((res) => {
-          setUserPhotos(res);
-        })
-        .catch((err) => {
-          if (err === 400) setApiError("Not found any photo!!!");
-          else setApiError(err.message);
-        });
     };
-    fetchData();
+    getAvatar();
   }, []);
+
+  useEffect(() => {
+    //Lấy ảnh mà user đó đã đăng
+    userService
+      .getPhotos()
+      .then((res) => {
+        setUserPhotos(res.reverse());
+      })
+      .catch((err) => {
+        if (err === 400) setApiError("Not found any photo!!!");
+        else setApiError(err.message);
+      });
+  }, [state]);
 
   const handleDefaultView = useCallback(() => {
     const data = userPhotos.filter(
@@ -90,11 +93,6 @@ function Profile(props) {
       )
     );
   }, [userPhotos]);
-
-  // const dispatch = useDispatch();
-  // const onClick = fileId => {
-  //   dispatch(showViewer(fileId));
-  // };
 
   return (
     <>

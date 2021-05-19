@@ -8,7 +8,7 @@ import { requestUrl } from "../config/request-url";
 
 const DEF_HEADERS = {
   // Accept: "application/json",
-  // "Content-Type": "application/json",
+  // "Content-Type": "multipart/form-data",
 };
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT; // http://localhost:5000 ở backend
@@ -40,16 +40,25 @@ const get = (path = '', params = {}, headers = DEF_HEADERS) =>
       .then(res => res.data)
       .catch(err => Promise.reject(err.response ? err.response.data : err)),
   );
-
-  const getWithoutTrackLoading = (
-    path = '',
-    params = {},
-    headers = DEF_HEADERS,
-  ) =>
+  
+const put = (path = '', body = {}, headers = DEF_HEADERS) =>
+  trackPromise(
     axiosInstance
-      .get(path, { headers, params })
+      .put(path, body, { headers })
       .then(res => res.data)
-      .catch(err => Promise.reject(err.response ? err.response.data : err));
+      .catch(err => Promise.reject(err.response ? err.response.data : err)),
+  );
+
+const getWithoutTrackLoading = (
+  path = '',
+  params = {},
+  headers = DEF_HEADERS,
+) =>
+  axiosInstance
+    .get(path, { headers, params })
+    .then(res => res.data)
+    .catch(err => Promise.reject(err.response ? err.response.data : err));
+
 
 const refreshToken = payload =>
 axios
@@ -96,4 +105,4 @@ const requestHandler = async request => {
 
 axiosInstance.interceptors.request.use(requestHandler); //Lien quan den viec chan lai trc khi den backend
 
-export const requestService = { post, get, getWithoutTrackLoading };
+export const requestService = { post, get, getWithoutTrackLoading, put };

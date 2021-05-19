@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   DetailWrapper,
   ImageContainer,
@@ -9,15 +9,47 @@ import { GoBack } from "../../components/GoBackButton/GoBack";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { ScrollToTop } from "../HomePage/scroll";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Comment } from "../../components/comment/Comment";
+import { useLocation } from "react-router-dom";
+import { fileService } from "../../services/file.service";
 
 const Detail = (props) => {
+  let [isLike, setIsLike] = useState(false);
+  let [countLike, setCountLike] = useState(props.location.state.likes);
+  const location = useLocation();
+
+  useEffect(() => {
+    const payload = {
+      postID: props.location.state.postID,
+      views: props.location.state.views + 1,
+      count: countLike,
+    };
+
+    fileService
+      .updateFileById(payload)
+      .then((res) => console.log(res))
+      .catch((err) => console.log("ERR: ", err.message));
+  }, [countLike]);
+
+  useEffect(() => {
+    const payload = {
+      postID: props.location.state.postID,
+      views: props.location.state.views + 1,
+    };
+
+    fileService
+      .updateFileById(payload)
+      .then((res) => console.log(res))
+      .catch((err) => console.log("ERR: ", err.message));
+  }, []);
+
   return (
     <div
-      style={{ height: "100vh", backgroundColor: "rgba(118, 118, 118, 0.1)" }}
+      style={{ height: "100%", backgroundColor: "rgba(118, 118, 118, 0.1)" }}
     >
       <DetailWrapper>
         <GoBack onClick={props.history.goBack}>
@@ -25,25 +57,44 @@ const Detail = (props) => {
         </GoBack>
         <ImageContainer>
           <ImageDetail>
-            {" "}
             <img src={props.location.state.url} alt="" />
           </ImageDetail>{" "}
           <ImageInformation>
-            <h1>Upload by {props.location.state.user}</h1>
+            <h1>Upload by: {props.location.state.user}</h1>
             <h4>
               <VisibilityIcon style={{ fill: "#111", marginRight: "10px" }} />
               {props.location.state.views}
             </h4>
+
             <h4>
               <GetAppIcon style={{ fill: "#111", marginRight: "10px" }} />
               {props.location.state.downloads}
             </h4>
-            <h4>
-              <ThumbUpAltIcon
-                style={{ fill: "#0074e8", marginRight: "10px" }}
-              />
-              {props.location.state.likes}
-            </h4>
+
+            {!isLike ? (
+              <h4>
+                <FavoriteBorderIcon
+                  onClick={() => {
+                    setIsLike(!isLike);
+                    setCountLike((countLike += 1));
+                  }}
+                  style={{ marginRight: "10px" }}
+                />
+                <h4>{countLike}</h4>
+              </h4>
+            ) : (
+              <h4>
+                <FavoriteIcon
+                  onClick={() => {
+                    setIsLike(!isLike);
+                    setCountLike((countLike -= 1));
+                  }}
+                  style={{ fill: "#BE1E2D", marginRight: "10px" }}
+                />
+                <h4>{countLike}</h4>
+              </h4>
+            )}
+
             <h4>
               <LocalOfferIcon
                 style={{ fill: "#e3780c", marginRight: "10px" }}
@@ -52,7 +103,8 @@ const Detail = (props) => {
             </h4>
           </ImageInformation>
         </ImageContainer>
-        <Comment />
+
+        <Comment postID={props.location.state.postID} />
         <ScrollToTop />
       </DetailWrapper>
     </div>
