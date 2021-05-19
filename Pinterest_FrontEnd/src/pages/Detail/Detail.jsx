@@ -60,4 +60,3 @@ const Detail = (props) => {
 };
 
 export { Detail };
-

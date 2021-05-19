@@ -53,4 +53,3 @@ const ImageInformation = styled.div`
 `;
 
 export { DetailWrapper, ImageContainer, ImageDetail, ImageInformation };
-
