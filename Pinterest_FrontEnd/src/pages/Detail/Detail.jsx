@@ -7,7 +7,7 @@ import {
 } from "./styled-components";
 import { GoBack } from "../../components/GoBackButton/GoBack";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { ScrollToTop } from "../HomePage/scroll";
+import { ScrollToTop } from "../../components/scroll/scroll";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -31,7 +31,7 @@ const Detail = (props) => {
 
     fileService
       .updateFileById(payload)
-      .then((res) => console.log(res))
+      .then()
       .catch((err) => console.log("ERR: ", err.message));
   }, [countLike]);
 
@@ -43,7 +43,7 @@ const Detail = (props) => {
 
     fileService
       .updateFileById(payload)
-      .then((res) => console.log(res))
+      .then()
       .catch((err) => console.log("ERR: ", err.message));
   }, []);
 
@@ -78,7 +78,7 @@ const Detail = (props) => {
                     setIsLike(!isLike);
                     setCountLike((countLike += 1));
                   }}
-                  style={{ marginRight: "10px" }}
+                  style={{ marginRight: "10px", cursor: "pointer" }}
                 />
                 <h4>{countLike}</h4>
               </h4>
@@ -89,7 +89,11 @@ const Detail = (props) => {
                     setIsLike(!isLike);
                     setCountLike((countLike -= 1));
                   }}
-                  style={{ fill: "#BE1E2D", marginRight: "10px" }}
+                  style={{
+                    fill: "#BE1E2D",
+                    marginRight: "10px",
+                    cursor: "pointer",
+                  }}
                 />
                 <h4>{countLike}</h4>
               </h4>

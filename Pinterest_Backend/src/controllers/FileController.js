@@ -5,7 +5,7 @@ import { googleAPIDelete } from "../services/GoogleDrive";
 export default {
   getFileById: async (req, res, next) => {
     let { fileId } = req.params;
-    fileService
+    await fileService
       .getFileById(fileId)
       .then((result) => {
         return res.status(200).json(result);
@@ -17,7 +17,7 @@ export default {
   },
   deleteFileById: async (req, res, next) => {
     let { fileId } = req.params;
-    fileService
+    await fileService
       .deleteFileById(fileId)
       .then((driveId) => {
         googleAPIDelete(driveId);
@@ -29,7 +29,7 @@ export default {
       });
   },
   getAllFile: async (req, res, next) => {
-    fileService
+    await fileService
       .getAllFile()
       .then((result) => {
         return res.status(200).json(result);
@@ -41,7 +41,7 @@ export default {
   },
   getAllCommentById: async (req, res, next) => {
     let { fileId } = req.params;
-    fileService
+    await fileService
       .getAllCommentById(fileId)
       .then((result) => {
         return res.status(200).json(result);
@@ -53,7 +53,7 @@ export default {
   },
   updateFileById: async (req, res, next) => {
     let post = req.body;
-    fileService
+    await fileService
       .updateFileById(post)
       .then((result) => {
         return res.status(200).json(result);

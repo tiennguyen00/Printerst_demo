@@ -1,12 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
 .post-btn {
   position: -webkit-sticky;
   position: fixed;
-  bottom: 11%;
+  bottom: 13%;
   right: 2%;
   z-index: 999;
   background-color: white;
@@ -23,7 +18,7 @@
   border-radius: 50%;
 }
 
-.parentDisable{
+.parentDisable {
   height: 100%;
   width: 100%;
   color: rgba(0, 0, 0, 0.6);

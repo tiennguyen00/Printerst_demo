@@ -25,15 +25,18 @@ const Content = () => {
   const state = useSelector((state) => state.userReducer.isLoad);
 
   useEffect(() => {
-    fileService
-      .getAllFile()
-      .then((res) => {
-        const photoOfDatabase = res.reverse();
-        setPins([...photoOfDatabase, ...photoOfApi]);
-      })
-      .catch((err) => {
-        console.log("ERROR: ", err.message);
-      });
+    const getPhotoFromDatabase = async () => {
+      await fileService
+        .getAllFile()
+        .then((res) => {
+          const photoOfDatabase = res.reverse();
+          setPins([...photoOfDatabase, ...photoOfApi]);
+        })
+        .catch((err) => {
+          console.log("ERROR: ", err.message);
+        });
+    };
+    getPhotoFromDatabase();
   }, [photoOfApi, state]);
 
   return (
