@@ -71,7 +71,7 @@ const Post = ({ isPostOpen, closePost }) => {
       <input
         id="file-input"
         type="file"
-        accept="image/*"
+        accept="video/*, image/*"
         aria-hidden="true"
         style={{
           cursor: "pointer",

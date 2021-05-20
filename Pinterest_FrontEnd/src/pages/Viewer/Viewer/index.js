@@ -6,6 +6,7 @@ import MemoizedViewer from './memoizedViewer';
 import { getFileFormat } from '../../../util/helper/index';
 import Loading from '../../../UI/Loading/index';
 import ImageViewer from './ImageViewer';
+import VideoViewer from './VideoViewer';
 
 const IMAGE_FORMATS = ['GIF', 'JPEG', 'JPG', 'PNG', 'TIFF'];
 const useStyles = makeStyles(() => ({
@@ -25,10 +26,12 @@ function Viewer(props) {
   const [isLoading, setIsLoading] = useState(true);
   const s = useStyles();
   const readyForPreview = true;
+  console.log("PROPS: ", props);
 
   return (
     <>
       <ImageViewer file={props.file}/>
+      {/* <VideoViewer file={props.file}/> */}
     </>
   )
 

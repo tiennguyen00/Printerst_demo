@@ -15,6 +15,7 @@ import Post from '../../components/Post/Post';
 import {getCurrentUser} from '../../redux/user/userAction';
 
 import Image1 from '../../components/image1/image1';
+import Video1 from '../..//components/Video1/video1';
 import map from "lodash/map";
 import "./Profile.scss";
 
@@ -26,6 +27,9 @@ function Profile(props) {
   const [userProfile, setUserProfile] = useState({});
   const [userPhotos, setUserPhotos] = useState([]);
   const [photoToShow, setPhotoToShow] = useState([]);
+
+  const [userVideos, setUserVideos] = useState([]);
+  // const [videoToShow, setVideoToShow] = useState([]);
 
   const history = get(props, "history", {});
   const stateHistory = history.location.state || {};
@@ -47,11 +51,22 @@ function Profile(props) {
         else setApiError(err.message);
       });
 
-    //Lấy ảnh mà user đó đã đăng
+    //Lấy ảnh, video mà user đó đã đăng
     userService
       .getPhotos()
       .then((res) => {
-        setUserPhotos(res.reverse());
+        const resultPhoto = res.filter((item) => {
+          if(item.originalName.split(".")[1] !== 'mp4')
+            return true;
+          return false;
+        })
+        const resultVideo = res.filter((item) => {
+          if(item.originalName.split(".")[1] === 'mp4')
+            return true;
+          return false;
+        })
+        setUserPhotos(resultPhoto.reverse());
+        setUserVideos(resultVideo.reverse())
       })
       .catch((err) => {
         if (err === 400) setApiError("Not found any photo!!!");
@@ -59,12 +74,24 @@ function Profile(props) {
       });
     }, []);
 
+
     useEffect(() => {
-      //Lấy ảnh mà user đó đã đăng
+      //Lấy ảnh, video mà user đó đã đăng sau khi thêm hoặc xóa ảnh (cập nhật giao diện thôi)
       userService
       .getPhotos()
       .then((res) => {
-        setUserPhotos(res.reverse());
+        const resultPhoto = res.filter((item) => {
+          if(item.originalName.split(".")[1] !== 'mp4')
+            return true;
+          return false;
+        })
+        const resultVideo = res.filter((item) => {
+          if(item.originalName.split(".")[1] === 'mp4')
+            return true;
+          return false;
+        })
+        setUserPhotos(resultPhoto.reverse());
+        setUserVideos(resultVideo.reverse())
       })
       .catch((err) => {
         if (err === 400) setApiError("Not found any photo!!!");
@@ -92,7 +119,6 @@ function Profile(props) {
     useEffect(() => {
       setPhotoToShow(userPhotos.slice(0, photoToShow.length === 0 ? defaultNumberToRender : photoToShow.length));
     }, [userPhotos]);
-
 
   return (
     <>
@@ -129,10 +155,10 @@ function Profile(props) {
           </Box>
           <Box className="box" display="flex" flexDirection="column">
             <Typography variant="h6" className="text3">
-              0
+            {userVideos.length}
             </Typography>
             <Typography variant="h6" className="text3">
-              Reacts
+              Videos
             </Typography>
           </Box>
           <Box className="box" display="flex" flexDirection="column" >
@@ -145,6 +171,7 @@ function Profile(props) {
           </Box>
         </Grid>
 
+        {/* Hình ảnh */}
         <Typography className="photos__label" variant="h6">My Pictures</Typography>
         <Grid container className="photos__container">
           {photoToShow && map(photoToShow, (photo) => {
@@ -176,7 +203,23 @@ function Profile(props) {
             </div>
           }
         </div>
+
+      {/* Video:  */}
+        <Typography className="photos__label" variant="h6">My Videos</Typography>
+        <Grid container className="photos__container">
+        {userVideos && map(userVideos, (video) => {
+            return (
+              <Grid item className="photos__item">
+                <Paper className="photos__paper">
+                  <Video1 id={video._id} link={video.link} height={'100%'} width={'100%'}/>
+                </Paper>
+              </Grid>
+            )
+          })}
+        </Grid>
       </Grid>
+
+
       <Post isPostOpen={isPostOpen} closePost={() => setPostOpen(false)}></Post>
     </>
   )
