@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/device";
 
 const Container = styled.div`
   width: 60%;
@@ -6,51 +7,36 @@ const Container = styled.div`
   flex-direction: column;
   margin: 0 auto;
 
-  /* Extra small devices (phones, 600px and down) */
-  @media only screen and (max-width: 600px) {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  @media ${device.mobileS} {
   }
 
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  @media ${device.mobileM} {
   }
 
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-    width: 60%;
+  @media ${device.mobileL} {
+    width: 90%;
+    height: 100%;
+
     display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     flex-direction: column;
-    margin: 0 auto;
   }
 
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  @media ${device.tablet} {
   }
 
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
+  @media ${device.laptop} {
     width: 60%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
   }
 
-  @media only screen and (min-width: 1600px) {
+  @media ${device.laptopL} {
     width: 60%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  }
+
+  @media ${device.desktop} {
+    width: 60%;
   }
 `;
 
@@ -59,25 +45,6 @@ const Wrapper = styled(Container)`
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-  }
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-  }
-
-  @media only screen and (min-width: 1600px) {
-  }
 `;
 
 const AvatarWrapper = styled.div`
@@ -88,25 +55,6 @@ const AvatarWrapper = styled.div`
     border-radius: 50%;
     margin-right: 20px;
   }
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-  }
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-  }
-
-  @media only screen and (min-width: 1600px) {
-  }
 `;
 
 const AddComment = styled(Container)`
@@ -114,75 +62,18 @@ const AddComment = styled(Container)`
   align-items: center;
   width: 100%;
   margin-top: 20px;
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-  }
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-  }
-
-  @media only screen and (min-width: 1600px) {
-  }
 `;
 
 const Status = styled(Container)`
   flex-direction: row;
   width: 100%;
   margin-top: 20px;
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-  }
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-  }
-
-  @media only screen and (min-width: 1600px) {
-  }
 `;
 
 const UserName = styled.h1`
   width: fit-content;
   font-weight: 600;
   font-size: 20px;
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-  }
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-  }
-
-  @media only screen and (min-width: 1600px) {
-  }
 `;
 
 const Comments = styled(UserName)`
@@ -194,25 +85,6 @@ const Comments = styled(UserName)`
     border-radius: 19px;
     border: none;
     outline: none;
-  }
-
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-  }
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-  }
-
-  @media only screen and (min-width: 1600px) {
   }
 `;
 

@@ -7,7 +7,7 @@ import {
 } from "./styled-components";
 import { GoBack } from "../../components/GoBackButton/GoBack";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { ScrollToTop } from "../../components/scroll/scroll";
+import { ScrollButton } from "../../components/scroll/ScrollButton";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -48,70 +48,64 @@ const Detail = (props) => {
   }, []);
 
   return (
-    <div
-      style={{ height: "100%", backgroundColor: "rgba(118, 118, 118, 0.1)" }}
-    >
-      <DetailWrapper>
-        <GoBack onClick={props.history.goBack}>
-          <ArrowBackIcon />
-        </GoBack>
-        <ImageContainer>
-          <ImageDetail>
-            <img src={props.location.state.url} alt="" />
-          </ImageDetail>{" "}
-          <ImageInformation>
-            <h1>Upload by: {props.location.state.user}</h1>
-            <h4>
-              <VisibilityIcon style={{ fill: "#111", marginRight: "10px" }} />
-              {props.location.state.views}
-            </h4>
+    <DetailWrapper>
+      <GoBack onClick={props.history.goBack}>
+        <ArrowBackIcon />
+      </GoBack>
+      <ImageContainer>
+        <ImageDetail>
+          <img src={props.location.state.url} alt="" />
+        </ImageDetail>{" "}
+        <ImageInformation>
+          <h1>Upload by: {props.location.state.user}</h1>
+          <h4>
+            <VisibilityIcon style={{ fill: "#111", marginRight: "10px" }} />
+            {props.location.state.views}
+          </h4>
 
-            <h4>
-              <GetAppIcon style={{ fill: "#111", marginRight: "10px" }} />
-              {props.location.state.downloads}
-            </h4>
+          <h4>
+            <GetAppIcon style={{ fill: "#111", marginRight: "10px" }} />
+            {props.location.state.downloads}
+          </h4>
 
-            {!isLike ? (
-              <h4>
-                <FavoriteBorderIcon
-                  onClick={() => {
-                    setIsLike(!isLike);
-                    setCountLike((countLike += 1));
-                  }}
-                  style={{ marginRight: "10px", cursor: "pointer" }}
-                />
-                <h4>{countLike}</h4>
-              </h4>
-            ) : (
-              <h4>
-                <FavoriteIcon
-                  onClick={() => {
-                    setIsLike(!isLike);
-                    setCountLike((countLike -= 1));
-                  }}
-                  style={{
-                    fill: "#BE1E2D",
-                    marginRight: "10px",
-                    cursor: "pointer",
-                  }}
-                />
-                <h4>{countLike}</h4>
-              </h4>
-            )}
-
+          {!isLike ? (
             <h4>
-              <LocalOfferIcon
-                style={{ fill: "#e3780c", marginRight: "10px" }}
+              <FavoriteBorderIcon
+                onClick={() => {
+                  setIsLike(!isLike);
+                  setCountLike((countLike += 1));
+                }}
+                style={{ marginRight: "10px", cursor: "pointer" }}
               />
-              {props.location.state.tags}
+              <h4>{countLike}</h4>
             </h4>
-          </ImageInformation>
-        </ImageContainer>
+          ) : (
+            <h4>
+              <FavoriteIcon
+                onClick={() => {
+                  setIsLike(!isLike);
+                  setCountLike((countLike -= 1));
+                }}
+                style={{
+                  fill: "#BE1E2D",
+                  marginRight: "10px",
+                  cursor: "pointer",
+                }}
+              />
+              <h4>{countLike}</h4>
+            </h4>
+          )}
 
-        <Comment postID={props.location.state.postID} />
-        <ScrollToTop />
-      </DetailWrapper>
-    </div>
+          <h4>
+            <LocalOfferIcon style={{ fill: "#e3780c", marginRight: "10px" }} />
+            {props.location.state.tags}
+          </h4>
+        </ImageInformation>
+      </ImageContainer>
+
+      <Comment async postID={props.location.state.postID} />
+      <ScrollButton />
+    </DetailWrapper>
   );
 };
 

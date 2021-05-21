@@ -31,6 +31,7 @@
   .content__container {
     column-count: 4;
     column-gap: 10px;
+    width: 96%;
   }
 }
 

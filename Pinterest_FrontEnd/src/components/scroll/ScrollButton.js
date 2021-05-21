@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { IconButton } from "@material-ui/core";
 
-const ScrollToTop = () => {
+const ScrollButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   // Show button when page is scrolled upto given distance
@@ -39,4 +39,4 @@ const ScrollToTop = () => {
     </div>
   );
 };
-export { ScrollToTop };
+export { ScrollButton };

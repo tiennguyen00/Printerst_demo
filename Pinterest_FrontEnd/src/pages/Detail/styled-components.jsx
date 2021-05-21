@@ -10,7 +10,6 @@ const DetailWrapper = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   margin: auto;
-  padding-top: 110px;
 
   @media ${device.mobileS} {
     width: 100%;
@@ -21,7 +20,7 @@ const DetailWrapper = styled.div`
     box-sizing: border-box;
     flex-direction: column;
     margin: auto;
-    padding-top: 140px;
+    padding: 0;
   }
 
   @media ${device.mobileM} {
@@ -32,13 +31,11 @@ const DetailWrapper = styled.div`
     align-items: center;
     box-sizing: border-box;
     flex-direction: column;
-    margin: auto;
-    padding-top: 110px;
+    margin: 140px auto;
   }
 
   @media ${device.mobileL} {
     width: 80%;
-    padding-top: 140px;
     height: 100%;
   }
 
@@ -51,19 +48,17 @@ const DetailWrapper = styled.div`
     box-sizing: border-box;
     flex-direction: column;
     margin: auto;
-    padding-top: 110px;
   }
 
   @media ${device.laptop} {
-    width: 1016px;
+    width: 80%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
     flex-direction: column;
-    margin: auto;
-    padding-top: 110px;
+    margin: 130px auto 0;
   }
 
   @media ${device.laptopL} {
@@ -140,19 +135,20 @@ const ImageContainer = styled.div`
   }
 
   @media ${device.tablet} {
-    width: 80%;
+    width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    flex-direction: column;
-    margin: auto;
-    padding-top: 110px;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+    border-radius: 20px;
+    background-color: white;
+    margin-top: 130px;
   }
 
   @media ${device.laptop} {
-    width: 1016px;
+    width: 90%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -160,7 +156,6 @@ const ImageContainer = styled.div`
     box-sizing: border-box;
     flex-direction: column;
     margin: auto;
-    padding-top: 110px;
   }
 
   @media ${device.laptopL} {
@@ -212,6 +207,19 @@ const ImageDetail = styled.div`
       object-fit: contain;
     }
   }
+
+  @media ${device.tablet} {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
 `;
 
 const ImageInformation = styled.div`
@@ -242,6 +250,20 @@ const ImageInformation = styled.div`
     h4 {
       width: fit-content;
       font-size: 14px;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 10px;
+
+    h4 {
+      width: 100%;
       display: flex;
       align-items: center;
       flex-direction: row;
