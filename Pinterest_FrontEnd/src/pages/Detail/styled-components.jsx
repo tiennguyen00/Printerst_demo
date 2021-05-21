@@ -220,6 +220,19 @@ const ImageDetail = styled.div`
       object-fit: contain;
     }
   }
+
+  @media ${device.laptop} {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 50%;
+      height: 50%;
+      object-fit: contain;
+    }
+  }
 `;
 
 const ImageInformation = styled.div`
@@ -257,6 +270,20 @@ const ImageInformation = styled.div`
   }
 
   @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 10px;
+
+    h4 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  @media ${device.laptop} {
     display: flex;
     flex-direction: column;
     width: 50%;
