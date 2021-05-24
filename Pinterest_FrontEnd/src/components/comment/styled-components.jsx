@@ -7,6 +7,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
+
 const Wrapper = styled(Container)`
   flex-direction: column;
   align-items: flex-start;
@@ -54,6 +55,17 @@ const Comments = styled(UserName)`
   }
 `;
 
+const CommentButton = styled.button`
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 19px;
+  border: none;
+  background-color: #1877f2;
+  color: white;
+  font-weight: 300;
+  cursor: pointer;
+`;
+
 export {
   Container,
   Wrapper,
@@ -62,4 +74,5 @@ export {
   Comments,
   AddComment,
   Status,
+  CommentButton
 };

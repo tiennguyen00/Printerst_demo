@@ -25,7 +25,7 @@ const ImageDetail = styled.div`
   video {
     width: 300px;
     height: 300px;
-    object-fit: contain;
+    object-fit: contain;  
   }
 `;
 

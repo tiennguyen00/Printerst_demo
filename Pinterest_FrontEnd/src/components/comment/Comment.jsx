@@ -9,6 +9,7 @@ import {
   Comments,
   AddComment,
   Status,
+  CommentButton,
 } from "./styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '../../redux/message/messageActions';
@@ -34,6 +35,7 @@ const Comment = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setComment("");
     let formData = new FormData();
     formData.append("userID", data._id);
     formData.append("postID", props.postID);
@@ -52,6 +54,10 @@ const Comment = (props) => {
       });
   };
 
+  const resetInput = () => {
+    setComment("");
+  };
+
   return (
     <Container>
       <AddComment>
@@ -68,6 +74,14 @@ const Comment = (props) => {
             />
           </form>
         </Comments>
+        <CommentButton
+          onClick={(e) => {
+            handleSubmit(e);
+            resetInput();
+          }}
+        >
+          Comment
+        </CommentButton>
       </AddComment>
 
 
