@@ -6,8 +6,9 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Link } from "react-router-dom";
 import { userService } from "../../services/user.service";
 import "./Pin.scss";
-import { setMessage } from "../../redux/message/messageActions";
-import Dialog from "../../UI/Dialog/index";
+import { setMessage } from '../../redux/message/messageActions';
+import Dialog from '../../UI/Dialog/index';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -26,10 +27,17 @@ const Container = styled.div`
     border-radius: 19px;
     object-fit: cover;
   }
+  video {
+    display: flex;
+    width: 100%;
+    cursor: zoom-in;
+    border-radius: 19px;
+    object-fit: cover;
+  }
 `;
 
 const Pin = (props) => {
-  const {userID, postID, url, downloads, likes, tags, user, views } = props;
+  const {userID, postID, url, downloads, likes, tags, user, views, isVideo } = props;
   const [deleteConfirmOpened, setDeleteConfirmOpened] = useState(false);
   const dispatch = useDispatch();
 
@@ -91,11 +99,19 @@ const Pin = (props) => {
               tags: tags,
               user: user,
               views: views,
+              isVideo: isVideo,
               postID
             },
           }}
         >
-          <img src={url} alt="pin" />
+         {props.isVideo !== "true" ?  <img src={url} alt="pin" /> : 
+         <video 
+          alt="name"
+          src={url}
+          >
+            <source src="https://drive.google.com/uc?id=1dE_dbgxeP_EMJOqLYu5Mq3NxGrQu1z2X"
+          type="video/mp4"/>
+          </video>}
         </Link>
       </Container>
       <Dialog

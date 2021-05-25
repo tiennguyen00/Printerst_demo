@@ -21,27 +21,42 @@ const Container = styled.div`
 
 const Content = () => {
   const [pins, setPins] = useState([]);
-  const photoOfApi = useSelector((state) => state.pinReducer.pins);
-  const state = useSelector((state) => state.userReducer.isLoad);
+  const photoOfApi = useSelector(state => state.pinReducer.pins);
+  let photoOfDatabase = [];
+  let [videoOfDatabase, setVideoOfDatabase] = useState([]);
+  const state = useSelector(state => state.userReducer.isLoad);
 
-  useEffect(() => {
-    const getPhotoFromDatabase = async () => {
-      await fileService
-        .getAllFile()
-        .then((res) => {
-          const photoOfDatabase = res.reverse();
-          setPins([...photoOfDatabase, ...photoOfApi]);
-        })
-        .catch((err) => {
-          console.log("ERROR: ", err.message);
-        });
-    };
-    getPhotoFromDatabase();
-  }, [photoOfApi, state]);
+ useEffect(() => {
+  fileService.getAllFile()
+  .then((res) => {
+    console.log("RES: ", res);
+    photoOfDatabase = res.reverse().filter((item) => {
+      if(item.originalName.split(".")[1] !== 'mp4')
+        return true;
+      return false;
+    });
+
+    videoOfDatabase = res.reverse().filter((item) => {
+      if(item.originalName.split(".")[1] === 'mp4')
+        return true;
+      return false;
+    });
+    setVideoOfDatabase(videoOfDatabase);
+
+    setPins([...photoOfDatabase, ...photoOfApi]);
+  })
+  .catch(err => {
+    console.log("ERROR: ", err.message);
+  });
+ }, [photoOfApi, state]);
 
   return (
     <Wrapper>
       <Container className="content__container">
+        {videoOfDatabase && videoOfDatabase.map((pin, index) => {
+          return <Pin isVideo="true" key={index} url={pin.link} user={pin.photoOfUser} userID={pin.userID}  likes={pin.count} postID={pin._id} tags={pin.status} views={pin.views} downloads="0" />
+        })}
+
         {pins.map((pin, index) => {
           if (pin.urls)
             return (

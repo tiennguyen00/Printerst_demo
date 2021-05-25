@@ -31,7 +31,7 @@ const Detail = (props) => {
 
     fileService
       .updateFileById(payload)
-      .then()
+      .then((res) => console.log(res))
       .catch((err) => console.log("ERR: ", err.message));
   }, [countLike]);
 
@@ -43,7 +43,7 @@ const Detail = (props) => {
 
     fileService
       .updateFileById(payload)
-      .then()
+      .then((res) => console.log(res))
       .catch((err) => console.log("ERR: ", err.message));
   }, []);
 
