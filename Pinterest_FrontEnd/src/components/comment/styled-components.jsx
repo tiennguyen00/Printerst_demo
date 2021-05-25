@@ -39,12 +39,13 @@ const Status = styled(Container)`
 
 const UserName = styled.h1`
   width: fit-content;
-  font-weight: 300;
+  font-weight: 600;
   font-size: 20px;
 `;
 
 const Comments = styled(UserName)`
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 300;
   input[type="text"] {
     padding: 10px;
     border-radius: 19px;

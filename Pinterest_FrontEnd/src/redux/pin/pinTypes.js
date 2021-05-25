@@ -1,1 +1,2 @@
 export const ADD_PINS = 'ADD_PINS'
+export const LOAD_PHOTO_COMMENT = 'LOAD_PHOTO_COMMENT'

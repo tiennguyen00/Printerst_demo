@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { IconButton } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -7,6 +7,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import { user } from "../../util/user";
 import { userService } from "../../services/user.service";
 import { setMessage } from '../../redux/message/messageActions';
+import { loadPhotos } from '../../redux/user/userAction';
 
 import "./Post.scss";
 import { ContentContainer, FormWrapper, ImgWrapper } from "./styled-components";
@@ -32,20 +33,17 @@ const Post = ({ isPostOpen, closePost }) => {
     setFile(e.target.files[0])
     reader.readAsDataURL(file);
   };
+  const userInfo  = useSelector(state => state.userReducer.user);
 
-  useEffect(() => {
-    async function fetchUserInfo() {
-      let userInfo = user.getUserInfo();
-      setUserID(userInfo.id);
-    }
-    fetchUserInfo();
-  }, []);
+  //Khi user thêm ảnh hoặc xóa ảnh thì sẽ thay đổi biến này dê load lại hình ảnh
+  const isLoad  = useSelector(state => state.userReducer.isLoad);
 
   const onSubmit = (data) => {
     const { status } = data;
 
     let formData = new FormData();
-    formData.append("userID", userID);
+    formData.append("userID", userInfo._id);
+    formData.append("photoOfUser", userInfo.firstName + " " + userInfo.lastName);
     formData.append("status", status);
     formData.append("linkFile", file);
 
@@ -53,6 +51,7 @@ const Post = ({ isPostOpen, closePost }) => {
       .then(() => {
         dispatch(setMessage('Uploaded!!.', 'success'));
         closePost();
+        dispatch(loadPhotos(!isLoad));
       })
       .catch(err => {
         console.log("Err: ", err.message);
@@ -72,7 +71,7 @@ const Post = ({ isPostOpen, closePost }) => {
       <input
         id="file-input"
         type="file"
-        accept="image/bmp,image/gif,image/jpeg,image/png,image/tiff,image/webp"
+        accept="video/*, image/*"
         aria-hidden="true"
         style={{
           cursor: "pointer",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userService } from "../../services/user.service";
 import { user } from "../../util/user";
 import { getMess } from "../../util/message";
@@ -15,16 +15,21 @@ import Post from '../../components/Post/Post';
 import {getCurrentUser} from '../../redux/user/userAction';
 
 import Image1 from '../../components/image1/image1';
+import Video1 from '../..//components/Video1/video1';
 import map from "lodash/map";
 import "./Profile.scss";
 
 function Profile(props) {
   const dispatch = useDispatch();
+  const state = useSelector(state => state.userReducer.isLoad);
   const [isPostOpen, setPostOpen] = useState(false); // dùng để mở Post
   const defaultNumberToRender = 5; //Số lượng hình ảnh mặc định đc render;
   const [userProfile, setUserProfile] = useState({});
   const [userPhotos, setUserPhotos] = useState([]);
   const [photoToShow, setPhotoToShow] = useState([]);
+
+  const [userVideos, setUserVideos] = useState([]);
+  // const [videoToShow, setVideoToShow] = useState([]);
 
   const history = get(props, "history", {});
   const stateHistory = history.location.state || {};
@@ -46,11 +51,22 @@ function Profile(props) {
         else setApiError(err.message);
       });
 
-    //Lấy ảnh mà user đó đã đăng
+    //Lấy ảnh, video mà user đó đã đăng
     userService
       .getPhotos()
       .then((res) => {
-        setUserPhotos(res);
+        const resultPhoto = res.filter((item) => {
+          if(item.originalName.split(".")[1] !== 'mp4')
+            return true;
+          return false;
+        })
+        const resultVideo = res.filter((item) => {
+          if(item.originalName.split(".")[1] === 'mp4')
+            return true;
+          return false;
+        })
+        setUserPhotos(resultPhoto.reverse());
+        setUserVideos(resultVideo.reverse())
       })
       .catch((err) => {
         if (err === 400) setApiError("Not found any photo!!!");
@@ -58,6 +74,31 @@ function Profile(props) {
       });
       console.log(userPhotos)
     }, []);
+
+
+    useEffect(() => {
+      //Lấy ảnh, video mà user đó đã đăng sau khi thêm hoặc xóa ảnh (cập nhật giao diện thôi)
+      userService
+      .getPhotos()
+      .then((res) => {
+        const resultPhoto = res.filter((item) => {
+          if(item.originalName.split(".")[1] !== 'mp4')
+            return true;
+          return false;
+        })
+        const resultVideo = res.filter((item) => {
+          if(item.originalName.split(".")[1] === 'mp4')
+            return true;
+          return false;
+        })
+        setUserPhotos(resultPhoto.reverse());
+        setUserVideos(resultVideo.reverse())
+      })
+      .catch((err) => {
+        if (err === 400) setApiError("Not found any photo!!!");
+        else setApiError(err.message);
+      });
+    }, [state])
 
     const handleDefaultView = useCallback(() => {
       const data = userPhotos.filter((item, index) => index < defaultNumberToRender);
@@ -79,11 +120,6 @@ function Profile(props) {
     useEffect(() => {
       setPhotoToShow(userPhotos.slice(0, photoToShow.length === 0 ? defaultNumberToRender : photoToShow.length));
     }, [userPhotos]);
-
-    // const dispatch = useDispatch();
-    // const onClick = fileId => {
-    //   dispatch(showViewer(fileId));
-    // };
 
   return (
     <>
@@ -120,10 +156,10 @@ function Profile(props) {
           </Box>
           <Box className="box" display="flex" flexDirection="column">
             <Typography variant="h6" className="text3">
-              0
+            {userVideos.length}
             </Typography>
             <Typography variant="h6" className="text3">
-              Reacts
+              Videos
             </Typography>
           </Box>
           <Box className="box" display="flex" flexDirection="column" >
@@ -136,6 +172,7 @@ function Profile(props) {
           </Box>
         </Grid>
 
+        {/* Hình ảnh */}
         <Typography className="photos__label" variant="h6">My Pictures</Typography>
         <Grid container className="photos__container">
           {photoToShow && map(photoToShow, (photo) => {
@@ -167,7 +204,23 @@ function Profile(props) {
             </div>
           }
         </div>
+
+      {/* Video:  */}
+        <Typography className="photos__label" variant="h6">My Videos</Typography>
+        <Grid container className="photos__container">
+        {userVideos && map(userVideos, (video) => {
+            return (
+              <Grid item className="photos__item">
+                <Paper className="photos__paper">
+                  <Video1 id={video._id} link={video.link} height={'100%'} width={'100%'}/>
+                </Paper>
+              </Grid>
+            )
+          })}
+        </Grid>
       </Grid>
+
+
       <Post isPostOpen={isPostOpen} closePost={() => setPostOpen(false)}></Post>
     </>
   )

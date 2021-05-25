@@ -7,5 +7,6 @@ router.get("/getFileById/:fileId", JWTMiddleware, controller.getFileById);
 router.get("/deleteFileById/:fileId", JWTMiddleware, controller.deleteFileById)
 router.get("/getAllFile", controller.getAllFile);
 router.get("/getAllCommentById/:fileId", controller.getAllCommentById);
+router.put("/updateFileById/:fileId", JWTMiddleware, controller.updateFileById);
 
 export default router;
