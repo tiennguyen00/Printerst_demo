@@ -65,7 +65,6 @@ export default {
     const originalName = req.file.originalname;
     let link;
     let {userID, status, linkFile, photoOfUser} = req.body;
-    console.log("RE: ", req.body)
 
     googleAPI(req, res, err).then((path) => {
       link = path;

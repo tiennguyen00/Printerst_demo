@@ -6,7 +6,8 @@ import PropTypes from "prop-types"; //Kiếm tra Runtime cho React-prop hoặc o
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store, { persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { pagesHasPermission, pagesNotHasPermission } from "./config/page";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
@@ -77,30 +78,33 @@ function App({ history, ...rest }) {
 
   return (
     <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <ViewerDialog/>
-      <Message/>
-      <div className="root-content full-height">
-        {!isVerifyPage && <Header history={history} {...rest} />}
-        <Switch>
-            <Route exact path='/' render={() => redirectHomePage()} />
-            {map(pagesHasPermission, page => {
-              return(
-                <PrivateRoute
-                key={page.component}
-                path={page.path}
-                component={components[page.component]}
-                exact
-              />
-              )
-            })}
+      <PersistGate loading={null} persistor={persistor}>
+        <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <ViewerDialog/>
+        <Message/>
+        <div className="root-content full-height">
+          {!isVerifyPage && <Header history={history} {...rest} />}
+          <Switch>
+              <Route exact path='/' render={() => redirectHomePage()} />
+              {map(pagesHasPermission, page => {
+                return(
+                  <PrivateRoute
+                  key={page.component}
+                  path={page.path}
+                  component={components[page.component]}
+                  exact
+                />
+                )
+              })}
 
 
-            <PublicRoute path='*' component={NotFound} />
-          </Switch>
-        </div>
-      </MuiThemeProvider>
+              <PublicRoute path='*' component={NotFound} />
+            </Switch>
+          </div>
+        </MuiThemeProvider>
+      </PersistGate>
+      
     </Provider>
   );
 }

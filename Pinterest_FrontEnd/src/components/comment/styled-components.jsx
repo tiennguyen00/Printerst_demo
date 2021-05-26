@@ -1,11 +1,38 @@
 import styled from "styled-components";
+import { device } from "../../styles/device";
 
 const Container = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  @media ${device.mobileS} {
+  }
+  @media ${device.mobileM} {
+  }
+  @media ${device.mobileL} {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+    width: 60%;
+  }
+  @media ${device.laptopL} {
+    width: 60%;
+  @media ${device.desktop} {
+    width: 60%;
+  }
+}
 `;
+
 
 
 const Wrapper = styled(Container)`
