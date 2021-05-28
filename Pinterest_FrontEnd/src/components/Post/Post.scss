@@ -24,6 +24,20 @@
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   position: relative;
 }
+@media screen and (max-width: 768px) {
+  .wrapper > .postImg-form {
+    width: 90%;
+    height: 80%;
+    margin: 0 auto;
+    display: block;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+}
 
 .wrapper div textarea {
   margin-top: 20px;

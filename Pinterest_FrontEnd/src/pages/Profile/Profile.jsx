@@ -5,19 +5,20 @@ import { user } from "../../util/user";
 import { getMess } from "../../util/message";
 import get from "lodash/get";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import { Avatar } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import Post from '../../components/Post/Post';
-import {getCurrentUser} from '../../redux/user/userAction';
+import { Avatar } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import Post from "../../components/Post/Post";
+import { getCurrentUser } from "../../redux/user/userAction";
 
-import Image1 from '../../components/image1/image1';
-import Video1 from '../..//components/Video1/video1';
+import Image1 from "../../components/image1/image1";
+import Video1 from "../..//components/Video1/video1";
 import map from "lodash/map";
 import "./Profile.scss";
+import { device } from "../../styles/device";
 
 function Profile(props) {
   const dispatch = useDispatch();
@@ -56,77 +57,87 @@ function Profile(props) {
       .getPhotos()
       .then((res) => {
         const resultPhoto = res.filter((item) => {
-          if(item.originalName.split(".")[1] !== 'mp4')
-            return true;
+          if (item.originalName.split(".")[1] !== "mp4") return true;
           return false;
-        })
+        });
         const resultVideo = res.filter((item) => {
-          if(item.originalName.split(".")[1] === 'mp4')
-            return true;
+          if (item.originalName.split(".")[1] === "mp4") return true;
           return false;
-        })
+        });
         setUserPhotos(resultPhoto.reverse());
-        setUserVideos(resultVideo.reverse())
+        setUserVideos(resultVideo.reverse());
       })
       .catch((err) => {
         if (err === 400) setApiError("Not found any photo!!!");
         else setApiError(err.message);
       });
-    }, []);
+  }, []);
 
-
-    useEffect(() => {
-      //Lấy ảnh, video mà user đó đã đăng sau khi thêm hoặc xóa ảnh (cập nhật giao diện thôi)
-      userService
+  useEffect(() => {
+    //Lấy ảnh, video mà user đó đã đăng sau khi thêm hoặc xóa ảnh (cập nhật giao diện thôi)
+    userService
       .getPhotos()
       .then((res) => {
         const resultPhoto = res.filter((item) => {
-          if(item.originalName.split(".")[1] !== 'mp4')
-            return true;
+          if (item.originalName.split(".")[1] !== "mp4") return true;
           return false;
-        })
+        });
         const resultVideo = res.filter((item) => {
-          if(item.originalName.split(".")[1] === 'mp4')
-            return true;
+          if (item.originalName.split(".")[1] === "mp4") return true;
           return false;
-        })
+        });
         setUserPhotos(resultPhoto.reverse());
-        setUserVideos(resultVideo.reverse())
+        setUserVideos(resultVideo.reverse());
       })
       .catch((err) => {
         if (err === 400) setApiError("Not found any photo!!!");
         else setApiError(err.message);
       });
-    }, [state])
+  }, [state]);
 
-    const handleDefaultView = useCallback(() => {
-      const data = userPhotos.filter((item, index) => index < defaultNumberToRender);
-      setPhotoToShow(data);
-    }, [userPhotos.length, defaultNumberToRender]);
+  const handleDefaultView = useCallback(() => {
+    const data = userPhotos.filter(
+      (item, index) => index < defaultNumberToRender
+    );
+    setPhotoToShow(data);
+  }, [userPhotos.length, defaultNumberToRender]);
 
-    const handleShowMore = () => {
-      const data = userPhotos.filter(
-        (item, index) => index >= photoToShow.length && index < photoToShow.length + defaultNumberToRender,
-      );
+  const handleShowMore = () => {
+    const data = userPhotos.filter(
+      (item, index) =>
+        index >= photoToShow.length &&
+        index < photoToShow.length + defaultNumberToRender
+    );
 
-      setPhotoToShow(state => [...state, ...data]);
-    }
+    setPhotoToShow((state) => [...state, ...data]);
+  };
 
-    useEffect(() => {
-      handleDefaultView();
-    }, [userPhotos.length, handleDefaultView]);
+  useEffect(() => {
+    handleDefaultView();
+  }, [userPhotos.length, handleDefaultView]);
 
-    useEffect(() => {
-      setPhotoToShow(userPhotos.slice(0, photoToShow.length === 0 ? defaultNumberToRender : photoToShow.length));
-    }, [userPhotos]);
+  useEffect(() => {
+    setPhotoToShow(
+      userPhotos.slice(
+        0,
+        photoToShow.length === 0 ? defaultNumberToRender : photoToShow.length
+      )
+    );
+  }, [userPhotos]);
 
   return (
     <>
-      <Grid className="wrapper" container justify="center" alignItems="center">
+      <Grid
+        className="wrapper"
+        container
+        justify="center"
+        alignItems="center"
+        style={{ marginTop: "110px" }}
+      >
         <p className="error">{apiError}</p>
         <AddCircleOutlineIcon
           onClick={() => setPostOpen(!isPostOpen)}
-          style={{ height: 50, width: 50, color: "#0f9a89" }}
+          style={{ height: 50, width: 50, color: "#0f9a89", cursor: "pointer" }}
         />
         <Grid className="wrapper__main">
           <div className="circle1">
@@ -153,7 +164,14 @@ function Profile(props) {
           justify="center"
           alignItems="center"
         >
-          <Box className="box" display="flex" flexDirection="column">
+          <Box
+            className="box"
+            display="flex"
+            flexDirection="column"
+            style={{
+              border: "none",
+            }}
+          >
             <Typography variant="h6" className="text3">
               0
             </Typography>
@@ -161,15 +179,25 @@ function Profile(props) {
               Followers
             </Typography>
           </Box>
-          <Box className="box" display="flex" flexDirection="column">
+          <Box
+            className="box"
+            display="flex"
+            flexDirection="column"
+            style={{ border: "none" }}
+          >
             <Typography variant="h6" className="text3">
-            {userVideos.length}
+              {userVideos.length}
             </Typography>
             <Typography variant="h6" className="text3">
               Videos
             </Typography>
           </Box>
-          <Box className="box" display="flex" flexDirection="column">
+          <Box
+            className="box"
+            display="flex"
+            flexDirection="column"
+            style={{ border: "none" }}
+          >
             <Typography variant="h6" className="text3">
               {userPhotos.length}
             </Typography>
@@ -180,7 +208,9 @@ function Profile(props) {
         </Grid>
 
         {/* Hình ảnh */}
-        <Typography className="photos__label" variant="h6">My Pictures</Typography>
+        <Typography className="photos__label" variant="h6">
+          My Pictures
+        </Typography>
         <Grid container className="photos__container">
           {photoToShow &&
             map(photoToShow, (photo) => {
@@ -240,21 +270,29 @@ function Profile(props) {
           )}
         </div>
 
-      {/* Video:  */}
-        <Typography className="photos__label" variant="h6">My Videos</Typography>
+        {/* Video:  */}
+        <Typography className="photos__label" variant="h6">
+          My Videos
+        </Typography>
+
         <Grid container className="photos__container">
-        {userVideos && map(userVideos, (video) => {
-            return (
-              <Grid item className="photos__item">
-                <Paper className="photos__paper">
-                  <Video1 id={video._id} link={video.link} height={'100%'} width={'100%'}/>
-                </Paper>
-              </Grid>
-            )
-          })}
+          {userVideos &&
+            map(userVideos, (video) => {
+              return (
+                <Grid item className="photos__item">
+                  <Paper className="photos__paper">
+                    <Video1
+                      id={video._id}
+                      link={video.link}
+                      height={"100%"}
+                      width={"100%"}
+                    />
+                  </Paper>
+                </Grid>
+              );
+            })}
         </Grid>
       </Grid>
-
 
       <Post isPostOpen={isPostOpen} closePost={() => setPostOpen(false)}></Post>
     </>

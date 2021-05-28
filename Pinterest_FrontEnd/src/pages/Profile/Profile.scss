@@ -1,105 +1,206 @@
-@import "../../styles/style-common.scss"; 
+@import "../../styles/style-common.scss";
 
 .wrapper {
-    margin: auto;
-    .error{
-        color: red !important;
-    }
-
-    .myPictures{
-        margin-top: 20px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 10px;
-    }
-
-    &__main {
-        padding: 50px 50px 50px 50px;
-        .text1{
-            text-align: center;
-            font-weight: 700;
-        }  
-        .text2{
-            text-align: center;
-        }
-        .profile{
-            position: absolute;
-            margin: 10px;
-        }  
-        .circle1{
-            margin: 0 auto 20px;
-            position: relative;
-            height: 220px;
-            width: 220px;
-            background: linear-gradient($color--red, $color--success);
-            border-radius: 50%;
-            animation: circle 4s linear 5s infinite;
-        }
-    }
-    &__sub{
-        .box{
-            text-align: center;
-            padding: 0 50px;
-            border: 1px solid black;
-            .text3{
-                font-weight: 600;
-                line-height: 1.5;
-            }
-        }
-        
-    }
-}
-.photos__label {
-    margin-left: 8px !important;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border-bottom: solid #bdbdbd 1px;
-    font-size: 28px !important;
-    width: 100%;
-    font-weight: 600 !important;
+  margin: auto;
+  .error {
+    color: red !important;
   }
-  
-.photos__container {
-    margin: 8px 0 !important;
-    padding: 0 8px !important;
 
-    .photos__item {
-        width: 20%;
-        padding: 4px;
+  .myPictures {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+  }
 
-        .photos__paper {
-            cursor: pointer;
-            height: 100%;
-        }
+  &__main {
+    padding: 50px 50px 50px 50px;
+    .text1 {
+      text-align: center;
+      font-weight: 700;
     }
+    .text2 {
+      text-align: center;
+    }
+    .profile {
+      position: absolute;
+      margin: 10px;
+    }
+    .circle1 {
+      margin: 0 auto 20px;
+      position: relative;
+      height: 220px;
+      width: 220px;
+      background: linear-gradient($color--red, $color--success);
+      border-radius: 50%;
+      animation: circle 4s linear 5s infinite;
+    }
+  }
+  &__sub {
+    .box {
+      text-align: center;
+      padding: 0 50px;
+      border: 1px solid black;
+      .text3 {
+        font-weight: 600;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.photos__label {
+  margin-left: 8px !important;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border-bottom: solid #bdbdbd 1px;
+  font-size: 28px !important;
+  width: 100%;
+  font-weight: 600 !important;
+}
+
+.photos__container {
+  margin: 8px 0 !important;
+  padding: 0 8px !important;
+
+  .photos__item {
+    width: 20%;
+    padding: 4px;
+
+    .photos__paper {
+      cursor: pointer;
+      height: 100%;
+    }
+  }
 }
 
 .toggle-section {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-  
-        .toggle-section__more, .toggle-section__collapse {
-            cursor: pointer;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 
-        .toggle-section__text{
-            font-size: 19px !important;    
-        }
+  .toggle-section__more,
+  .toggle-section__collapse {
+    cursor: pointer;
+
+    .toggle-section__text {
+      font-size: 19px !important;
     }
+  }
 }
 
 @keyframes circle {
-    0%{
-        background: linear-gradient($color--red, $color--success);
-    }
-    25%{
-        background: linear-gradient(90deg ,$color--red, $color--success);
-    }
-    50%{
-        background: linear-gradient(180deg ,$color--red, $color--success)
-    }
-    75%{
-        background: linear-gradient(270deg ,$color--red, $color--success)
-    }
+  0% {
+    background: linear-gradient($color--red, $color--success);
+  }
+  25% {
+    background: linear-gradient(90deg, $color--red, $color--success);
+  }
+  50% {
+    background: linear-gradient(180deg, $color--red, $color--success);
+  }
+  75% {
+    background: linear-gradient(270deg, $color--red, $color--success);
+  }
 }
 
+@media screen and (max-width: 768px) {
+  .wrapper {
+    margin: auto;
+
+    .error {
+      color: red !important;
+    }
+
+    .myPictures {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+    }
+    .MuiSvgIcon-root {
+      margin-top: -70px;
+    }
+
+    &__main {
+      padding: 20px;
+      .text1 {
+        text-align: center;
+        font-weight: 700;
+        font-size: 22px;
+      }
+      .text2 {
+        text-align: center;
+        font-size: 20px;
+      }
+      .profile {
+        position: absolute;
+        margin: 10px;
+      }
+      .circle1 {
+        margin: 0 auto 20px;
+        height: 150px;
+        width: 150px;
+        background: linear-gradient($color--red, $color--success);
+        border-radius: 50%;
+        animation: circle 4s linear 5s infinite;
+        .profile {
+          margin: 0 auto;
+          width: 150px !important;
+          height: 150px !important;
+          position: absolute;
+          img {
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+    &__sub {
+      margin-bottom: 20px;
+      .box {
+        width: fit-content;
+        padding: 0 10px;
+        text-align: center;
+        border: 1px solid black;
+        display: block;
+        margin: 0 auto;
+        .text3 {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 1.5;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .photos__label {
+    margin-left: 8px !important;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: none;
+    font-size: 20px !important;
+    width: 100%;
+    font-weight: 600 !important;
+    text-align: center;
+  }
+
+  .photos__container {
+    margin: 8px 0 !important;
+    padding: 0 8px !important;
+    width: 90% !important;
+    border-top: 1px solid #333;
+
+    padding-top: 10px !important;
+
+    .photos__item {
+      width: 40%;
+      padding: 4px;
+
+      .photos__paper {
+        cursor: pointer;
+        height: 100%;
+      }
+    }
+  }
+}
