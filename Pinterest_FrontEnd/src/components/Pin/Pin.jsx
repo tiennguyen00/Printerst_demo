@@ -106,7 +106,11 @@ const Pin = (props) => {
         >
          {props.isVideo !== "true" ?  <img src={url} alt="pin" /> : 
          <video 
-          alt="name"
+          loop
+          preload="auto"
+          onMouseOver={event => event.target.play()}
+          onMouseOut={event => event.target.pause()}
+          alt="video_alt"
           src={url}
           >
             <source src="https://drive.google.com/uc?id=1dE_dbgxeP_EMJOqLYu5Mq3NxGrQu1z2X"

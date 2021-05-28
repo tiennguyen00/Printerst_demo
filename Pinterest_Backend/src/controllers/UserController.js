@@ -30,7 +30,7 @@ export default {
     let { user } = req,
       photoUrl;
 
-    await  googleAPI(req, res, err).then((path) => {
+    await googleAPI(req, res, err).then((path) => {
       photoUrl = path;
       UserService.updateRegisterInfo(user._id, req.body, photoUrl)
         .then((result) => {
@@ -43,13 +43,13 @@ export default {
     });
   },
   forgotPassword: async (req, res) => {
-   await UserService.forgotPassword(req.body.email)
-     .then((result) => {
-       return res.status(200).json(result);
-     })
-     .catch((error) => {
-       return res.status(error.code).json(error);
-     });
+    await UserService.forgotPassword(req.body.email)
+      .then((result) => {
+        return res.status(200).json(result);
+      })
+      .catch((error) => {
+        return res.status(error.code).json(error);
+      });
   },
   getProfile: async (req, res) => {
     const user = req.user;
@@ -65,19 +65,18 @@ export default {
     const originalName = req.file.originalname;
     let link;
     let { userID, status, linkFile, photoOfUser } = req.body;
-    console.log("RE: ", req.body);
 
-   await googleAPI(req, res, err).then((path) => {
-     link = path;
-     UserService.post(userID, status, link, originalName, photoOfUser)
-       .then((result) => {
-         return res.status(200).json(result);
-       })
-       .catch((error) => {
-         Log.error("Post", error.message, error);
-         return res.status(error.code).json(error);
-       });
-   });
+    await googleAPI(req, res, err).then((path) => {
+      link = path;
+      UserService.post(userID, status, link, originalName, photoOfUser)
+        .then((result) => {
+          return res.status(200).json(result);
+        })
+        .catch((error) => {
+          Log.error("Post", error.message, error);
+          return res.status(error.code).json(error);
+        });
+    });
   },
   postWithTicket: async (req, res, err) => {
     await UserService.postWithTicket(

@@ -33,7 +33,9 @@ const Comment = (props) => {
   }, [state]);
 
   const handleSubmit = (e) => {
+    document.getElementById("comment").value = "";
     e.preventDefault();
+    setComment("");
     let formData = new FormData();
     formData.append("userID", data._id);
     formData.append("postID", props.postID);
@@ -55,6 +57,7 @@ const Comment = (props) => {
 
   const resetInput = () => {
     setComment("");
+    document.getElementById("comment").value = "";
   };
 
   return (
@@ -66,6 +69,7 @@ const Comment = (props) => {
         <Comments style={{ flex: "1" }}>
           <form onSubmit={(e) => handleSubmit(e)}>
             <input
+              id="comment"
               type="text"
               placeholder="Write your comment"
               style={{ width: "100%", flex: "1" }}

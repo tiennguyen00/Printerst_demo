@@ -12,13 +12,10 @@ const GoBack = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-
   @media ${device.mobileS} {
   }
-
   @media ${device.mobileM} {
   }
-
   @media ${device.mobileL} {
     z-index: 4;
     width: 60px;
@@ -31,16 +28,12 @@ const GoBack = styled.button`
     background-color: transparent;
     cursor: pointer;
   }
-
   @media ${device.tablet} {
   }
-
   @media ${device.laptop} {
   }
-
   @media ${device.laptopL} {
   }
-
   @media ${device.desktop} {
   }
 `;

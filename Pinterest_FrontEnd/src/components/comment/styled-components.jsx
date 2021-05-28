@@ -6,39 +6,34 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-
   @media ${device.mobileS} {
   }
-
   @media ${device.mobileM} {
   }
-
   @media ${device.mobileL} {
     width: 90%;
     height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
     flex-direction: column;
+    margin: 0 auto;
   }
-
   @media ${device.tablet} {
   }
-
   @media ${device.laptop} {
     width: 60%;
   }
-
   @media ${device.laptopL} {
     width: 60%;
-  }
-
   @media ${device.desktop} {
     width: 60%;
   }
+}
 `;
+
+
 
 const Wrapper = styled(Container)`
   flex-direction: column;
@@ -79,7 +74,6 @@ const UserName = styled.h1`
 const Comments = styled(UserName)`
   font-size: 18px;
   font-weight: 300;
-
   input[type="text"] {
     padding: 10px;
     border-radius: 19px;
@@ -107,5 +101,5 @@ export {
   Comments,
   AddComment,
   Status,
-  CommentButton,
+  CommentButton
 };

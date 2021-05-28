@@ -16,11 +16,12 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TextsmsIcon from "@material-ui/icons/Textsms";
 import FaceIcon from "@material-ui/icons/Face";
 import KeyboardArrowIcon from "@material-ui/icons/KeyboardArrowDown";
-import Popper from "@material-ui/core/Popper";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import MenuList from "@material-ui/core/MenuList";
+import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Tooltip from '@material-ui/core/Tooltip'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
 import { MenuItem } from "@material-ui/core";
 import { Avatar } from "@material-ui/core";
 
@@ -119,12 +120,12 @@ const Header = (props) => {
     <Wrapper>
       <LogoWrapper>
         <Link to="/home">
-          <PinterestIcon className="pinterest-icon" />
+          <PinterestIcon className="pinterest-icon" style={{ height: 50, width: 50 }}/>
         </Link>
       </LogoWrapper>
-      <HomePageButton>
+      {/* <HomePageButton>
         <Link to="/home">Homepage</Link>
-      </HomePageButton>
+      </HomePageButton> */}
 
       <SearchWrapper>
         <SearchBarWrapper>
@@ -139,24 +140,28 @@ const Header = (props) => {
       </SearchWrapper>
       <IconsWrapper>
         <IconButton>
-          <NotificationsIcon />
+          <Tooltip title="Coming soon">
+            <NotificationsIcon  style={{ height: 30, width: 30 }}/>
+          </Tooltip>
         </IconButton>
         <IconButton>
-          <TextsmsIcon />
+          <Tooltip title="Coming soon">
+            <TextsmsIcon style={{ height: 30, width: 30 }}/>
+          </Tooltip>
         </IconButton>
         <IconButton onClick={(e) => props.history.push("/profile")}>
           {!userProfile ? (
             <FaceIcon />
           ) : (
             <Avatar
-              style={{ height: 30, width: 30 }}
+              style={{ height: 40, width: 40 }}
               src={userProfile.profilePhoto}
             />
           )}
         </IconButton>
         <IconButton onClick={toggleMenu}>
           <div ref={anchorRef}>
-            <KeyboardArrowIcon className="header-user-profile" />
+            <KeyboardArrowIcon className="header-user-profile" style={{ height: 30, width: 30 }}/>
           </div>
         </IconButton>
       </IconsWrapper>
