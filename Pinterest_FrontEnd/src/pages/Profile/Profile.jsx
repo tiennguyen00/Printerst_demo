@@ -39,38 +39,46 @@ function Profile(props) {
   );
 
   //thêm apiError để xác nhận 2 cái. getPhotos với get Profile
-  useEffect(async () => {
+  useEffect(() => {
     //Lấy ảnh đại diện
-    userService
-      .getProfile()
-      .then((res) => {
-        setUserProfile(res);
-        dispatch(getCurrentUser(res));
-      })
-      .catch((err) => {
-        if (err === 400) setApiError("Load fail!!!");
-        else setApiError(err.message);
-      });
+    const getAvatar = async () => {
+      await userService
+        .getProfile()
+        .then((res) => {
+          setUserProfile(res);
+          dispatch(getCurrentUser(res));
+        })
+        .catch((err) => {
+          if (err === 400) setApiError("Load fail!!!");
+          else setApiError(err.message);
+        });
+    };
+    getAvatar();
+  }, []);
 
-    //Lấy ảnh, video mà user đó đã đăng
-    userService
-      .getPhotos()
-      .then((res) => {
-        const resultPhoto = res.filter((item) => {
-          if (item.originalName.split(".")[1] !== "mp4") return true;
-          return false;
+  useEffect(() => {
+    const getData = async () => {
+      //Lấy ảnh, video mà user đó đã đăng
+      await userService
+        .getPhotos()
+        .then((res) => {
+          const resultPhoto = res.filter((item) => {
+            if (item.originalName.split(".")[1] !== "mp4") return true;
+            return false;
+          });
+          const resultVideo = res.filter((item) => {
+            if (item.originalName.split(".")[1] === "mp4") return true;
+            return false;
+          });
+          setUserPhotos(resultPhoto.reverse());
+          setUserVideos(resultVideo.reverse());
+        })
+        .catch((err) => {
+          if (err === 400) setApiError("Not found any photo!!!");
+          else setApiError(err.message);
         });
-        const resultVideo = res.filter((item) => {
-          if (item.originalName.split(".")[1] === "mp4") return true;
-          return false;
-        });
-        setUserPhotos(resultPhoto.reverse());
-        setUserVideos(resultVideo.reverse());
-      })
-      .catch((err) => {
-        if (err === 400) setApiError("Not found any photo!!!");
-        else setApiError(err.message);
-      });
+    };
+    getData();
   }, []);
 
   useEffect(() => {

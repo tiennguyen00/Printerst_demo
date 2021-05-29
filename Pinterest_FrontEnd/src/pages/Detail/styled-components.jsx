@@ -51,7 +51,7 @@ const DetailWrapper = styled.div`
   }
 
   @media ${device.laptop} {
-    width: 80%;
+    width: 90%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -148,13 +148,13 @@ const ImageContainer = styled.div`
   }
 
   @media ${device.laptop} {
-    width: 90%;
+    width: 80%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    flex-direction: column;
+    flex-direction: row;
     margin: auto;
   }
 
@@ -228,8 +228,8 @@ const ImageDetail = styled.div`
     align-items: center;
 
     img {
-      width: 50%;
-      height: 50%;
+      width: 90%;
+      height: 90%;
       object-fit: contain;
     }
   }
@@ -258,6 +258,7 @@ const ImageInformation = styled.div`
     h1 {
       font-size: 18px;
       width: fit-content;
+      text-align: left;
     }
 
     h4 {
@@ -288,6 +289,13 @@ const ImageInformation = styled.div`
     flex-direction: column;
     width: 50%;
     margin-top: 10px;
+    margin-left: 40px;
+
+    h1 {
+      text-align: left;
+      width: 100%;
+      margin-left: 40px;
+    }
 
     h4 {
       width: 100%;

@@ -57,7 +57,10 @@ const Detail = (props) => {
           <img src={props.location.state.url} alt="" />
         </ImageDetail>{" "}
         <ImageInformation>
-          <h1>Upload by: {props.location.state.user}</h1>
+          <h1>
+            <span style={{ fontWeight: "200" }}>Upload by</span>{" "}
+            {props.location.state.user}
+          </h1>
           <h4>
             <VisibilityIcon style={{ fill: "#111", marginRight: "10px" }} />
             {props.location.state.views}
