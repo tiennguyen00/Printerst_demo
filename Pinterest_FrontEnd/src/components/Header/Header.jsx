@@ -155,12 +155,12 @@ const Header = (props) => {
       <IconsWrapper>
         <IconButton>
           <Tooltip title="Coming soon">
-            <NotificationsIcon  style={{ height: 30, width: 30 }}/>
+            <TextsmsIcon style={{ height: 30, width: 30 }}/>
           </Tooltip>
         </IconButton>
         <IconButton>
           <Tooltip title="Coming soon">
-            <TextsmsIcon style={{ height: 30, width: 30 }}/>
+            <NotificationsIcon  style={{ height: 30, width: 30 }}/>
           </Tooltip>
         </IconButton>
         <IconButton onClick={(e) => props.history.push("/profile")}>
