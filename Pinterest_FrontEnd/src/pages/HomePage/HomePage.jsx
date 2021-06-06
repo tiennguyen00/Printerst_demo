@@ -6,6 +6,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import "./HomePage.scss";
 import Content from "../../components/content/Content";
 import Post from "../../components/Post/Post";
+import { ScrollToTop } from "./scroll";
 
 const HomePage = (props) => {
   
@@ -27,7 +28,7 @@ const HomePage = (props) => {
       </div>
 
       <div className="scroll-top-btn">
-        <IconButton >
+        <IconButton onClick={() => window.scrollTo(0, 0)}>
           <ArrowUpwardIcon fontSize="large"/>
         </IconButton>
       </div>
