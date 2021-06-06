@@ -25,7 +25,7 @@ const ImageDetail = styled.div`
   video {
     width: 300px;
     height: 300px;
-    object-fit: contain;  
+    object-fit: contain;
   }
 `;
 
@@ -51,7 +51,7 @@ const ImageContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
   border-radius: 20px;
   background-color: white;
-  padding: 20px
+  padding: 20px;
 `;
 
 export { DetailWrapper, ImageContainer, ImageDetail, ImageInformation };

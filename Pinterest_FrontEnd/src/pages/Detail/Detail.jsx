@@ -48,30 +48,26 @@ const Detail = (props) => {
   }, []);
 
   return (
-    <div
-      style={{ height: "100%", backgroundColor: "rgba(118, 118, 118, 0.1)" }}
-    >
+    <div style={{ height: "100%" }}>
       <DetailWrapper>
         <GoBack onClick={props.history.goBack}>
           <ArrowBackIcon />
         </GoBack>
         <ImageContainer>
-          
-          {props.location.state.isVideo !== "true" ?
-          <ImageDetail>
-            <img src={props.location.state.url} alt=""/>
-          </ImageDetail> :
-          <ImageDetail>
-             <video
-                alt="name"
-                src={props.location.state.url}
-                controls>
-                    <source src="https://drive.google.com/uc?id=1dE_dbgxeP_EMJOqLYu5Mq3NxGrQu1z2X"
-                type="video/mp4"/>
-            </video>
-
-          </ImageDetail>
-          }
+          {props.location.state.isVideo !== "true" ? (
+            <ImageDetail>
+              <img src={props.location.state.url} alt="" />
+            </ImageDetail>
+          ) : (
+            <ImageDetail>
+              <video alt="name" src={props.location.state.url} controls>
+                <source
+                  src="https://drive.google.com/uc?id=1dE_dbgxeP_EMJOqLYu5Mq3NxGrQu1z2X"
+                  type="video/mp4"
+                />
+              </video>
+            </ImageDetail>
+          )}
 
           <ImageInformation>
             <h1>Upload by: {props.location.state.user}</h1>
